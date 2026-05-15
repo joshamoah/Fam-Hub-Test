@@ -569,7 +569,7 @@ input::placeholder{color:var(--t3);font-weight:400;}input:focus{border-color:var
 'use strict';
 const SHEET_ID='1xN9ObG7zfokCElNT6uQ1fwXBhtU9r0ZSU3LTDMrOpPA';
 const SYSTEM_KEY_LIVE='FAMILYHUB2026';
-const BUILD_VERSION='v4.6';
+const BUILD_VERSION='v4.7';
 const BUILD_DATE='May 2026';
 const CLIENT_EMAIL='amoah-hub-bot@amoah-hub.iam.gserviceaccount.com';
 const PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDUbYK19dfmb2jU\nBnH5qvOGTfvzNNGPVV0fSBp2/N6RHAT1esashzvnLa3VMJRIdIJUB92OtvhsRnH1\nOwl8HC321jubSvdZP25MgbN5rqP8ix4KWCqgAfVupyGaoSvE3cslelJOYNT9ELo2\nsGNBcUeGCkka+1gpZCRdiFoauF5nov11iV9ZISHzHhl2x1ZhZRmPHFwv9IiiJWhS\nh/IjEwczFU7ZhPBRKWn1mSQ82eu9NvYmO6XwswFXTVR0fSGetsu5I64Vn7WA8P0g\nUlvKanOgn7S3vdz+PMN9xNX14DxUTgUyHcj+48tavgbf33sA5CclDP3/JAdKqoxB\nKeqLvp39AgMBAAECggEAErmoiQOnyW9OrUn4KArytocPS4v/YQQkVkqT0qNNtzri\nEQWGl9S/6gvzw9Qpbg2fI2siE597XIgFKZnPpzoQry6JSJIeJabawTG5sWM8n1lg\nB4doEny5tsxSwP+uDQeEDcSvlqsge0JLN+Dqju0+YclsUk2Pou5p6jjHwI05/SaO\nyKoKxW3z+8TpgVOsj2mp7qZhP3oMf/c4/jpKBKl+Ucs8hcxlIiMuLN6+r2Vn0Hab\nt32CHJ1DtJENKZQUkDVCWlMJxkwRWywUU16DL+bOD2vtIqTJvE9L9x9RVKLZ254m\nWqhB4Lj2dYt4TWfgqYNRup7oY9zf9oTzXTKQfcHXPQKBgQD1VI6fAndzSzgr4U9f\nt8vLXP/6fylyvwQX8c7UUvyNZ3RtpKBegNL6fHMUCdsYx5Zq+tuaXjVKPPkHdGem\ne8mm9qm6lckIVAb4a4BJyJZ0U8Qzr4jG9yhaKM82vYKk9Hc5W5oWn2kmFgnTsB7V\na7YZVRs7r9Y6c0B8nIisViltnwKBgQDdqqAcUBKCk3lkSiCgVey7l56fvG9ExTsP\n4anRPbJ17WpFcUvHdD1tviYJ5oGKPx/v+ogT/IRZHv42G0ggDyBBtwav3KNrwgKi\nfMVfOj1geFRpTIrcSFoxemRXenk4nGpcqd0Nv6WT1KNHZilmuomBsfXKhJn7qd0a\nwl4TyXFW4wKBgB/Ou8MP/c679Odzief+G3UddK7Up9oRvAUiu885hzcKL8U7b/Nw\nvmntkroJYRfAYNcz+R71kfEzIJJ/3CRwrj9wgacIXo0u38x7m6F1WVRxu+F7o78w\nMlImMl+FiJe8fmy4XK0MNATVHKcOkaDYGz8DkslVTfA8GyNM5Ed70Fk/AoGBAMqy\n0VCypAqFgtcDtgwIJr9wKVxWesU/OgAO0jQFoCCYZrpznOEZ2WZ2H+CjyUc67CCN\nT0w/eGLqpXmivvSaAFw3WsUMFOBf+/rL78xhvGhwAHh9xukivF9MVV9tHlZ3Kgfs\nSLjezDF/m4OZ1zgaUc2oh2OWmBx6uzZSEKc1aRATAoGBAMnhM+oxFCRtX6K4wEqM\nx2fkzcAKHzHocKqBy/aPNwrjrWg1+dfB0Q3WIZpbNZJU7Uf6Zd1fj+nYqPz3H8WL\ngnGNfL1OA3WeuMXnclCJ2gEqmnKmAiTOX4n3y3pMtAYPN18ymABFud02U9ImzGmi\nlG6BXI2nK1bBZmGaznK8zhDw\n-----END PRIVATE KEY-----\n";
@@ -1759,7 +1759,7 @@ function buildParentRewardsScreen(){
   const fid=currentFamily.id;const scheme=getActiveScheme(fid);const offlineAwards=getPendingOfflineAwards(fid);const suggestions=getPendingSuggestions(fid);const children=getFamilyChildren(fid);
   const schemeWinOpen=typeof isSchemeWindowOpen==='function'&&isSchemeWindowOpen(fid);
   let html=buildSchemeWarningBanner(fid);
-  if(scheme){html+='<p class="sec-title">Active scheme</p><div class="card mb-md"><div class="card-hd" style="display:flex;align-items:center;justify-content:space-between;padding:0.75rem 1.25rem;border-bottom:0.5px solid var(--border)"><p style="font-size:13px;font-weight:600">'+scheme.cycleType[0].toUpperCase()+scheme.cycleType.slice(1)+' \u00b7 '+scheme.cycleStart+' \u2013 '+scheme.cycleEnd+(scheme.globalRules&&scheme.globalRules.schemeName?'<span style="font-size:10px;font-weight:600;color:var(--atx);background:var(--abg);padding:2px 8px;border-radius:5px;margin-left:6px">'+scheme.globalRules.schemeName+'</span>':'')+'</p>'+(schemeWinOpen?'<button class="btn-link" onclick="renderRewardScheme(\''+scheme.id+'\')" style="font-size:11px;color:var(--purple)">Edit \u2192</button>':'')+'</div><div style="padding:0.75rem 1.25rem;font-size:12px;color:var(--t2);line-height:1.8">'+(scheme.globalRules&&scheme.globalRules.perfectWeek&&scheme.globalRules.perfectWeek.rewardId?'<div>Perfect week \u2192 '+(getRewardCatalogEntry(scheme.globalRules.perfectWeek.rewardId)||{label:'Reward'}).label+'</div>':'')+(scheme.globalRules&&scheme.globalRules.threshold&&scheme.globalRules.threshold.rewardId?'<div>'+scheme.globalRules.threshold.pct+'% threshold \u2192 '+(getRewardCatalogEntry(scheme.globalRules.threshold.rewardId)||{label:'Reward'}).label+'</div>':'')+'</div></div>';}
+  if(scheme){html+='<p class="sec-title">Active scheme</p><div class="card mb-md"><div class="card-hd" style="display:flex;align-items:center;justify-content:space-between;padding:0.75rem 1.25rem;border-bottom:0.5px solid var(--border)"><p style="font-size:13px;font-weight:600">'+(scheme.globalRules&&scheme.globalRules.schemeName?scheme.globalRules.schemeName:scheme.cycleType[0].toUpperCase()+scheme.cycleType.slice(1)+' \u00b7 '+scheme.cycleStart+' \u2013 '+scheme.cycleEnd)+(scheme.globalRules&&scheme.globalRules.schemeName?'</p><p style="font-size:11px;color:var(--t2);margin-top:1px">'+scheme.cycleType[0].toUpperCase()+scheme.cycleType.slice(1)+' \u00b7 '+scheme.cycleStart+' \u2013 '+scheme.cycleEnd+'</p>':'</p>')+(schemeWinOpen?'<button class="btn-link" onclick="renderRewardScheme(\''+scheme.id+'\')" style="font-size:11px;color:var(--purple)">Edit \u2192</button>':'')+'</div><div style="padding:0.75rem 1.25rem;font-size:12px;color:var(--t2);line-height:1.8">'+(scheme.globalRules&&scheme.globalRules.perfectWeek&&scheme.globalRules.perfectWeek.rewardId?'<div>Perfect week \u2192 '+(getRewardCatalogEntry(scheme.globalRules.perfectWeek.rewardId)||{label:'Reward'}).label+'</div>':'')+(scheme.globalRules&&scheme.globalRules.threshold&&scheme.globalRules.threshold.rewardId?'<div>'+scheme.globalRules.threshold.pct+'% threshold \u2192 '+(getRewardCatalogEntry(scheme.globalRules.threshold.rewardId)||{label:'Reward'}).label+'</div>':'')+((scheme.taskBonuses&&scheme.taskBonuses.length)?'<div style="margin-top:4px;padding-top:4px;border-top:0.5px solid var(--border)"><span style="font-size:10px;font-weight:600;color:var(--t3)">Task bonuses: </span>'+scheme.taskBonuses.map(function(b){var ce=getRewardCatalogEntry(b.rewardId);var pf=allProfiles.find(function(p){return p.id===b.profileId;});return(pf?pf.name.split(' ')[0]:'?')+' \u2192 '+(ce?ce.label:'reward');}).join(' \u00b7 ')+'</div>':'')+'</div></div>';}
   html+='<p class="sec-title">Children this cycle</p><div class="card mb-md"><div style="padding:0 1.25rem">';for(const c of children){const streak=scheme?allRewardStreaks.find(s=>s.profileId===c.profileId&&s.familyId===fid&&s.schemeId===scheme.id):null;const pr=allProfiles.find(p=>p.id===c.profileId);const wsStr=dateStr(getWeekStartDate(new Date()));const ents=allChoreLog.filter(e=>e.profileId===c.profileId&&e.familyId===fid&&e.weekStart===wsStr&&e.isAdHoc!=='true');const conf=ents.filter(e=>e.status==='confirmed'||e.status==='auto_confirmed').length;const pct=ents.length?Math.round(conf/ents.length*100):0;html+='<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--border)"><div class="av" style="width:30px;height:30px;font-size:11px;background:'+(pr?pr.colour:'#999')+'">'+avText(c.profileName)+'</div><div style="flex:1"><div style="font-size:12px;font-weight:600">'+c.profileName+'</div><div style="font-size:10px;color:var(--t2)">'+pct+'% \u00b7 \uD83D\uDD25 '+(streak?streak.primaryCount:0)+' weeks</div></div><div style="width:60px"><div style="height:5px;border-radius:3px;background:var(--border)"><div style="height:100%;border-radius:3px;background:'+(pct>=80?'#1D9E75':pct>=50?'#C47F17':'#E24B4A')+';width:'+pct+'%"></div></div></div></div>';}html+='</div></div>';
   if(offlineAwards.length){html+='<p class="sec-title">Issue pending rewards <span style="background:#FAEEDA;color:#633806;font-size:10px;font-weight:700;padding:1px 7px;border-radius:8px;margin-left:6px">'+offlineAwards.length+'</span></p><div class="card mb-md"><div style="padding:0 1.25rem">';for(const a of offlineAwards){html+='<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--border);font-size:12px"><div style="flex:1"><div style="font-weight:600">'+a.profileName+' \u00b7 '+a.rewardLabel+'</div><div style="font-size:10px;color:var(--t2)">'+(TRIGGER_LABELS[a.triggerType]||a.triggerType)+'</div></div><button onclick="handleMarkRewardIssued(\''+a.id+'\')" class="btn-approve" style="font-size:12px">Mark issued \u2713</button></div>';}html+='</div></div>';}
   if(suggestions.length){html+='<p class="sec-title">Suggestions <span style="background:#EEEDFE;color:#3C3489;font-size:10px;font-weight:700;padding:1px 7px;border-radius:8px;margin-left:6px">'+suggestions.length+'</span></p><div class="card mb-md"><div style="padding:0 1.25rem">';for(const s of suggestions){html+='<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--border);font-size:12px"><div style="flex:1"><div style="font-weight:600">'+s.label+'</div><div style="font-size:10px;color:var(--t2)">'+s.profileName+' \u00b7 '+s.type+'</div></div><button onclick="handleApproveSuggestion(\''+s.id+'\')" style="font-size:10px;font-weight:700;color:#085041;background:#E1F5EE;padding:4px 8px;border-radius:6px;border:none;cursor:pointer;margin-right:4px">\u2713</button><button onclick="handleRejectSuggestion(\''+s.id+'\')" style="font-size:10px;font-weight:700;color:#E24B4A;background:#FCEBEB;padding:4px 8px;border-radius:6px;border:none;cursor:pointer">\u2715</button></div>';}html+='</div></div>';}
@@ -2204,8 +2204,8 @@ async function renderChildChores(){
     myChores.forEach(e=>{
       if(e.isAdHoc==='true'){byType.adhoc.push(e);}
       else if(e.choreType==='daily'&&e.weekStart===weekStartStr){byType.daily.push(e);}
-      else if(e.choreType==='weekly'&&e.weekStart===weekStartStr){byType.weekly.push(e);}
-      else if(e.choreType==='biweekly'&&e.weekStart===weekStartStr){byType.biweekly.push(e);}
+      else if(e.choreType==='weekly'&&e.weekStart&&e.weekStart.startsWith(ym)){byType.weekly.push(e);}
+      else if(e.choreType==='biweekly'&&e.weekStart&&e.weekStart.startsWith(ym)){byType.biweekly.push(e);}
       else if(e.choreType==='monthly'&&e.scheduledDate&&e.scheduledDate.startsWith(ym)){byType.monthly.push(e);}
     });
     // Sort daily: today first → future ascending → past ascending
@@ -2280,6 +2280,57 @@ function buildDailyChoreRow(choreId,choreName,entries,readonly){
   </div>`;
 }
 
+function buildConsolidatedChoreRow(choreName,entries,allWks,freq,readonly){
+  // Determine which weeks this chore is actually scheduled for
+  var scheduledWks=new Set(entries.map(function(e){return e.weekStart;}));
+  // Group entries by weekStart, pick best status per week
+  var STATUS_RANK={confirmed:0,auto_confirmed:0,done_unconfirmed:1,pending:2,lapsed:3};
+  var weekBest={};
+  entries.forEach(function(e){
+    if(!weekBest[e.weekStart]||( STATUS_RANK[e.status]<STATUS_RANK[weekBest[e.weekStart].status])){
+      weekBest[e.weekStart]=e;
+    }
+  });
+  var currentWs=dateStr(getWeekStartDate(new Date()));
+  var pendingEntry=weekBest[currentWs]&&weekBest[currentWs].status==='pending'?weekBest[currentWs]:null;
+  var P_C='font-size:9px;font-weight:500;padding:2px 5px;border-radius:4px;';
+  var pillsHtml='';
+  allWks.forEach(function(ws,i){
+    var wLabel='W'+(i+1);
+    var entry=weekBest[ws];
+    if(freq==='biweekly'&&!scheduledWks.has(ws)){
+      // Not scheduled this week — strikethrough
+      pillsHtml+='<span style="'+P_C+'color:#AEADA8;text-decoration:line-through;background:transparent;font-style:italic">'+wLabel+'</span>';
+    } else if(!entry){
+      // Upcoming — not yet generated
+      pillsHtml+='<span style="'+P_C+'background:#E6F1FB;color:#0C447C;border:0.5px solid rgba(24,95,165,.3)">'+wLabel+'</span>';
+    } else if(entry.status==='confirmed'||entry.status==='auto_confirmed'){
+      pillsHtml+='<span style="'+P_C+'background:#E1F5EE;color:#085041">'+wLabel+' \u2713</span>';
+    } else if(entry.status==='lapsed'){
+      pillsHtml+='<span style="'+P_C+'background:#FCEBEB;color:#791F1F">'+wLabel+' \u2717</span>';
+    } else if(entry.status==='done_unconfirmed'){
+      pillsHtml+='<span style="'+P_C+'background:#FAEEDA;color:#633806;border:0.5px solid rgba(186,117,23,.3)">'+wLabel+' \u2192</span>';
+    } else {
+      // pending
+      if(ws===currentWs){
+        pillsHtml+='<span style="'+P_C+'background:#FAEEDA;color:#633806;border:0.5px solid rgba(186,117,23,.3)">'+wLabel+' \u2192</span>';
+      } else {
+        pillsHtml+='<span style="'+P_C+'background:#E6F1FB;color:#0C447C;border:0.5px solid rgba(24,95,165,.3)">'+wLabel+'</span>';
+      }
+    }
+  });
+  var freqTag=freq==='biweekly'?'<span style="font-size:8px;font-weight:500;background:#EEEDFE;color:#3C3489;padding:1px 5px;border-radius:3px;margin-left:4px">biweekly</span>':'';
+  var markBtn=pendingEntry&&!readonly?'<button class="mark-done-btn" onclick="handleMarkDone(\''+pendingEntry.id+'\')">W'+(allWks.indexOf(currentWs)+1)+' done</button>':'';
+  var dotCls=pendingEntry?'pending':(entries.some(function(e){return e.status==='lapsed';})?'lapsed':'confirmed');
+  return '<div class="chore-entry">'
+    +'<div class="status-dot '+dotCls+'"></div>'
+    +'<div style="flex:1;min-width:0">'
+    +'<p style="font-size:14px;font-weight:600;margin-bottom:4px">'+choreName+freqTag+'</p>'
+    +'<div style="display:flex;gap:3px;flex-wrap:wrap">'+pillsHtml+'</div>'
+    +'</div>'
+    +markBtn
+    +'</div>';
+}
 function buildChoresList(byType,readonly=false){
   const today=todayStr();
   const sections=[
@@ -2301,6 +2352,12 @@ function buildChoresList(byType,readonly=false){
       const groups={};const groupOrder=[];
       entries.forEach(e=>{const k=e.choreId||e.choreName;if(!groups[k]){groups[k]={choreName:e.choreName,entries:[]};groupOrder.push(k);}groups[k].entries.push(e);});
       groupOrder.forEach(k=>{ html+=buildDailyChoreRow(k,groups[k].choreName,groups[k].entries,readonly); });
+    } else if(key==='weekly'||key==='biweekly'){
+      // Group by choreId, consolidate into single row with week pills
+      const allWks=[...new Set(entries.map(e=>e.weekStart))].sort();
+      const groups={};const groupOrder=[];
+      entries.forEach(e=>{const k=e.choreId||e.choreName;if(!groups[k]){groups[k]={name:e.choreName,entries:[]};groupOrder.push(k);}groups[k].entries.push(e);});
+      groupOrder.forEach(k=>{html+=buildConsolidatedChoreRow(groups[k].name,groups[k].entries,allWks,key,readonly);});
     } else {
     entries.forEach(e=>{
       const s=getStatusDisplay(e);
@@ -2320,7 +2377,7 @@ function buildChoresList(byType,readonly=false){
         ${markBtn}
       </div>`;
     });
-    } // end else (non-daily)
+    } // end else
     html+='</div>';
   });
   return html||'<p style="font-size:14px;color:var(--t2);text-align:center;padding:2rem 0">No chores scheduled yet.</p>';
