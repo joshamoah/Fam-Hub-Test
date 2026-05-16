@@ -569,7 +569,7 @@ input::placeholder{color:var(--t3);font-weight:400;}input:focus{border-color:var
 'use strict';
 const SHEET_ID='1xN9ObG7zfokCElNT6uQ1fwXBhtU9r0ZSU3LTDMrOpPA';
 const SYSTEM_KEY_LIVE='FAMILYHUB2026';
-const BUILD_VERSION='v4.7';
+const BUILD_VERSION='v4.8';
 const BUILD_DATE='May 2026';
 const CLIENT_EMAIL='amoah-hub-bot@amoah-hub.iam.gserviceaccount.com';
 const PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDUbYK19dfmb2jU\nBnH5qvOGTfvzNNGPVV0fSBp2/N6RHAT1esashzvnLa3VMJRIdIJUB92OtvhsRnH1\nOwl8HC321jubSvdZP25MgbN5rqP8ix4KWCqgAfVupyGaoSvE3cslelJOYNT9ELo2\nsGNBcUeGCkka+1gpZCRdiFoauF5nov11iV9ZISHzHhl2x1ZhZRmPHFwv9IiiJWhS\nh/IjEwczFU7ZhPBRKWn1mSQ82eu9NvYmO6XwswFXTVR0fSGetsu5I64Vn7WA8P0g\nUlvKanOgn7S3vdz+PMN9xNX14DxUTgUyHcj+48tavgbf33sA5CclDP3/JAdKqoxB\nKeqLvp39AgMBAAECggEAErmoiQOnyW9OrUn4KArytocPS4v/YQQkVkqT0qNNtzri\nEQWGl9S/6gvzw9Qpbg2fI2siE597XIgFKZnPpzoQry6JSJIeJabawTG5sWM8n1lg\nB4doEny5tsxSwP+uDQeEDcSvlqsge0JLN+Dqju0+YclsUk2Pou5p6jjHwI05/SaO\nyKoKxW3z+8TpgVOsj2mp7qZhP3oMf/c4/jpKBKl+Ucs8hcxlIiMuLN6+r2Vn0Hab\nt32CHJ1DtJENKZQUkDVCWlMJxkwRWywUU16DL+bOD2vtIqTJvE9L9x9RVKLZ254m\nWqhB4Lj2dYt4TWfgqYNRup7oY9zf9oTzXTKQfcHXPQKBgQD1VI6fAndzSzgr4U9f\nt8vLXP/6fylyvwQX8c7UUvyNZ3RtpKBegNL6fHMUCdsYx5Zq+tuaXjVKPPkHdGem\ne8mm9qm6lckIVAb4a4BJyJZ0U8Qzr4jG9yhaKM82vYKk9Hc5W5oWn2kmFgnTsB7V\na7YZVRs7r9Y6c0B8nIisViltnwKBgQDdqqAcUBKCk3lkSiCgVey7l56fvG9ExTsP\n4anRPbJ17WpFcUvHdD1tviYJ5oGKPx/v+ogT/IRZHv42G0ggDyBBtwav3KNrwgKi\nfMVfOj1geFRpTIrcSFoxemRXenk4nGpcqd0Nv6WT1KNHZilmuomBsfXKhJn7qd0a\nwl4TyXFW4wKBgB/Ou8MP/c679Odzief+G3UddK7Up9oRvAUiu885hzcKL8U7b/Nw\nvmntkroJYRfAYNcz+R71kfEzIJJ/3CRwrj9wgacIXo0u38x7m6F1WVRxu+F7o78w\nMlImMl+FiJe8fmy4XK0MNATVHKcOkaDYGz8DkslVTfA8GyNM5Ed70Fk/AoGBAMqy\n0VCypAqFgtcDtgwIJr9wKVxWesU/OgAO0jQFoCCYZrpznOEZ2WZ2H+CjyUc67CCN\nT0w/eGLqpXmivvSaAFw3WsUMFOBf+/rL78xhvGhwAHh9xukivF9MVV9tHlZ3Kgfs\nSLjezDF/m4OZ1zgaUc2oh2OWmBx6uzZSEKc1aRATAoGBAMnhM+oxFCRtX6K4wEqM\nx2fkzcAKHzHocKqBy/aPNwrjrWg1+dfB0Q3WIZpbNZJU7Uf6Zd1fj+nYqPz3H8WL\ngnGNfL1OA3WeuMXnclCJ2gEqmnKmAiTOX4n3y3pMtAYPN18ymABFud02U9ImzGmi\nlG6BXI2nK1bBZmGaznK8zhDw\n-----END PRIVATE KEY-----\n";
@@ -2218,7 +2218,8 @@ async function renderChildChores(){
       return a.scheduledDate.localeCompare(b.scheduledDate);
     });
     document.getElementById('cc-loading').style.display='none';
-    document.getElementById('cc-content').innerHTML=buildChoresList(byType);
+    const allMonthWks=getMonthWeekStarts(ym);
+    document.getElementById('cc-content').innerHTML=buildChoresList(byType,false,allMonthWks);
   }catch(e){document.getElementById('cc-loading').textContent='Could not load chores: '+e.message;}
 }
 
@@ -2270,7 +2271,7 @@ function buildDailyChoreRow(choreId,choreName,entries,readonly){
   return`<div class="chore-entry" style="align-items:flex-start;padding-bottom:12px">
     <div class="status-dot ${dotCls}" style="margin-top:4px"></div>
     <div style="flex:1;min-width:0">
-      <p style="font-size:14px;font-weight:600;margin-bottom:6px">🔁 ${choreName}</p>
+      <p style="font-size:14px;font-weight:600;margin-bottom:6px">🔁 ${choreName}<span style="font-size:8px;font-weight:500;background:#EEEDFE;color:#3C3489;padding:1px 5px;border-radius:3px;margin-left:4px">daily</span></p>
       <div class="day-labels">${lbls}</div>
       <div class="day-bar">${segs}</div>
       ${counter}
@@ -2280,6 +2281,17 @@ function buildDailyChoreRow(choreId,choreName,entries,readonly){
   </div>`;
 }
 
+function getMonthWeekStarts(ym){
+  var yr=parseInt(ym.split('-')[0]),mo=parseInt(ym.split('-')[1])-1;
+  var d=new Date(yr,mo,1),last=new Date(yr,mo+1,0);
+  var seen=new Set(),wks=[];
+  while(d<=last){
+    var ws=dateStr(getWeekStartDate(new Date(d)));
+    if(ws.startsWith(ym)&&!seen.has(ws)){seen.add(ws);wks.push(ws);}
+    d.setDate(d.getDate()+1);
+  }
+  return wks.sort();
+}
 function buildConsolidatedChoreRow(choreName,entries,allWks,freq,readonly){
   // Determine which weeks this chore is actually scheduled for
   var scheduledWks=new Set(entries.map(function(e){return e.weekStart;}));
@@ -2294,16 +2306,23 @@ function buildConsolidatedChoreRow(choreName,entries,allWks,freq,readonly){
   var currentWs=dateStr(getWeekStartDate(new Date()));
   var pendingEntry=weekBest[currentWs]&&weekBest[currentWs].status==='pending'?weekBest[currentWs]:null;
   var P_C='font-size:9px;font-weight:500;padding:2px 5px;border-radius:4px;';
+  // Biweekly parity: determine which index positions are scheduled vs skip
+  var _bwP=new Set();allWks.forEach(function(ws,i){if(scheduledWks.has(ws))_bwP.add(i%2);});
   var pillsHtml='';
   allWks.forEach(function(ws,i){
     var wLabel='W'+(i+1);
     var entry=weekBest[ws];
     if(freq==='biweekly'&&!scheduledWks.has(ws)){
-      // Not scheduled this week — strikethrough
-      pillsHtml+='<span style="'+P_C+'color:#AEADA8;text-decoration:line-through;background:transparent;font-style:italic">'+wLabel+'</span>';
+      if(_bwP.size>0&&!_bwP.has(i%2)){
+        // Confirmed skip week — strikethrough grey
+        pillsHtml+='<span style="'+P_C+'color:#AEADA8;text-decoration:line-through;background:transparent;font-style:italic">'+wLabel+'</span>';
+      } else {
+        // Scheduled but future — plain grey
+        pillsHtml+='<span style="'+P_C+'background:#F1EFE8;color:#AEADA8">'+wLabel+'</span>';
+      }
     } else if(!entry){
-      // Upcoming — not yet generated
-      pillsHtml+='<span style="'+P_C+'background:#E6F1FB;color:#0C447C;border:0.5px solid rgba(24,95,165,.3)">'+wLabel+'</span>';
+      // Future — not yet generated
+      pillsHtml+='<span style="'+P_C+'background:#F1EFE8;color:#AEADA8">'+wLabel+'</span>';
     } else if(entry.status==='confirmed'||entry.status==='auto_confirmed'){
       pillsHtml+='<span style="'+P_C+'background:#E1F5EE;color:#085041">'+wLabel+' \u2713</span>';
     } else if(entry.status==='lapsed'){
@@ -2315,11 +2334,12 @@ function buildConsolidatedChoreRow(choreName,entries,allWks,freq,readonly){
       if(ws===currentWs){
         pillsHtml+='<span style="'+P_C+'background:#FAEEDA;color:#633806;border:0.5px solid rgba(186,117,23,.3)">'+wLabel+' \u2192</span>';
       } else {
-        pillsHtml+='<span style="'+P_C+'background:#E6F1FB;color:#0C447C;border:0.5px solid rgba(24,95,165,.3)">'+wLabel+'</span>';
+        pillsHtml+='<span style="'+P_C+'background:#F1EFE8;color:#AEADA8">'+wLabel+'</span>';
       }
     }
   });
-  var freqTag=freq==='biweekly'?'<span style="font-size:8px;font-weight:500;background:#EEEDFE;color:#3C3489;padding:1px 5px;border-radius:3px;margin-left:4px">biweekly</span>':'';
+  var _fBadge='<span style="font-size:8px;font-weight:500;background:#EEEDFE;color:#3C3489;padding:1px 5px;border-radius:3px;margin-left:4px">'+(freq==='biweekly'?'biweekly':'weekly')+'</span>';
+  var freqTag=(freq==='weekly'||freq==='biweekly')?_fBadge:'';
   var markBtn=pendingEntry&&!readonly?'<button class="mark-done-btn" onclick="handleMarkDone(\''+pendingEntry.id+'\')">W'+(allWks.indexOf(currentWs)+1)+' done</button>':'';
   var dotCls=pendingEntry?'pending':(entries.some(function(e){return e.status==='lapsed';})?'lapsed':'confirmed');
   return '<div class="chore-entry">'
@@ -2331,7 +2351,7 @@ function buildConsolidatedChoreRow(choreName,entries,allWks,freq,readonly){
     +markBtn
     +'</div>';
 }
-function buildChoresList(byType,readonly=false){
+function buildChoresList(byType,readonly=false,allMonthWks=[]){
   const today=todayStr();
   const sections=[
     {key:'daily',label:'Daily',emoji:'📅'},
@@ -2354,10 +2374,10 @@ function buildChoresList(byType,readonly=false){
       groupOrder.forEach(k=>{ html+=buildDailyChoreRow(k,groups[k].choreName,groups[k].entries,readonly); });
     } else if(key==='weekly'||key==='biweekly'){
       // Group by choreId, consolidate into single row with week pills
-      const allWks=[...new Set(entries.map(e=>e.weekStart))].sort();
+      const _wks=allMonthWks.length?allMonthWks:[...new Set(entries.map(e=>e.weekStart))].sort();
       const groups={};const groupOrder=[];
       entries.forEach(e=>{const k=e.choreId||e.choreName;if(!groups[k]){groups[k]={name:e.choreName,entries:[]};groupOrder.push(k);}groups[k].entries.push(e);});
-      groupOrder.forEach(k=>{html+=buildConsolidatedChoreRow(groups[k].name,groups[k].entries,allWks,key,readonly);});
+      groupOrder.forEach(k=>{html+=buildConsolidatedChoreRow(groups[k].name,groups[k].entries,_wks,key,readonly);});
     } else {
     entries.forEach(e=>{
       const s=getStatusDisplay(e);
@@ -2366,10 +2386,11 @@ function buildChoresList(byType,readonly=false){
       const dayLabel=key==='daily'?` <span style="font-size:11px;font-weight:600;color:${isToday?'#1D9E75':isPast&&e.status==='pending'?'#C0392B':'var(--t3)'}">${isToday?'Today':formatDayLabel(e.scheduledDate)}</span>`:'';
       const canMark=e.status==='pending'&&!readonly;
       const markBtn=canMark?`<button class="mark-done-btn" onclick="handleMarkDone('${e.id}')">Mark done</button>`:'';
+      const _mBadge=key==='monthly'?'<span style="font-size:8px;font-weight:500;background:#EEEDFE;color:#3C3489;padding:1px 5px;border-radius:3px;margin-left:4px">monthly</span>':'' ;
       html+=`<div class="chore-entry">
         <div class="status-dot ${s.cls}"></div>
         <div style="flex:1;min-width:0">
-          <p style="font-size:14px;font-weight:600;margin-bottom:2px">${e.choreName}</p>
+          <p style="font-size:14px;font-weight:600;margin-bottom:2px">${e.choreName}${_mBadge}</p>
           <div style="margin-bottom:2px">${buildOriginBadge(e)}</div>
           <p style="font-size:12px;color:var(--t2)">${s.label}</p>
           ${e.queryNote?`<div class="query-note">💬 ${e.queryNote}</div>`:''}
