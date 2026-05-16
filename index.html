@@ -38,7 +38,7 @@ input::placeholder{color:var(--t3);font-weight:400;}input:focus{border-color:var
 .screennav{display:flex;align-items:center;justify-content:space-between;padding:0.75rem 1.25rem;background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10;}
 .snbtn{display:flex;align-items:center;gap:4px;background:transparent;border:none;color:var(--t2);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);padding:6px 10px;border-radius:var(--rsm);transition:background 0.1s;}.snbtn:hover{background:var(--bg);}
 .badge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:0.2px;}
-.b-sa{background:#EEEDFE;color:#3C3489;}.b-admin{background:#E1F5EE;color:#085041;}.b-parent{background:#E6F1FB;color:#0C447C;}.b-child{background:#FAECE7;color:#7A1800;}.b-pending{background:#FAEEDA;color:#633806;}.b-module{background:#F1EFE8;color:#5F5E5A;}
+.b-sa{background:#EEEDFE;color:#3C3489;}.b-admin{background:#E1F5EE;color:#085041;}.b-parent{background:#E6F1FB;color:#0C447C;}.b-child{background:#FAECE7;color:#712B13;}.b-pending{background:#FAEEDA;color:#633806;}.b-module{background:#F1EFE8;color:#5F5E5A;}
 .lbl{font-size:13px;font-weight:600;color:var(--t2);margin-bottom:6px;display:block;}
 .err-txt{color:#C0392B;font-size:13px;font-weight:500;margin-top:6px;min-height:18px;}.ok-txt{color:#085041;font-size:13px;font-weight:500;margin-top:6px;min-height:18px;}
 .divider{height:1px;background:var(--border);margin:1.25rem 0;}
@@ -64,7 +64,7 @@ input::placeholder{color:var(--t3);font-weight:400;}input:focus{border-color:var
 .st-lapsed{background:#E24B4A;}
 .progress-bar{height:8px;border-radius:4px;background:var(--border);overflow:hidden;flex:1;}
 .progress-fill{height:100%;border-radius:4px;background:#1D9E75;transition:width 0.3s;}
-.query-note{background:#FAEEDA;border:1px solid #EF9F27;border-radius:var(--rsm);padding:8px 10px;font-size:12px;color:#412402;margin-top:6px;line-height:1.5;}
+.query-note{background:#FAEEDA;border:1px solid #C47F17;border-radius:var(--rsm);padding:8px 10px;font-size:12px;color:#633806;margin-top:6px;line-height:1.5;}
 .mark-done-btn{background:#E1F5EE;color:#085041;border:none;font-size:12px;font-weight:600;padding:6px 12px;border-radius:var(--rsm);cursor:pointer;font-family:var(--font);white-space:nowrap;flex-shrink:0;}
 .overview-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:1.1rem 1.25rem;margin-bottom:10px;cursor:pointer;transition:border-color 0.15s;}
 .overview-card:hover{border-color:var(--border-md);}
@@ -78,7 +78,7 @@ input::placeholder{color:var(--t3);font-weight:400;}input:focus{border-color:var
 .rep-seg-btn.on{background:var(--surface);color:var(--text);border:0.5px solid var(--border);font-weight:600;}
 .rep-view-btn{flex:1;font-size:12px;padding:7px 4px;border:0.5px solid var(--border);background:transparent;border-radius:var(--rmd);color:var(--t2);cursor:pointer;font-family:var(--font);}
 .rep-view-btn.on{background:var(--text);color:var(--surface);border-color:var(--text);}
-.month-banner-amber{background:#FAEEDA;border:1.5px solid #EF9F27;border-radius:var(--r);padding:1rem 1.25rem;margin-bottom:1rem;}
+.month-banner-amber{background:#FAEEDA;border:1.5px solid #C47F17;border-radius:var(--r);padding:1rem 1.25rem;margin-bottom:1rem;}
 .month-banner-green{background:#E1F5EE;border:1.5px solid #1D9E75;border-radius:var(--r);padding:1rem 1.25rem;margin-bottom:1rem;}
 .month-banner-blue{background:#E6F1FB;border:1.5px solid #185FA5;border-radius:var(--r);padding:1rem 1.25rem;margin-bottom:1rem;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
 
@@ -571,7 +571,7 @@ input::placeholder{color:var(--t3);font-weight:400;}input:focus{border-color:var
 const ENV=window.location.pathname.includes('/Fam-Hub-Test')?'test':'live';
 if(ENV==='test'){document.getElementById('test-env-banner').style.display='block';}
 const SHEET_ID=ENV==='live'?'1xN9ObG7zfokCElNT6uQ1fwXBhtU9r0ZSU3LTDMrOpPA':'1waBsfGZb5maCmgcZUC2F2a4dbh6LyktKMTofQXkjHtI';
-const BUILD_VERSION='v5.0';
+const BUILD_VERSION='v5.1';
 const BUILD_DATE='May 2026';
 const CLIENT_EMAIL='amoah-hub-bot@amoah-hub.iam.gserviceaccount.com';
 const PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDUbYK19dfmb2jU\nBnH5qvOGTfvzNNGPVV0fSBp2/N6RHAT1esashzvnLa3VMJRIdIJUB92OtvhsRnH1\nOwl8HC321jubSvdZP25MgbN5rqP8ix4KWCqgAfVupyGaoSvE3cslelJOYNT9ELo2\nsGNBcUeGCkka+1gpZCRdiFoauF5nov11iV9ZISHzHhl2x1ZhZRmPHFwv9IiiJWhS\nh/IjEwczFU7ZhPBRKWn1mSQ82eu9NvYmO6XwswFXTVR0fSGetsu5I64Vn7WA8P0g\nUlvKanOgn7S3vdz+PMN9xNX14DxUTgUyHcj+48tavgbf33sA5CclDP3/JAdKqoxB\nKeqLvp39AgMBAAECggEAErmoiQOnyW9OrUn4KArytocPS4v/YQQkVkqT0qNNtzri\nEQWGl9S/6gvzw9Qpbg2fI2siE597XIgFKZnPpzoQry6JSJIeJabawTG5sWM8n1lg\nB4doEny5tsxSwP+uDQeEDcSvlqsge0JLN+Dqju0+YclsUk2Pou5p6jjHwI05/SaO\nyKoKxW3z+8TpgVOsj2mp7qZhP3oMf/c4/jpKBKl+Ucs8hcxlIiMuLN6+r2Vn0Hab\nt32CHJ1DtJENKZQUkDVCWlMJxkwRWywUU16DL+bOD2vtIqTJvE9L9x9RVKLZ254m\nWqhB4Lj2dYt4TWfgqYNRup7oY9zf9oTzXTKQfcHXPQKBgQD1VI6fAndzSzgr4U9f\nt8vLXP/6fylyvwQX8c7UUvyNZ3RtpKBegNL6fHMUCdsYx5Zq+tuaXjVKPPkHdGem\ne8mm9qm6lckIVAb4a4BJyJZ0U8Qzr4jG9yhaKM82vYKk9Hc5W5oWn2kmFgnTsB7V\na7YZVRs7r9Y6c0B8nIisViltnwKBgQDdqqAcUBKCk3lkSiCgVey7l56fvG9ExTsP\n4anRPbJ17WpFcUvHdD1tviYJ5oGKPx/v+ogT/IRZHv42G0ggDyBBtwav3KNrwgKi\nfMVfOj1geFRpTIrcSFoxemRXenk4nGpcqd0Nv6WT1KNHZilmuomBsfXKhJn7qd0a\nwl4TyXFW4wKBgB/Ou8MP/c679Odzief+G3UddK7Up9oRvAUiu885hzcKL8U7b/Nw\nvmntkroJYRfAYNcz+R71kfEzIJJ/3CRwrj9wgacIXo0u38x7m6F1WVRxu+F7o78w\nMlImMl+FiJe8fmy4XK0MNATVHKcOkaDYGz8DkslVTfA8GyNM5Ed70Fk/AoGBAMqy\n0VCypAqFgtcDtgwIJr9wKVxWesU/OgAO0jQFoCCYZrpznOEZ2WZ2H+CjyUc67CCN\nT0w/eGLqpXmivvSaAFw3WsUMFOBf+/rL78xhvGhwAHh9xukivF9MVV9tHlZ3Kgfs\nSLjezDF/m4OZ1zgaUc2oh2OWmBx6uzZSEKc1aRATAoGBAMnhM+oxFCRtX6K4wEqM\nx2fkzcAKHzHocKqBy/aPNwrjrWg1+dfB0Q3WIZpbNZJU7Uf6Zd1fj+nYqPz3H8WL\ngnGNfL1OA3WeuMXnclCJ2gEqmnKmAiTOX4n3y3pMtAYPN18ymABFud02U9ImzGmi\nlG6BXI2nK1bBZmGaznK8zhDw\n-----END PRIVATE KEY-----\n";
@@ -629,7 +629,7 @@ function setLoading(m){document.getElementById('ldg-msg').textContent=m;setScree
 function showToast(msg,sub){
   var ex=document.getElementById('app-toast');if(ex)ex.remove();
   var t=document.createElement('div');t.id='app-toast';
-  t.style.cssText='position:fixed;top:68px;left:50%;transform:translateX(-50%);background:#1A1A18;color:white;border-radius:12px;padding:10px 16px;font-size:12px;display:flex;align-items:center;gap:10px;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,.3);max-width:320px;animation:toastIn .2s ease';
+  t.style.cssText='position:fixed;top:68px;left:50%;transform:translateX(-50%);background:#1C1410;color:white;border-radius:12px;padding:10px 16px;font-size:12px;display:flex;align-items:center;gap:10px;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,.3);max-width:320px;animation:toastIn .2s ease';
   t.innerHTML='<div style="width:22px;height:22px;border-radius:50%;background:#1D9E75;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0">\u2713</div>'
     +'<div><p style="font-size:12px;font-weight:600">'+msg+'</p>'+(sub?'<p style="font-size:10px;opacity:.7">'+sub+'</p>':'')+'</div>';
   document.body.appendChild(t);
@@ -781,7 +781,7 @@ async function renderMod3Child(){
   const myChores=getMyCurrentChores();
   const initEl=document.getElementById('mod3-initiate-section');
   if(initEl){
-    if(!hasBalance)initEl.innerHTML='<div class="info-box info-amber"><span style="font-size:16px">🪙</span><p style="font-size:13px;color:#412402;margin:0">You need at least 1 token to propose a trade.</p></div>';
+    if(!hasBalance)initEl.innerHTML='<div class="info-box info-amber"><span style="font-size:16px">🪙</span><p style="font-size:13px;color:#633806;margin:0">You need at least 1 token to propose a trade.</p></div>';
     else if(!myChores.length)initEl.innerHTML='<p style="font-size:13px;color:var(--t2);text-align:center;padding:1rem 0">No active chores available to trade this month.</p>';
     else initEl.innerHTML='<button class="btn btn-dark" onclick="renderInitiateTrade()">+ Propose a trade</button>';
   }
@@ -1194,7 +1194,7 @@ function buildChildTradeNotifBanner(){
   const pending=allTradeRequests.filter(t=>t.recipientId===currentProfile.id&&t.familyId===currentFamily.id&&t.stage==='pending_child');
   if(!pending.length)return'';
   return`<div style="background:#EEEDFE;border:1.5px solid rgba(108,99,224,0.3);border-radius:var(--rmd);padding:0.875rem 1rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;gap:10px">
-    <div><p style="font-size:13px;font-weight:600;color:#3C3489">${pending.length} incoming trade request${pending.length>1?'s':''}</p><p style="font-size:12px;color:#534AB7">Tap Trades &amp; tokens to respond</p></div>
+    <div><p style="font-size:13px;font-weight:600;color:#3C3489">${pending.length} incoming trade request${pending.length>1?'s':''}</p><p style="font-size:12px;color:#3C3489">Tap Trades &amp; tokens to respond</p></div>
     <button class="btn btn-outline btn-sm" onclick="renderMod3Child()" style="width:auto;font-size:12px;padding:6px 12px;flex-shrink:0;border-color:#6C63E0;color:#6C63E0">View →</button>
   </div>`;
 }
@@ -1261,8 +1261,8 @@ function buildTradeUpdatesBanner(){
 function buildParentTradeNotif(familyId){
   const pending=allTradeRequests.filter(t=>t.familyId===familyId&&t.stage==='pending_parent');
   if(!pending.length)return'';
-  return`<div style="background:#FAEEDA;border:1.5px solid #EF9F27;border-radius:var(--rmd);padding:0.875rem 1rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;gap:10px">
-    <div><p style="font-size:13px;font-weight:600;color:#412402">${pending.length} trade${pending.length>1?'s':''} awaiting approval</p><p style="font-size:12px;color:#633806">Review in Trades &amp; tokens.</p></div>
+  return`<div style="background:#FAEEDA;border:1.5px solid #C47F17;border-radius:var(--rmd);padding:0.875rem 1rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;gap:10px">
+    <div><p style="font-size:13px;font-weight:600;color:#633806">${pending.length} trade${pending.length>1?'s':''} awaiting approval</p><p style="font-size:12px;color:#633806">Review in Trades &amp; tokens.</p></div>
     <button class="btn btn-dark" onclick="renderMod3Parent()" style="width:auto;font-size:12px;padding:6px 12px;flex-shrink:0;background:#633806;border-color:#633806">Review →</button>
   </div>`;
 }
@@ -1412,7 +1412,7 @@ async function submitUsernameChange(){const newUser=cleanUser(document.getElemen
 function routeToDashboard(){if(currentProfile&&currentProfile.isSuperAdmin){renderSuperAdminDashboard();return;}switch(currentRole){case 'admin':renderAdminDashboard();break;case 'parent':renderParentDashboard();break;default:renderChildDashboard();}if(myFamilies.length>1)backFn=()=>renderFamilyPicker(myFamilies,false);}
 
 // ─── HELPERS ──────────────────────────────────────────────────────────────────
-function buildResetSection(familyId){const pending=allResets.filter(r=>{if(r.status!=='pending')return false;return !familyId||r.familyId===familyId;});if(!pending.length)return'';let html=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><p class="sec-title" style="margin:0">PIN reset requests</p><span class="notif"></span></div>`;pending.forEach(r=>{html+=`<div class="card mb-sm" style="display:flex;align-items:center;gap:10px"><div class="av" style="width:38px;height:38px;font-size:15px;background:#FAEEDA;color:#412402">${avText(r.profileName)}</div><div style="flex:1;min-width:0"><p style="font-size:14px;font-weight:600;margin-bottom:2px">${r.profileName}</p><p style="font-size:12px;color:var(--t2)">Requested ${fmtDate(r.requestedAt)}</p></div><button class="btn-warn" onclick="handleResolveReset('${r.id}')">Gen temp PIN</button></div>`;});return html;}
+function buildResetSection(familyId){const pending=allResets.filter(r=>{if(r.status!=='pending')return false;return !familyId||r.familyId===familyId;});if(!pending.length)return'';let html=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><p class="sec-title" style="margin:0">PIN reset requests</p><span class="notif"></span></div>`;pending.forEach(r=>{html+=`<div class="card mb-sm" style="display:flex;align-items:center;gap:10px"><div class="av" style="width:38px;height:38px;font-size:15px;background:#FAEEDA;color:#633806">${avText(r.profileName)}</div><div style="flex:1;min-width:0"><p style="font-size:14px;font-weight:600;margin-bottom:2px">${r.profileName}</p><p style="font-size:12px;color:var(--t2)">Requested ${fmtDate(r.requestedAt)}</p></div><button class="btn-warn" onclick="handleResolveReset('${r.id}')">Gen temp PIN</button></div>`;});return html;}
 function buildJRSection(familyId){const pending=allJR.filter(r=>r.familyId===familyId&&r.status==='pending'&&r.expiresAt&&!isExp(r.expiresAt));if(!pending.length)return'';let html=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><p class="sec-title" style="margin:0">Join requests</p><span class="notif"></span></div>`;pending.forEach(jr=>{html+=`<div class="card mb-sm" style="display:flex;align-items:center;gap:10px"><div class="av" style="width:38px;height:38px;font-size:15px;background:#F1EFE8;color:var(--text)">${avText(jr.profileName)}</div><div style="flex:1;min-width:0"><p style="font-size:14px;font-weight:600;margin-bottom:2px">${jr.profileName}</p><p style="font-size:12px;color:var(--t2)">As ${ROLE_LABEL[jr.requestedRole]} · ${hrsLeft(jr.expiresAt)}h left</p></div><div style="display:flex;gap:6px;flex-shrink:0"><button class="btn-approve" onclick="handleJRApprove('${jr.id}')">Approve</button><button class="btn-reject" onclick="handleJRReject('${jr.id}')">Reject</button></div></div>`;});return html;}
 
 // ─── DUAL ADMIN & NOTIFICATIONS ───────────────────────────────────────────────
@@ -1506,7 +1506,7 @@ function buildRoleNotifBanner(familyId){
   const[latest,...older]=unread;
   older.forEach(n=>{n.read='true';n.readAt=nowISO();markNotifRead(n.id).catch(()=>{});});
   return`<div class="month-banner-blue" id="role-notif-${latest.id}" style="margin-bottom:1rem;display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
-    <div><p style="font-size:14px;font-weight:600;margin-bottom:4px;color:#042C53">Role updated</p>
+    <div><p style="font-size:14px;font-weight:600;margin-bottom:4px;color:#0C447C">Role updated</p>
     <p style="font-size:13px;color:#0C447C;line-height:1.5">${latest.message}</p></div>
     <button class="icon-btn" onclick="dismissRoleNotif('${latest.id}')" style="flex-shrink:0">✕</button></div>`;
 }
@@ -1704,9 +1704,9 @@ async function handleManualWeeklySummary(){if(!currentFamily)return;if(!confirm(
 
 function buildStreakIndicator(pid,fid){const scheme=getActiveScheme(fid);if(!scheme)return'';const streak=allRewardStreaks.find(s=>s.profileId===pid&&s.familyId===fid&&s.schemeId===scheme.id);const primary=streak?streak.primaryCount:0;const secondary=streak?streak.secondaryCount:0;if(!primary&&!secondary)return'';let out='<span style="display:inline-flex;align-items:center;gap:4px;background:#FAEEDA;border-radius:10px;padding:2px 8px;font-size:10px;font-weight:700;color:#633806">\uD83D\uDD25 '+primary+' week'+(primary!==1?'s':'');if(secondary)out+=' \u00b7 \u2B50 '+secondary+' mo';return out+'</span>';}
 
-function buildSchemeWarningBanner(fid){const w=checkSchemeWarning(fid);if(!w)return'';const draft=getDraftScheme(fid);const winOpen=typeof isSchemeWindowOpen==='function'&&isSchemeWindowOpen(fid);if(w.type==='draft')return'<div style="margin-bottom:0.75rem;background:#EEEDFE;border:1px solid rgba(108,99,224,0.25);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px"><div style="flex:1"><p style="font-size:12px;font-weight:600;color:#3C3489;margin-bottom:2px">Reward scheme draft ready</p><p style="font-size:11px;color:#534AB7">Review and confirm the pre-filled scheme for this cycle</p></div><button class="btn-link" onclick="renderRewardScheme('+(draft?'\''+draft.id+'\'':'null')+')" style="font-size:11px;font-weight:700;color:#6C63E0;background:#EEEDFE;padding:5px 12px;border-radius:7px;border:none;cursor:pointer">Review \u2192</button></div>';if(winOpen)return'<div style="margin-bottom:0.75rem;background:#FAEEDA;border:1px solid rgba(196,127,23,0.3);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px"><div style="flex:1"><p style="font-size:12px;font-weight:600;color:#633806;margin-bottom:2px">\u26a0 No reward scheme set</p><p style="font-size:11px;color:#C47F17">Set up a scheme within 72hrs of cycle start</p></div><button onclick="renderRewardScheme()" style="font-size:11px;font-weight:700;color:#633806;background:#F5D78A;padding:5px 12px;border-radius:7px;border:none;cursor:pointer">Set up \u2192</button></div>';return'<div style="margin-bottom:0.75rem;background:#FAEEDA;border:1px solid rgba(196,127,23,0.3);border-radius:10px;padding:10px 14px"><p style="font-size:12px;font-weight:600;color:#633806;margin-bottom:2px">\u26a0 No reward scheme set</p><p style="font-size:11px;color:#C47F17">Setup window is closed. Opens at next zone rotation.</p></div>';}
+function buildSchemeWarningBanner(fid){const w=checkSchemeWarning(fid);if(!w)return'';const draft=getDraftScheme(fid);const winOpen=typeof isSchemeWindowOpen==='function'&&isSchemeWindowOpen(fid);if(w.type==='draft')return'<div style="margin-bottom:0.75rem;background:#EEEDFE;border:1px solid rgba(108,99,224,0.25);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px"><div style="flex:1"><p style="font-size:12px;font-weight:600;color:#3C3489;margin-bottom:2px">Reward scheme draft ready</p><p style="font-size:11px;color:#3C3489">Review and confirm the pre-filled scheme for this cycle</p></div><button class="btn-link" onclick="renderRewardScheme('+(draft?'\''+draft.id+'\'':'null')+')" style="font-size:11px;font-weight:700;color:#6C63E0;background:#EEEDFE;padding:5px 12px;border-radius:7px;border:none;cursor:pointer">Review \u2192</button></div>';if(winOpen)return'<div style="margin-bottom:0.75rem;background:#FAEEDA;border:1px solid rgba(196,127,23,0.3);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px"><div style="flex:1"><p style="font-size:12px;font-weight:600;color:#633806;margin-bottom:2px">\u26a0 No reward scheme set</p><p style="font-size:11px;color:#C47F17">Set up a scheme within 72hrs of cycle start</p></div><button onclick="renderRewardScheme()" style="font-size:11px;font-weight:700;color:#633806;background:#FAEEDA;padding:5px 12px;border-radius:7px;border:none;cursor:pointer">Set up \u2192</button></div>';return'<div style="margin-bottom:0.75rem;background:#FAEEDA;border:1px solid rgba(196,127,23,0.3);border-radius:10px;padding:10px 14px"><p style="font-size:12px;font-weight:600;color:#633806;margin-bottom:2px">\u26a0 No reward scheme set</p><p style="font-size:11px;color:#C47F17">Setup window is closed. Opens at next zone rotation.</p></div>';}
 
-function buildRewardsTile(){if(!currentFamily||!currentProfile)return'';const isChild=currentRole==='child';const scheme=getActiveScheme(currentFamily.id);const warning=checkSchemeWarning(currentFamily.id);const streakHtml=isChild?buildStreakIndicator(currentProfile.id,currentFamily.id):'';const pendingOffline=isChild?0:getPendingOfflineAwards(currentFamily.id).length;const pendingSugs=isChild?0:getPendingSuggestions(currentFamily.id).length;const newAwards=isChild?getChildAwardsThisCycle(currentProfile.id,currentFamily.id).length:0;let subHtml='';if(isChild){if(streakHtml)subHtml=streakHtml;else if(scheme)subHtml='<span style="font-size:10px;color:#C47F17">Active this cycle</span>';else subHtml='<span style="font-size:10px;color:var(--t3)">No scheme active</span>';if(newAwards)subHtml+='<span style="font-size:10px;font-weight:600;color:#1D9E75;margin-left:6px">'+newAwards+' award'+(newAwards>1?'s':'')+' earned</span>';}else{const parts=[];if(warning&&warning.type==='none')parts.push('<span style="font-size:10px;color:#C47F17;font-weight:600">\u26a0 No scheme set</span>');if(pendingOffline)parts.push('<span style="font-size:10px;color:#C47F17">'+pendingOffline+' to issue</span>');if(pendingSugs)parts.push('<span style="font-size:10px;color:#6C63E0">'+pendingSugs+' suggestion'+(pendingSugs>1?'s':'')+'</span>');if(!parts.length&&scheme)parts.push('<span style="font-size:10px;color:var(--t2)">'+scheme.cycleType+' scheme active</span>');subHtml=parts.join('<span style="color:var(--t3);margin:0 4px">\u00b7</span>');}return'<div class="lock-tile" onclick="renderRewards()" style="cursor:pointer;background:#FDF6E3;border:0.5px solid rgba(205,156,32,0.35)"><div class="lock-icon" style="background:#FAEEDA">\uD83C\uDFC6</div><div style="flex:1"><p style="font-size:14px;font-weight:600;margin-bottom:3px;color:#633806">Rewards</p><div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap">'+subHtml+'</div></div><span style="font-size:11px;font-weight:600;color:#633806;background:#FAEEDA;padding:3px 9px;border-radius:6px;margin-left:auto">View \u2192</span></div>';}
+function buildRewardsTile(){if(!currentFamily||!currentProfile)return'';const isChild=currentRole==='child';const scheme=getActiveScheme(currentFamily.id);const warning=checkSchemeWarning(currentFamily.id);const streakHtml=isChild?buildStreakIndicator(currentProfile.id,currentFamily.id):'';const pendingOffline=isChild?0:getPendingOfflineAwards(currentFamily.id).length;const pendingSugs=isChild?0:getPendingSuggestions(currentFamily.id).length;const newAwards=isChild?getChildAwardsThisCycle(currentProfile.id,currentFamily.id).length:0;let subHtml='';if(isChild){if(streakHtml)subHtml=streakHtml;else if(scheme)subHtml='<span style="font-size:10px;color:#C47F17">Active this cycle</span>';else subHtml='<span style="font-size:10px;color:var(--t3)">No scheme active</span>';if(newAwards)subHtml+='<span style="font-size:10px;font-weight:600;color:#1D9E75;margin-left:6px">'+newAwards+' award'+(newAwards>1?'s':'')+' earned</span>';}else{const parts=[];if(warning&&warning.type==='none')parts.push('<span style="font-size:10px;color:#C47F17;font-weight:600">\u26a0 No scheme set</span>');if(pendingOffline)parts.push('<span style="font-size:10px;color:#C47F17">'+pendingOffline+' to issue</span>');if(pendingSugs)parts.push('<span style="font-size:10px;color:#6C63E0">'+pendingSugs+' suggestion'+(pendingSugs>1?'s':'')+'</span>');if(!parts.length&&scheme)parts.push('<span style="font-size:10px;color:var(--t2)">'+scheme.cycleType+' scheme active</span>');subHtml=parts.join('<span style="color:var(--t3);margin:0 4px">\u00b7</span>');}return'<div class="lock-tile" onclick="renderRewards()" style="cursor:pointer;background:#FAEEDA;border:0.5px solid rgba(205,156,32,0.35)"><div class="lock-icon" style="background:#FAEEDA">\uD83C\uDFC6</div><div style="flex:1"><p style="font-size:14px;font-weight:600;margin-bottom:3px;color:#633806">Rewards</p><div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap">'+subHtml+'</div></div><span style="font-size:11px;font-weight:600;color:#633806;background:#FAEEDA;padding:3px 9px;border-radius:6px;margin-left:auto">View \u2192</span></div>';}
 
 function buildRewardChoreBanner(pid,fid){const scheme=getActiveScheme(fid);if(!scheme)return'';const ym=getCurrentYearMonth();const wsStr=dateStr(getWeekStartDate(new Date()));const allWks=[...new Set(allChoreLog.filter(e=>e.profileId===pid&&e.familyId===fid&&e.weekStart&&e.weekStart.startsWith(ym)&&e.isAdHoc!=='true').map(e=>e.weekStart))];const weekNum=allWks.indexOf(wsStr)+1;const totalWeeks=4;const entries=allChoreLog.filter(e=>e.profileId===pid&&e.familyId===fid&&e.weekStart===wsStr&&e.isAdHoc!=='true');const confirmed=entries.filter(e=>e.status==='confirmed'||e.status==='auto_confirmed').length;const pendingDone=entries.filter(e=>e.status==='done_unconfirmed').length;const pending=entries.filter(e=>e.status==='pending').length;const lapsed=entries.filter(e=>e.status==='lapsed').length;const total=entries.length;if(!total)return'';const left=total-confirmed;const streakHtml=buildStreakIndicator(pid,fid);let sq='';for(let i=0;i<confirmed;i++)sq+='<div style="width:13px;height:13px;border-radius:3px;background:#1D9E75;flex-shrink:0"></div>';for(let i=0;i<pendingDone;i++)sq+='<div style="width:13px;height:13px;border-radius:3px;background:#C47F17;flex-shrink:0"></div>';for(let i=0;i<pending;i++)sq+='<div style="width:13px;height:13px;border-radius:3px;background:rgba(24,95,165,0.15);border:1px solid rgba(24,95,165,0.25);flex-shrink:0"></div>';for(let i=0;i<lapsed;i++)sq+='<div style="width:13px;height:13px;border-radius:3px;background:#E24B4A;flex-shrink:0"></div>';return'<div style="background:#E6F1FB;border:1px solid rgba(24,95,165,0.2);border-radius:12px;padding:10px 12px;margin-bottom:0.75rem"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px"><span style="font-size:10px;font-weight:700;color:#0C447C">May cycle \u00b7 week '+weekNum+' of '+totalWeeks+'</span>'+streakHtml+'</div><div style="font-size:11px;font-weight:600;color:#0C447C;margin-bottom:2px">'+confirmed+' of '+total+' chores confirmed</div><div style="font-size:10px;color:#185FA5;margin-bottom:8px">'+(left>0?left+' chore'+(left>1?'s':'')+' left for a perfect week':'Perfect week achieved! \uD83C\uDF89')+'</div><div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:7px">'+sq+'</div><div style="display:flex;gap:10px;flex-wrap:wrap"><span style="display:flex;align-items:center;gap:4px;font-size:9px;color:#0C447C;opacity:0.85"><span style="width:8px;height:8px;border-radius:2px;background:#1D9E75;display:inline-block"></span>Confirmed</span>'+(pendingDone?'<span style="display:flex;align-items:center;gap:4px;font-size:9px;color:#0C447C;opacity:0.85"><span style="width:8px;height:8px;border-radius:2px;background:#C47F17;display:inline-block"></span>Done, awaiting</span>':'')+(pending?'<span style="display:flex;align-items:center;gap:4px;font-size:9px;color:#0C447C;opacity:0.85"><span style="width:8px;height:8px;border-radius:2px;background:rgba(24,95,165,0.15);border:1px solid rgba(24,95,165,0.3);display:inline-block"></span>Pending</span>':'')+(lapsed?'<span style="display:flex;align-items:center;gap:4px;font-size:9px;color:#0C447C;opacity:0.85"><span style="width:8px;height:8px;border-radius:2px;background:#E24B4A;display:inline-block"></span>Lapsed</span>':'')+'</div></div>';}
 
@@ -2530,7 +2530,7 @@ function buildOverviewPendingTasks(){
   let html=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><p class="sec-title" style="margin:0">Pending tasks</p><span style="font-size:11px;font-weight:700;padding:1px 7px;border-radius:8px;background:#FAEEDA;color:#633806">${pendingConf.length+pendingTrades.length}</span></div>`;
   if(pendingTrades.length){
     html+=`<div style="background:#FAEEDA;border-radius:var(--rmd);padding:0.75rem 1rem;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between">
-      <div><p style="font-size:13px;font-weight:600;color:#412402">${pendingTrades.length} trade${pendingTrades.length>1?'s':''} awaiting approval</p></div>
+      <div><p style="font-size:13px;font-weight:600;color:#633806">${pendingTrades.length} trade${pendingTrades.length>1?'s':''} awaiting approval</p></div>
       <button class="btn btn-dark" onclick="renderMod3Parent()" style="width:auto;font-size:12px;padding:6px 12px;background:#633806;border-color:#633806">Review →</button>
     </div>`;
   }
@@ -2862,19 +2862,19 @@ function buildMonthBanner(result){
   if(!result||result.type==='none')return'';
   if(result.type==='close_banner'){
     const ml=getMonthLabelFromYM(result.yearMonth);
-    return `<div class="month-banner-amber"><p style="font-size:14px;font-weight:600;margin-bottom:4px;color:#412402">${ml} has ended</p>
+    return `<div class="month-banner-amber"><p style="font-size:14px;font-weight:600;margin-bottom:4px;color:#633806">${ml} has ended</p>
       <p style="font-size:12px;color:#633806;margin-bottom:1rem;line-height:1.6">Please close the month to finalise reporting and start zone rotation. Auto-closes in ${result.hoursLeft} hours.</p>
       <button class="btn btn-dark" onclick="handleManualClose()" style="background:#633806;border-color:#633806;max-width:200px">Close ${ml} →</button></div>`;
   }
   if(result.type==='rotation_prompt'){
     const cl=getMonthLabelFromYM(getCurrentYearMonth());
-    return `<div class="month-banner-green"><p style="font-size:14px;font-weight:600;margin-bottom:4px;color:#04342C">Ready to rotate zones</p>
+    return `<div class="month-banner-green"><p style="font-size:14px;font-weight:600;margin-bottom:4px;color:#085041">Ready to rotate zones</p>
       <p style="font-size:12px;color:#085041;margin-bottom:1rem;line-height:1.6">Previous month is closed. Tap Proceed to assign zones for ${cl}.</p>
       <button class="btn btn-dark" onclick="handleProceedRotation()" style="max-width:200px">Proceed to rotate →</button></div>`;
   }
   if(result.type==='rotation_notification'){
     const cl=getMonthLabelFromYM(result.yearMonth);
-    return `<div class="month-banner-blue rotation-notif-banner"><div><p style="font-size:14px;font-weight:600;margin-bottom:4px;color:#042C53">Zones assigned for ${cl}</p>
+    return `<div class="month-banner-blue rotation-notif-banner"><div><p style="font-size:14px;font-weight:600;margin-bottom:4px;color:#0C447C">Zones assigned for ${cl}</p>
       <p style="font-size:12px;color:#0C447C">All children have been assigned new zones.${isOverrideWindowOpen(currentFamily.id)?' Override available for '+getOverrideHoursRemaining(currentFamily.id)+'h.':''}</p></div>
       <button class="icon-btn" onclick="dismissRotationNotification()" style="flex-shrink:0">✕</button></div>`;
   }
@@ -2889,7 +2889,7 @@ function buildChildZoneNotification(){
   if(!za)return'';
   const zone=allZones.find(z=>z.id===za.zoneId);if(!zone)return'';
   return `<div class="month-banner-green" style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:1rem">
-    <div><p style="font-size:13px;font-weight:600;margin-bottom:2px;color:#04342C">Your zone for ${getMonthLabelFromYM(ym)}</p>
+    <div><p style="font-size:13px;font-weight:600;margin-bottom:2px;color:#085041">Your zone for ${getMonthLabelFromYM(ym)}</p>
     <p style="font-size:13px;color:#085041">You have been assigned to <strong>${zone.name}</strong>.</p></div>
     <button class="icon-btn" onclick="dismissChildZoneNotif()" style="color:#085041;flex-shrink:0">✕</button></div>`;
 }
@@ -2914,7 +2914,7 @@ function buildOverrideBanner(familyId){
   const hrs=getOverrideHoursRemaining(familyId);
   return `<div style="background:#EEEDFE;border:1.5px solid rgba(108,99,224,0.3);border-radius:var(--rmd);padding:.875rem 1rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between">
     <div><p style="font-size:13px;font-weight:600;margin-bottom:2px;color:#3C3489">Override window open</p>
-    <p style="font-size:12px;color:#534AB7">${hrs}h remaining to reassign zones</p></div>
+    <p style="font-size:12px;color:#3C3489">${hrs}h remaining to reassign zones</p></div>
     <button class="btn btn-outline btn-sm" onclick="renderZoneAssignChildren()" style="width:auto;font-size:12px;padding:6px 12px;flex-shrink:0">Override →</button>
   </div>`;
 }
@@ -2971,8 +2971,11 @@ function getHistoricalRates(profileId,familyId,period){
     const m=today.getMonth();const qs=Math.floor(m/3)*3;
     for(let qi=2;qi>=0;qi--){
       const qStart=qs-qi*3;
-      const qMs=[qStart,qStart+1,qStart+2].map(i=>`${today.getFullYear()}-${String(Math.max(1,i+1)).padStart(2,'0')}`);
-      labels.push(`Q${Math.ceil((qStart+1)/3)} ${today.getFullYear()}`);
+      const qYear=qStart<0?today.getFullYear()-1:today.getFullYear();
+      const adjStart=qStart<0?qStart+12:qStart;
+      const qNum=Math.floor(adjStart/3)+1;
+      const qMs=[qStart,qStart+1,qStart+2].map(i=>{const yr=i<0?today.getFullYear()-1:today.getFullYear();const mo=i<0?i+12:i;return`${yr}-${String(mo+1).padStart(2,'0')}`;});
+      labels.push(`Q${qNum} ${qYear}`);
       const entries=allChoreLog.filter(e=>e.profileId===profileId&&e.familyId===familyId&&e.weekStart&&qMs.some(qm=>e.weekStart.startsWith(qm))&&e.isAdHoc!=='true');
       rates.push(entries.length?Math.round(entries.filter(e=>e.status==='confirmed'||e.status==='auto_confirmed').length/entries.length*100):null);
     }
