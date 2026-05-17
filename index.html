@@ -178,7 +178,21 @@ input::placeholder{color:var(--t3);font-weight:400;}input:focus{border-color:var
 .fc-weekly{background:#F1EFE8;color:#5F5E5A;}
 .fc-biweekly{background:#EEEDFE;color:#3C3489;}
 .fc-monthly{background:#EEEDFE;color:#3C3489;}
-.fc-adhoc{background:#FAEEDA;color:#633806;}</style>
+.fc-adhoc{background:#FAEEDA;color:#633806;}
+/* Active trade badge on chore tiles */
+.trade-active-badge{font-size:9px;font-weight:500;padding:2px 7px;border-radius:10px;background:#EEEDFE;color:#3C3489;white-space:nowrap;display:inline-block;margin-top:3px;}
+/* Family management action cards */
+.fam-action-card{background:var(--surface);border-radius:var(--rmd);border:1px solid var(--border);margin-bottom:8px;overflow:hidden;}
+.fam-action-hd{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;}
+.fam-action-title{font-size:13px;font-weight:600;color:var(--text);}
+.fam-action-sub{font-size:11px;color:var(--t2);margin-top:1px;}
+/* Rename modal */
+.rename-modal-overlay{position:fixed;inset:0;background:rgba(28,20,16,0.5);z-index:10000;display:flex;align-items:center;justify-content:center;padding:1.5rem;}
+.rename-modal{background:var(--surface);border-radius:var(--r);padding:1.5rem 1.5rem 1.25rem;width:100%;max-width:320px;box-shadow:0 8px 40px rgba(0,0,0,0.18);}
+.rename-modal-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:3px;}
+.rename-modal-sub{font-size:12px;color:var(--t2);margin-bottom:1rem;}
+.rename-save-btn{width:100%;padding:10px;background:#1C1410;color:#fff;border:none;border-radius:var(--rsm);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);margin-bottom:8px;}
+.rename-cancel-btn{width:100%;padding:8px;background:transparent;color:var(--t2);border:none;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--font);}</style>
 </head>
 <body>
 <div id="test-env-banner" style="display:none;position:fixed;top:0;left:0;right:0;z-index:9999;background:#FAEEDA;border-bottom:2px solid #C47F17;padding:8px 16px;text-align:center;font-size:13px;font-weight:600;color:#633806;font-family:var(--font);">⚠ TEST ENVIRONMENT — data here is not live</div>
@@ -581,6 +595,23 @@ input::placeholder{color:var(--t3);font-weight:400;}input:focus{border-color:var
   </div>
   <div class="scroll"><div class="wrap fade" id="reward-scheme-content"></div></div>
 </div>
+<div class="screen" id="s-manage-family">
+  <div class="screennav">
+    <button class="snbtn" onclick="goBack()">← Back</button>
+    <span style="font-size:14px;font-weight:700;color:var(--text)">Manage family</span>
+    <button class="snbtn" onclick="goHome()">Home ⌂</button>
+  </div>
+  <div class="scroll"><div class="wrap fade">
+    <div id="mf-identity-card" style="margin-bottom:1.25rem"></div>
+    <p class="sec-title">Family details</p>
+    <div class="fam-action-card">
+      <div class="fam-action-hd">
+        <div><div class="fam-action-title">Family name</div><div class="fam-action-sub" id="mf-current-name"></div></div>
+        <button class="btn-warn" onclick="showRenameModal()">Rename</button>
+      </div>
+    </div>
+  </div></div>
+</div>
 <div class="screen" id="s-manage-members">
   <div class="topnav">
     <button class="btn-link" onclick="goBack()">← Back</button>
@@ -598,7 +629,7 @@ input::placeholder{color:var(--t3);font-weight:400;}input:focus{border-color:var
 const ENV=window.location.pathname.includes('/Fam-Hub-Test')?'test':'live';
 if(ENV==='test'){const b=document.getElementById('test-env-banner');b.style.display='block';document.documentElement.style.setProperty('--test-offset',b.getBoundingClientRect().height+'px');}
 const SHEET_ID=ENV==='live'?'1xN9ObG7zfokCElNT6uQ1fwXBhtU9r0ZSU3LTDMrOpPA':'1waBsfGZb5maCmgcZUC2F2a4dbh6LyktKMTofQXkjHtI';
-const BUILD_VERSION='v5.2';
+const BUILD_VERSION='v5.3';
 const BUILD_DATE='May 2026';
 const CLIENT_EMAIL='amoah-hub-bot@amoah-hub.iam.gserviceaccount.com';
 const PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDUbYK19dfmb2jU\nBnH5qvOGTfvzNNGPVV0fSBp2/N6RHAT1esashzvnLa3VMJRIdIJUB92OtvhsRnH1\nOwl8HC321jubSvdZP25MgbN5rqP8ix4KWCqgAfVupyGaoSvE3cslelJOYNT9ELo2\nsGNBcUeGCkka+1gpZCRdiFoauF5nov11iV9ZISHzHhl2x1ZhZRmPHFwv9IiiJWhS\nh/IjEwczFU7ZhPBRKWn1mSQ82eu9NvYmO6XwswFXTVR0fSGetsu5I64Vn7WA8P0g\nUlvKanOgn7S3vdz+PMN9xNX14DxUTgUyHcj+48tavgbf33sA5CclDP3/JAdKqoxB\nKeqLvp39AgMBAAECggEAErmoiQOnyW9OrUn4KArytocPS4v/YQQkVkqT0qNNtzri\nEQWGl9S/6gvzw9Qpbg2fI2siE597XIgFKZnPpzoQry6JSJIeJabawTG5sWM8n1lg\nB4doEny5tsxSwP+uDQeEDcSvlqsge0JLN+Dqju0+YclsUk2Pou5p6jjHwI05/SaO\nyKoKxW3z+8TpgVOsj2mp7qZhP3oMf/c4/jpKBKl+Ucs8hcxlIiMuLN6+r2Vn0Hab\nt32CHJ1DtJENKZQUkDVCWlMJxkwRWywUU16DL+bOD2vtIqTJvE9L9x9RVKLZ254m\nWqhB4Lj2dYt4TWfgqYNRup7oY9zf9oTzXTKQfcHXPQKBgQD1VI6fAndzSzgr4U9f\nt8vLXP/6fylyvwQX8c7UUvyNZ3RtpKBegNL6fHMUCdsYx5Zq+tuaXjVKPPkHdGem\ne8mm9qm6lckIVAb4a4BJyJZ0U8Qzr4jG9yhaKM82vYKk9Hc5W5oWn2kmFgnTsB7V\na7YZVRs7r9Y6c0B8nIisViltnwKBgQDdqqAcUBKCk3lkSiCgVey7l56fvG9ExTsP\n4anRPbJ17WpFcUvHdD1tviYJ5oGKPx/v+ogT/IRZHv42G0ggDyBBtwav3KNrwgKi\nfMVfOj1geFRpTIrcSFoxemRXenk4nGpcqd0Nv6WT1KNHZilmuomBsfXKhJn7qd0a\nwl4TyXFW4wKBgB/Ou8MP/c679Odzief+G3UddK7Up9oRvAUiu885hzcKL8U7b/Nw\nvmntkroJYRfAYNcz+R71kfEzIJJ/3CRwrj9wgacIXo0u38x7m6F1WVRxu+F7o78w\nMlImMl+FiJe8fmy4XK0MNATVHKcOkaDYGz8DkslVTfA8GyNM5Ed70Fk/AoGBAMqy\n0VCypAqFgtcDtgwIJr9wKVxWesU/OgAO0jQFoCCYZrpznOEZ2WZ2H+CjyUc67CCN\nT0w/eGLqpXmivvSaAFw3WsUMFOBf+/rL78xhvGhwAHh9xukivF9MVV9tHlZ3Kgfs\nSLjezDF/m4OZ1zgaUc2oh2OWmBx6uzZSEKc1aRATAoGBAMnhM+oxFCRtX6K4wEqM\nx2fkzcAKHzHocKqBy/aPNwrjrWg1+dfB0Q3WIZpbNZJU7Uf6Zd1fj+nYqPz3H8WL\ngnGNfL1OA3WeuMXnclCJ2gEqmnKmAiTOX4n3y3pMtAYPN18ymABFud02U9ImzGmi\nlG6BXI2nK1bBZmGaznK8zhDw\n-----END PRIVATE KEY-----\n";
@@ -852,9 +883,26 @@ async function renderMod3Child(){
   setScreen('s-mod3');
 }
 
+function getLockedChoreIds(familyId){
+  const active=allTradeRequests.filter(t=>t.familyId===familyId&&(t.stage==='pending_child'||t.stage==='pending_parent'));
+  const locked=new Set();
+  active.forEach(t=>{
+    if(t.initiatorChoreLogId)locked.add(t.initiatorChoreLogId);
+    if(t.recipientChoreLogId)locked.add(t.recipientChoreLogId);
+  });
+  return locked;
+}
+
+function getTradeCounterparty(choreLogId,viewingProfileId){
+  const t=allTradeRequests.find(tr=>(tr.stage==='pending_child'||tr.stage==='pending_parent')&&(tr.initiatorChoreLogId===choreLogId||tr.recipientChoreLogId===choreLogId));
+  if(!t)return null;
+  return t.initiatorId===viewingProfileId?t.recipientName:t.initiatorName;
+}
+
 function getMyCurrentChores(){
   const ym=getCurrentYearMonth();
-  const all=allChoreLog.filter(e=>e.profileId===currentProfile.id&&e.familyId===currentFamily.id&&e.weekStart&&e.weekStart.startsWith(ym)&&e.status==='pending'&&e.isAdHoc!=='true');
+  const locked=getLockedChoreIds(currentFamily.id);
+  const all=allChoreLog.filter(e=>e.profileId===currentProfile.id&&e.familyId===currentFamily.id&&e.weekStart&&e.weekStart.startsWith(ym)&&e.status==='pending'&&e.isAdHoc!=='true'&&!locked.has(e.id));
   const seen=new Set();return all.filter(e=>{const key=e.choreId||e.choreName;if(seen.has(key))return false;seen.add(key);return true;});
 }
 
@@ -985,7 +1033,8 @@ function selectRecipient(profileId,profileName){
   document.getElementById('trade-step-title').textContent=`Pick ${profileName}'s chore`;
   document.getElementById('trade-step-sub').textContent='Which of their chores do you want in return?';
   const ym=getCurrentYearMonth();
-  const theirAll=allChoreLog.filter(e=>e.profileId===profileId&&e.familyId===currentFamily.id&&e.weekStart&&e.weekStart.startsWith(ym)&&e.status==='pending'&&e.isAdHoc!=='true');const theirSeen=new Set();const theirChores=theirAll.filter(e=>{const k=e.choreId||e.choreName;if(theirSeen.has(k))return false;theirSeen.add(k);return true;});
+  const locked=getLockedChoreIds(currentFamily.id);
+  const theirAll=allChoreLog.filter(e=>e.profileId===profileId&&e.familyId===currentFamily.id&&e.weekStart&&e.weekStart.startsWith(ym)&&e.status==='pending'&&e.isAdHoc!=='true'&&!locked.has(e.id));const theirSeen=new Set();const theirChores=theirAll.filter(e=>{const k=e.choreId||e.choreName;if(theirSeen.has(k))return false;theirSeen.add(k);return true;});
   if(!theirChores.length){document.getElementById('trade-step-content').innerHTML=`<p style="font-size:13px;color:var(--t2);padding:1rem 0">${profileName} has no eligible chores to swap this month.</p>`;return;}
   document.getElementById('trade-step-content').innerHTML=`<div style="border:0.5px solid var(--border);border-radius:var(--r);overflow:hidden">`+
     theirChores.map(c=>`<div class="chore-pick-row2" onclick="selectRecipientChore('${c.id}','${c.choreName.replace(/'/g,"\\'")}')">
@@ -1053,6 +1102,11 @@ async function initiateTrade(model,initiatorChoreLogId,initiatorChoreName,recipi
 async function handleAcceptTrade(tradeId){
   const trade=allTradeRequests.find(t=>t.id===tradeId);if(!trade)return;
   const isSwap=trade.model==='swap';
+  // Resolution-time guard — verify both chores still pending
+  const initEntry=allChoreLog.find(e=>e.id===trade.initiatorChoreLogId);
+  const recipEntry=trade.recipientChoreLogId?allChoreLog.find(e=>e.id===trade.recipientChoreLogId):null;
+  if(initEntry&&initEntry.status!=='pending'){showToast('Trade cancelled','The chore being offered is no longer available');await cancelStaleTrade(trade,'cancelled_chore_done');renderMod3Child();return;}
+  if(recipEntry&&recipEntry.status!=='pending'){showToast('Trade cancelled','Your chore is no longer in a pending state');await cancelStaleTrade(trade,'cancelled_chore_done');renderMod3Child();return;}
   if(isSwap){
     const rec=getTokenRecord(currentProfile.id);
     if(!rec||getTotalBalance(rec)===0){alert('You need 1 token to accept a swap.');return;}
@@ -1146,9 +1200,33 @@ async function renderMod3Parent(){
   }
 }
 
+async function cancelStaleTrade(trade,stage){
+  await updateSheetRow(SH.TR,16,trade.id,r=>{r[11]=stage;r[14]=nowISO();});
+  trade.stage=stage;trade.updatedAt=nowISO();
+  // Refund recipient if they had already paid (pending_parent stage means recipient paid)
+  if(trade.model==='swap'&&trade.stage==='pending_parent'){
+    const tr=getTokenRecord(trade.recipientId);
+    if(tr){
+      await creditToken(trade.recipientId,trade.recipientName,currentFamily.id,trade.id,'Trade cancelled — chore no longer available',1);
+      await writeNotification(trade.recipientId,currentFamily.id,'trade_declined',`Trade with ${trade.initiatorName} was cancelled — your token has been refunded.`,currentProfile.name||'system');
+    }
+  }
+  await audit('TRADE_CANCELLED_STALE',currentProfile.name||'system',`${trade.model}: ${trade.initiatorChoreName}`);
+}
+
 async function handleApproveTrade(tradeId){
   const trade=allTradeRequests.find(t=>t.id===tradeId);
   if(!trade||!confirm(`Approve this ${trade.model} trade?`))return;
+  // Resolution-time guard
+  const initEntry=allChoreLog.find(e=>e.id===trade.initiatorChoreLogId);
+  const recipEntry=trade.recipientChoreLogId?allChoreLog.find(e=>e.id===trade.recipientChoreLogId):null;
+  if((initEntry&&initEntry.status!=='pending')||(recipEntry&&recipEntry.status!=='pending')){
+    setLoading('Checking...');
+    await cancelStaleTrade(trade,'cancelled_chore_done');
+    setLoading('');
+    showToast('Trade cancelled','One or both chores are no longer pending — recipient refunded if applicable');
+    renderMod3Parent();return;
+  }
   setLoading('Approving trade...');
   try{
     await updateChoreLogProfile(trade.initiatorChoreLogId,trade.recipientId,trade.recipientName);
@@ -1594,7 +1672,11 @@ function buildMembersSection(familyId,showRemove){
 function buildMyFamilyCard(familyId,showManage=false){
   const members=allPF.filter(pf=>pf.familyId===familyId);
   if(!members.length)return'';
-  const hdR=showManage?`<button onclick="renderManageMembers()" style="font-size:11px;font-weight:600;color:#6C63E0;background:#EEEDFE;border:none;padding:4px 10px;border-radius:6px;cursor:pointer">Manage →</button>`:'';
+  const hdR=showManage
+    ?`<div style="display:flex;gap:6px;align-items:center">
+        <button onclick="renderManageFamily()" style="font-size:11px;font-weight:600;color:#5F5E5A;background:#F1EFE8;border:none;padding:4px 10px;border-radius:6px;cursor:pointer">Manage</button>
+        <button onclick="renderManageMembers()" style="font-size:11px;font-weight:600;color:#6C63E0;background:#EEEDFE;border:none;padding:4px 10px;border-radius:6px;cursor:pointer">Members →</button>
+      </div>`:'';
   let html=`<div class="card mb-md"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><p class="sec-title" style="margin:0">My Family</p>${hdR}</div><div class="my-family-grid">`;
   members.forEach(pf=>{
     const pr=allProfiles.find(p=>p.id===pf.profileId);
@@ -1603,6 +1685,72 @@ function buildMyFamilyCard(familyId,showManage=false){
   });
   html+=`</div></div>`;
   return html;
+}
+
+function renderManageFamily(){
+  backFn=()=>routeToDashboard();
+  const fam=currentFamily;
+  const mc=allPF.filter(pf=>pf.familyId===fam.id).length;
+  document.getElementById('mf-identity-card').innerHTML=
+    `<div class="card" style="display:flex;align-items:center;gap:12px">
+      <div class="av" style="width:44px;height:44px;font-size:18px;background:#E1F5EE;color:#085041;border-radius:10px">${avText(fam.name)}</div>
+      <div><p style="font-size:15px;font-weight:700">${fam.name} Hub</p>
+      <p style="font-size:12px;color:var(--t2)">${mc} member${mc!==1?'s':''} · Code: <strong>${fam.code}</strong></p></div>
+    </div>`;
+  document.getElementById('mf-current-name').textContent=fam.name+' Hub';
+  setScreen('s-manage-family');
+}
+
+function showRenameModal(familyId){
+  const fid=familyId||currentFamily.id;
+  const fam=allFamilies.find(f=>f.id===fid);
+  if(!fam)return;
+  const isSA=currentProfile.isSuperAdmin;
+  const ex=document.getElementById('rename-modal-overlay');if(ex)ex.remove();
+  const o=document.createElement('div');o.id='rename-modal-overlay';o.className='rename-modal-overlay';
+  o.innerHTML=`<div class="rename-modal">
+    <p class="rename-modal-title">Rename family</p>
+    <p class="rename-modal-sub">Current name: <strong>${fam.name}</strong></p>
+    <label class="lbl">New family name</label>
+    <input id="rename-fam-input" class="input" placeholder="New family name" value="${fam.name}" style="margin-bottom:1rem">
+    ${!isSA?`<label class="lbl">Confirm with your PIN</label>
+    <input id="rename-fam-pin" class="input" type="password" inputmode="numeric" maxlength="4" placeholder="••••" style="margin-bottom:1rem">`:''}
+    <p class="err-txt" id="rename-fam-err"></p>
+    <button class="rename-save-btn" onclick="handleRenameFamily('${fid}')">Save new name</button>
+    <button class="rename-cancel-btn" onclick="document.getElementById('rename-modal-overlay').remove()">Cancel</button>
+  </div>`;
+  document.body.appendChild(o);
+  setTimeout(()=>{const inp=document.getElementById('rename-fam-input');if(inp){inp.focus();inp.select();}},50);
+}
+
+async function handleRenameFamily(familyId){
+  const fam=allFamilies.find(f=>f.id===familyId);if(!fam)return;
+  const inp=document.getElementById('rename-fam-input');
+  const newName=(inp?inp.value.trim():'');
+  const err=document.getElementById('rename-fam-err');
+  if(!newName||newName.length<2){err.textContent='Family name must be at least 2 characters';return;}
+  if(newName.length>40){err.textContent='Family name must be 40 characters or fewer';return;}
+  if(newName===fam.name){err.textContent='That is already the current name';return;}
+  if(!currentProfile.isSuperAdmin){
+    const pinEl=document.getElementById('rename-fam-pin');
+    const pin=pinEl?pinEl.value.trim():'';
+    if(!/^\d{4}$/.test(pin)){err.textContent='Please enter your 4-digit PIN to confirm';return;}
+    if(hashPin(pin)!==currentProfile.pin){err.textContent='Incorrect PIN';return;}
+  }
+  setLoading('Renaming family...');
+  try{
+    await updateSheetRow(SH.FAMILIES,6,familyId,r=>{r[1]=newName;});
+    fam.name=newName;
+    document.getElementById('rename-modal-overlay').remove();
+    await audit('FAMILY_RENAMED',currentProfile.name,`New name: ${newName}`);
+    if(currentFamily&&currentFamily.id===familyId){
+      currentFamily.name=newName;
+      const lbl=document.getElementById('ad-family-label');if(lbl)lbl.textContent=newName.toUpperCase()+' HUB';
+    }
+    showToast('Family renamed','Now showing as '+newName+' Hub');
+    if(currentProfile.isSuperAdmin){renderSuperAdminDashboard();}
+    else{renderManageFamily();}
+  }catch(e){setLoading('');document.getElementById('rename-fam-err').textContent=e.message;}
 }
 
 function renderManageMembers(){
@@ -1897,7 +2045,7 @@ function buildRewardSchemeScreen(schemeId){
   if(scheme){var sni=document.getElementById('scheme-name');if(sni&&rules&&rules.schemeName)sni.value=rules.schemeName;var _pwId=rules.perfectWeek?rules.perfectWeek.rewardId:'';var _thrId=rules.threshold?rules.threshold.rewardId:'';var _ms=rules.streakPrimary?(rules.streakPrimary.milestones||[]):[];var _tbs=scheme.taskBonuses||[];setTimeout(function(){var pw=document.getElementById('pw-reward');if(pw&&_pwId)pw.value=_pwId;var thr=document.getElementById('thr-reward');if(thr&&_thrId)thr.value=_thrId;_ms.forEach(function(m){addStreakMilestoneRow(m.n,m.rewardId);});_tbs.forEach(function(b){var q='.task-bonus-sel[data-choreid="'+b.choreId+'"][data-profileid="'+b.profileId+'"]';var sel=document.querySelector(q);if(sel&&b.rewardId)sel.value=b.rewardId;});},50);}
   return html;}
 // ─── DASHBOARDS ─────────────────────────────────────────────────────────────
-function renderSuperAdminDashboard(){currentFamily=null;currentRole='superadmin';document.getElementById('sa-name').textContent=currentProfile.name;document.getElementById('sa-av').style.background=currentProfile.colour;document.getElementById('sa-av').textContent=avText(currentProfile.name);document.getElementById('sa-resets-section').innerHTML=buildResetSection(null);const famEl=document.getElementById('sa-families');famEl.innerHTML='';const active=allFamilies.filter(f=>f.status==='active');if(!active.length){famEl.innerHTML='<p style="font-size:13px;color:var(--t2)">No families yet.</p>';}else{active.forEach(f=>{const mc=allPF.filter(pf=>pf.familyId===f.id).length;const pjr=allJR.filter(r=>r.familyId===f.id&&r.status==='pending').length;const pr=allResets.filter(r=>r.familyId===f.id&&r.status==='pending').length;const card=document.createElement('div');card.className='card';card.style.cssText='display:flex;align-items:center;gap:12px;margin-bottom:8px;';card.innerHTML=`<div class="av" style="width:42px;height:42px;font-size:17px;background:#E1F5EE;color:#085041;border-radius:10px">${avText(f.name)}</div><div style="flex:1;min-width:0"><p style="font-size:14px;font-weight:600;margin-bottom:2px">${f.name} Hub</p><p style="font-size:12px;color:var(--t2)">${mc} member${mc!==1?'s':''} · Code: <strong>${f.code}</strong></p></div><div style="display:flex;gap:4px;flex-wrap:wrap">${pjr>0?`<span class="badge b-pending">${pjr} join</span>`:''}${pr>0?`<span class="badge" style="background:#FCEBEB;color:#791F1F">${pr} reset</span>`:''}</div>`;famEl.appendChild(card);});}const saEl=document.getElementById('sa-admins');saEl.innerHTML='';allProfiles.filter(p=>p.isSuperAdmin).forEach(p=>{const card=document.createElement('div');card.className='card';card.style.cssText='display:flex;align-items:center;gap:10px;margin-bottom:8px;';card.innerHTML=`<div class="av" style="width:36px;height:36px;font-size:14px;background:${p.colour}">${avText(p.name)}</div><div style="flex:1"><p style="font-size:14px;font-weight:600">${p.name}</p><p style="font-size:12px;color:var(--t2)">@${p.username}</p></div>`;saEl.appendChild(card);});const sacEl=document.getElementById('sa-chore-count');if(sacEl)sacEl.textContent=allGlobalChores.filter(c=>c.archived!=='true').length+' active chores';setScreen('s-superadmin');}
+function renderSuperAdminDashboard(){currentFamily=null;currentRole='superadmin';document.getElementById('sa-name').textContent=currentProfile.name;document.getElementById('sa-av').style.background=currentProfile.colour;document.getElementById('sa-av').textContent=avText(currentProfile.name);document.getElementById('sa-resets-section').innerHTML=buildResetSection(null);const famEl=document.getElementById('sa-families');famEl.innerHTML='';const active=allFamilies.filter(f=>f.status==='active');if(!active.length){famEl.innerHTML='<p style="font-size:13px;color:var(--t2)">No families yet.</p>';}else{active.forEach(f=>{const mc=allPF.filter(pf=>pf.familyId===f.id).length;const pjr=allJR.filter(r=>r.familyId===f.id&&r.status==='pending').length;const pr=allResets.filter(r=>r.familyId===f.id&&r.status==='pending').length;const card=document.createElement('div');card.className='card';card.style.cssText='display:flex;align-items:center;gap:12px;margin-bottom:8px;';card.innerHTML=`<div class="av" style="width:42px;height:42px;font-size:17px;background:#E1F5EE;color:#085041;border-radius:10px">${avText(f.name)}</div><div style="flex:1;min-width:0"><p style="font-size:14px;font-weight:600;margin-bottom:2px">${f.name} Hub</p><p style="font-size:12px;color:var(--t2)">${mc} member${mc!==1?'s':''} · Code: <strong>${f.code}</strong></p></div><div style="display:flex;gap:4px;flex-wrap:wrap;align-items:center">${pjr>0?`<span class="badge b-pending">${pjr} join</span>`:''}${pr>0?`<span class="badge" style="background:#FCEBEB;color:#791F1F">${pr} reset</span>`:''}<button onclick="showRenameModal('${f.id}')" style="font-size:10px;font-weight:600;color:#5F5E5A;background:#F1EFE8;border:none;padding:3px 8px;border-radius:6px;cursor:pointer;font-family:var(--font)">Rename</button></div>`;famEl.appendChild(card);});}const saEl=document.getElementById('sa-admins');saEl.innerHTML='';allProfiles.filter(p=>p.isSuperAdmin).forEach(p=>{const card=document.createElement('div');card.className='card';card.style.cssText='display:flex;align-items:center;gap:10px;margin-bottom:8px;';card.innerHTML=`<div class="av" style="width:36px;height:36px;font-size:14px;background:${p.colour}">${avText(p.name)}</div><div style="flex:1"><p style="font-size:14px;font-weight:600">${p.name}</p><p style="font-size:12px;color:var(--t2)">@${p.username}</p></div>`;saEl.appendChild(card);});const sacEl=document.getElementById('sa-chore-count');if(sacEl)sacEl.textContent=allGlobalChores.filter(c=>c.archived!=='true').length+' active chores';setScreen('s-superadmin');}
 
 function renderAdminDashboard(){
   document.getElementById('ad-family-label').textContent=currentFamily?currentFamily.name.toUpperCase()+' HUB':'';
@@ -2446,6 +2594,15 @@ function buildConsolidatedChoreRow(choreName,entries,allWks,freq,readonly){
   });
   var _fBadge='<span style="font-size:8px;font-weight:500;background:#EEEDFE;color:#3C3489;padding:1px 5px;border-radius:3px;margin-left:4px">'+(freq==='biweekly'?'biweekly':'weekly')+'</span>';
   var freqTag=(freq==='weekly'||freq==='biweekly')?_fBadge:'';
+  // Active trade badge — find any active trade referencing this chore
+  var viewPid=currentProfile?currentProfile.id:'';
+  var tradeBadge='';
+  var choreEntries=entries;
+  choreEntries.forEach(function(e){
+    if(tradeBadge)return;
+    var counterparty=getTradeCounterparty(e.id,viewPid);
+    if(counterparty)tradeBadge='<span class="trade-active-badge">In active trade with '+counterparty+'</span>';
+  });
   var markBtn=pendingEntry&&!readonly?'<button class="mark-done-btn" onclick="handleMarkDone(\''+pendingEntry.id+'\')">W'+(allWks.indexOf(currentWs)+1)+' done</button>':'';
   var dotCls=pendingEntry?'pending':(entries.some(function(e){return e.status==='lapsed';})?'lapsed':'confirmed');
   return '<div class="chore-entry">'
@@ -2453,6 +2610,7 @@ function buildConsolidatedChoreRow(choreName,entries,allWks,freq,readonly){
     +'<div style="flex:1;min-width:0">'
     +'<p style="font-size:14px;font-weight:600;margin-bottom:4px">'+choreName+freqTag+'</p>'
     +'<div style="display:flex;gap:3px;flex-wrap:wrap">'+pillsHtml+'</div>'
+    +(tradeBadge?'<div style="margin-top:3px">'+tradeBadge+'</div>':'')
     +'</div>'
     +markBtn
     +'</div>';
@@ -2512,6 +2670,25 @@ function buildChoresList(byType,readonly=false,allMonthWks=[]){
 
 async function handleMarkDone(entryId){
   try{
+    // Check if this chore is in an active trade — collapse it before marking done
+    const activeTrade=allTradeRequests.find(t=>
+      (t.stage==='pending_child'||t.stage==='pending_parent')&&
+      (t.initiatorChoreLogId===entryId||t.recipientChoreLogId===entryId)
+    );
+    if(activeTrade){
+      // Refund recipient only if trade is at pending_parent (recipient already paid)
+      const recipientAlreadyPaid=activeTrade.model==='swap'&&activeTrade.stage==='pending_parent';
+      await updateSheetRow(SH.TR,16,activeTrade.id,r=>{r[11]='cancelled_chore_done';r[14]=nowISO();});
+      activeTrade.stage='cancelled_chore_done';activeTrade.updatedAt=nowISO();
+      if(recipientAlreadyPaid){
+        await creditToken(activeTrade.recipientId,activeTrade.recipientName,currentFamily.id,activeTrade.id,'Trade cancelled — chore marked done',1);
+        await writeNotification(activeTrade.recipientId,currentFamily.id,'trade_declined',`Your trade with ${activeTrade.initiatorName} was cancelled because they completed the chore. Your token has been refunded.`,currentProfile.name);
+      } else if(activeTrade.stage!=='pending_parent'){
+        // Notify recipient that trade was cancelled (no refund needed — they hadn't paid)
+        await writeNotification(activeTrade.recipientId,currentFamily.id,'trade_declined',`Your trade with ${activeTrade.initiatorName} was cancelled because they completed the chore.`,currentProfile.name);
+      }
+      await audit('TRADE_CANCELLED_CHORE_DONE',currentProfile.name,`${activeTrade.model}: ${activeTrade.initiatorChoreName}`);
+    }
     await updateChoreLogStatus(entryId,{status:'done_unconfirmed',completedAt:nowISO()});
     await renderChildChores();
   }catch(e){alert('Could not update: '+e.message);}
