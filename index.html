@@ -1956,8 +1956,7 @@ async function handleSaveScheme(existingId){
   const schemeName=(document.getElementById('scheme-name')||{}).value||'';
   const milestoneRows=document.querySelectorAll('.streak-milestone-row');
   const milestones=[].slice.call(milestoneRows).map(function(row){return{n:parseInt((row.querySelector('.streak-weeks-input')||{}).value)||0,rewardId:(row.querySelector('.streak-reward-sel')||{}).value||''};}).filter(function(m){return m.n>0&&m.rewardId;});
-  const taskBonusSels=document.querySelectorAll('.task-bonus-sel');
-  const taskBonuses=[].slice.call(taskBonusSels).filter(sel=>sel.value).map(sel=>({choreId:sel.dataset.choreid,profileId:sel.dataset.profileid,rewardId:sel.value}));
+  const taskBonuses=Object.values(window._taskBonusSelections||{}).filter(b=>b.rewardId);
   const globalRules={};if(schemeName)globalRules.schemeName=schemeName;
   if(pwRewardId)globalRules.perfectWeek={rewardId:pwRewardId};
   if(thrRewardId)globalRules.threshold={pct:thrPct,rewardId:thrRewardId};
@@ -1999,6 +1998,13 @@ function renderRewards(){if(!currentFamily||!currentProfile)return;backFn=routeT
 function renderRewardCatalog(){if(!currentFamily||!currentProfile)return;backFn=renderRewards;document.getElementById('reward-catalog-content').innerHTML=buildRewardCatalogScreen();setScreen('s-reward-catalog');}
 function getTemplates(fid){return allRewardSchemes.filter(s=>s.familyId===fid&&s.status==='template');}
 
+function updateTaskBonusSelection(choreId,profileId,rewardId){
+  if(!window._taskBonusSelections)window._taskBonusSelections={};
+  var key=choreId+'|'+profileId;
+  if(rewardId){window._taskBonusSelections[key]={choreId,profileId,rewardId};}
+  else{delete window._taskBonusSelections[key];}
+}
+
 function selectTaskBonusChild(idx){
   window._taskBonusChildIdx=idx;
   rebuildTaskBonusSection();
@@ -2015,11 +2021,12 @@ function buildTaskBonusContent(){
   const ym=getCurrentYearMonth();
   if(!children.length)return'<p style="font-size:12px;color:var(--t2)">No children in this family yet.</p>';
   if(typeof window._taskBonusChildIdx==='undefined'||window._taskBonusChildIdx>=children.length)window._taskBonusChildIdx=0;
+  if(!window._taskBonusSelections)window._taskBonusSelections={};
   const idx=window._taskBonusChildIdx;
   const catalogEntries=allRewardCatalog.filter(e=>e.familyId===currentFamily.id&&e.status==='active');
   const opts=catalogEntries.map(e=>'<option value="'+e.id+'">'+e.label+'</option>').join('');
   const FREQ_ORDER=['daily','weekly','biweekly','monthly'];
-  const FREQ_LABEL={daily:'Daily',weekly:'Weekly',biweekly:'Bi-weekly',monthly:'Monthly'};
+  const FREQ_LABEL={daily:'\uD83D\uDCC6 DAILY',weekly:'\uD83D\uDCC6 WEEKLY',biweekly:'\uD83D\uDCC6 BI-WEEKLY',monthly:'\uD83D\uDCC6 MONTHLY'};
   // Child selector tiles
   let tilesHtml='<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px">';
   children.forEach(function(c,i){
@@ -2036,51 +2043,102 @@ function buildTaskBonusContent(){
   const seen={};
   allChoreLog.filter(e=>e.profileId===c.profileId&&e.familyId===currentFamily.id&&e.weekStart&&e.weekStart.startsWith(ym)&&e.isAdHoc!=='true').forEach(function(e){if(e.choreId&&!seen[e.choreId])seen[e.choreId]={id:e.choreId,name:e.choreName,type:e.choreType||'weekly'};});
   const choreEntries=Object.values(seen);
-  let choreHtml='<div style="background:#F9F8F6;border:.5px solid var(--border);border-radius:10px;overflow:hidden"><div style="padding:8px 12px;display:flex;align-items:center;gap:8px;border-bottom:.5px solid var(--border)"><div class="av" style="width:24px;height:24px;font-size:9px;background:'+col+'">'+avText(c.profileName)+'</div><span style="font-size:12px;font-weight:600;color:'+col+'">'+c.profileName+'</span></div><div style="padding:8px 12px">';
+  let choreHtml='<div style="background:#F9F8F6;border:.5px solid var(--border);border-radius:10px;overflow:hidden">'
+    +'<div style="padding:8px 12px;display:flex;align-items:center;gap:8px;border-bottom:.5px solid var(--border)">'
+    +'<div class="av" style="width:24px;height:24px;font-size:9px;background:'+col+'">'+avText(c.profileName)+'</div>'
+    +'<span style="font-size:12px;font-weight:600;color:'+col+'">'+c.profileName+'</span>'
+    +'</div><div style="padding:8px 12px">';
   if(!choreEntries.length){choreHtml+='<p style="font-size:11px;color:var(--t2);padding:4px 0">No regular chores this month</p>';}
   else{
     FREQ_ORDER.forEach(function(freq){
       const freqChores=choreEntries.filter(function(ch){return ch.type===freq;});
       if(!freqChores.length)return;
-      choreHtml+='<p style="font-size:9px;font-weight:700;letter-spacing:0.3px;text-transform:uppercase;color:var(--t3);margin:8px 0 5px">'+FREQ_LABEL[freq]+'</p>';
+      choreHtml+='<p style="font-size:10px;font-weight:700;letter-spacing:0.5px;color:var(--t3);margin:10px 0 6px;padding-top:8px;border-top:.5px solid var(--border)">'+FREQ_LABEL[freq]+'</p>';
       freqChores.forEach(function(ch){
-        choreHtml+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:11px"><span style="flex:1;color:var(--text)">'+ch.name+'</span><select data-choreid="'+ch.id+'" data-profileid="'+c.profileId+'" class="task-bonus-sel" style="font-size:11px;flex:1;border:1px solid var(--border);border-radius:6px;padding:3px 6px;background:var(--surface)"><option value="">— none —</option>'+opts+'</select></div>';
+        const selKey=ch.id+'|'+c.profileId;
+        const selVal=(window._taskBonusSelections[selKey]&&window._taskBonusSelections[selKey].rewardId)||'';
+        choreHtml+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:11px">'
+          +'<span style="flex:1;color:var(--text)">'+ch.name+'</span>'
+          +'<select data-choreid="'+ch.id+'" data-profileid="'+c.profileId+'" class="task-bonus-sel"'
+          +' onchange="updateTaskBonusSelection(\''+ch.id+'\',\''+c.profileId+'\',this.value)"'
+          +' style="font-size:11px;flex:1;border:1px solid var(--border);border-radius:6px;padding:3px 6px;background:var(--surface)">'
+          +'<option value="">— none —</option>'+opts+'</select></div>';
       });
     });
+    // Set select values after render
+    setTimeout(function(){
+      FREQ_ORDER.forEach(function(freq){
+        var freqChores=choreEntries.filter(function(ch){return ch.type===freq;});
+        freqChores.forEach(function(ch){
+          var key=ch.id+'|'+c.profileId;
+          var stored=window._taskBonusSelections[key];
+          if(stored&&stored.rewardId){
+            var sel=document.querySelector('.task-bonus-sel[data-choreid="'+ch.id+'"][data-profileid="'+c.profileId+'"]');
+            if(sel)sel.value=stored.rewardId;
+          }
+        });
+      });
+    },20);
   }
   // Ad-hoc read-only section
   const adHocWithReward=allChoreLog.filter(function(e){return e.profileId===c.profileId&&e.familyId===currentFamily.id&&e.isAdHoc==='true'&&e.adHocRewardId&&e.status==='pending';});
   if(adHocWithReward.length){
-    choreHtml+='<p style="font-size:9px;font-weight:700;letter-spacing:0.3px;text-transform:uppercase;color:#C47F17;margin:10px 0 5px">Ad-hoc (parent assigned)</p>';
+    choreHtml+='<p style="font-size:10px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:#C47F17;margin:10px 0 5px">AD-HOC (PARENT ASSIGNED)</p>';
     adHocWithReward.forEach(function(e){
       const ce=getRewardCatalogEntry(e.adHocRewardId);
-      choreHtml+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;font-size:11px"><span style="flex:1;color:#633806">'+e.choreName+'</span><span style="font-size:10px;font-weight:600;color:#085041;background:#E1F5EE;padding:2px 7px;border-radius:5px">'+(ce?ce.label:'Reward')+'</span></div>';
+      choreHtml+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;font-size:11px">'
+        +'<span style="flex:1;color:#633806">'+e.choreName+'</span>'
+        +'<span style="font-size:10px;font-weight:600;color:#085041;background:#E1F5EE;padding:2px 7px;border-radius:5px">'+(ce?ce.label:'Reward')+'</span>'
+        +'</div>';
     });
-    choreHtml+='<div style="text-align:right;margin-top:4px"><button onclick="renderRewards()" style="font-size:10px;font-weight:600;color:#6C63E0;background:transparent;border:none;cursor:pointer;font-family:var(--font)">Manage in Rewards →</button></div>';
+    choreHtml+='<div style="text-align:right;margin-top:4px"><button onclick="renderRewards()" style="font-size:10px;font-weight:600;color:#6C63E0;background:transparent;border:none;cursor:pointer;font-family:var(--font)">Manage in Rewards \u2192</button></div>';
   }
   choreHtml+='</div></div>';
   return tilesHtml+choreHtml;
 }
 
+
+function showSaveTemplateModal(){
+  const scheme=allRewardSchemes.find(s=>s.status==='active'&&s.familyId===currentFamily.id);
+  if(!scheme){showToast('No active scheme to save as template');return;}
+  const defName=(scheme.globalRules&&scheme.globalRules.schemeName)||'';
+  const ex=document.getElementById('save-template-overlay');if(ex)ex.remove();
+  const o=document.createElement('div');o.id='save-template-overlay';o.className='rename-modal-overlay';
+  o.innerHTML='<div class="rename-modal">'
+    +'<p class="rename-modal-title">Save as template</p>'
+    +'<p class="rename-modal-sub">Saves this scheme\'s rules to your library for reuse next cycle.</p>'
+    +'<label class="lbl">Template name</label>'
+    +'<input id="save-template-name" class="input" placeholder="e.g. Standard May Rules" value="'+defName+'" style="margin-bottom:1rem">'
+    +'<p class="err-txt" id="save-template-err"></p>'
+    +'<button class="rename-save-btn" onclick="showSaveTemplateModal()">Save template</button>'
+    +'<button class="rename-cancel-btn" onclick="document.getElementById(\'save-template-overlay\').remove()">Cancel</button>'
+    +'</div>';
+  document.body.appendChild(o);
+  setTimeout(function(){var inp=document.getElementById('save-template-name');if(inp){inp.focus();inp.select();}},50);
+}
+
 async function handleSaveAsTemplate(){
   const scheme=allRewardSchemes.find(s=>s.status==='active'&&s.familyId===currentFamily.id);
-  if(!scheme){showToast('No active scheme to save');return;}
-  const defName=(scheme.globalRules&&scheme.globalRules.schemeName)?scheme.globalRules.schemeName:'';
-  const name=prompt('Template name:',defName||'My template');
-  if(!name||!name.trim())return;
+  if(!scheme)return;
+  const nameEl=document.getElementById('save-template-name');
+  const name=nameEl?nameEl.value.trim():'';
+  const errEl=document.getElementById('save-template-err');
+  if(!name){if(errEl)errEl.textContent='Please enter a template name';return;}
   const template={
     id:uid(),familyId:currentFamily.id,cycleType:scheme.cycleType,
     cycleStart:'',cycleEnd:'',status:'template',autoRenew:'false',
-    globalRules:{...scheme.globalRules,schemeName:name.trim()},
+    globalRules:Object.assign({},scheme.globalRules,{schemeName:name}),
     taskBonuses:JSON.parse(JSON.stringify(scheme.taskBonuses||[])),
     createdBy:currentProfile.name,createdAt:nowISO(),
     confirmedBy:'',confirmedAt:'',notificationSent:'false'
   };
+  const overlay=document.getElementById('save-template-overlay');if(overlay)overlay.remove();
   setLoading('Saving template...');
   try{
     await saveRewardScheme(template);
-    showToast('Template saved',name.trim()+' added to your scheme library');
-  }catch(e){showErr(e.message);}
+    setLoading('');
+    showToast('Template saved',name+' added to your scheme library');
+  }catch(e){setLoading('');showErr(e.message);}
 }
 
 function renderRewardScheme(schemeId){if(!currentFamily||!currentProfile)return;backFn=renderRewards;document.getElementById('reward-scheme-content').innerHTML=buildRewardSchemeScreen(schemeId);setScreen('s-reward-scheme');}
@@ -2132,7 +2190,7 @@ function buildParentRewardsScreen(){
   const fid=currentFamily.id;const scheme=getActiveScheme(fid);const offlineAwards=getPendingOfflineAwards(fid);const suggestions=getPendingSuggestions(fid);const children=getFamilyChildren(fid);
   const schemeWinOpen=typeof isSchemeWindowOpen==='function'&&isSchemeWindowOpen(fid);
   let html=buildSchemeWarningBanner(fid);
-  if(scheme){html+='<p class=\"sec-title\">Active scheme</p><div class=\"card mb-md\"><div class=\"card-hd\" style=\"display:flex;align-items:center;justify-content:space-between;padding:0.75rem 1.25rem;border-bottom:0.5px solid var(--border)\"><p style=\"font-size:13px;font-weight:600\">'+(scheme.globalRules&&scheme.globalRules.schemeName?scheme.globalRules.schemeName:scheme.cycleType[0].toUpperCase()+scheme.cycleType.slice(1)+' \u00b7 '+scheme.cycleStart+' \u2013 '+scheme.cycleEnd)+(scheme.globalRules&&scheme.globalRules.schemeName?'</p><p style=\"font-size:11px;color:var(--t2);margin-top:1px\">'+scheme.cycleType[0].toUpperCase()+scheme.cycleType.slice(1)+' \u00b7 '+scheme.cycleStart+' \u2013 '+scheme.cycleEnd+'</p>':'</p>')+(schemeWinOpen?'<button class=\"btn-link\" onclick=\"renderRewardScheme(\''+scheme.id+'\')\" style=\"font-size:11px;color:var(--purple)\">Edit \u2192</button>':'')+'</div><div style=\"padding:0.75rem 1.25rem;font-size:12px;color:var(--t2);line-height:1.8\">'+(scheme.globalRules&&scheme.globalRules.perfectWeek&&scheme.globalRules.perfectWeek.rewardId?'<div>Perfect week \u2192 '+(getRewardCatalogEntry(scheme.globalRules.perfectWeek.rewardId)||{label:'Reward'}).label+'</div>':'')+(scheme.globalRules&&scheme.globalRules.threshold&&scheme.globalRules.threshold.rewardId?'<div>'+scheme.globalRules.threshold.pct+'% threshold \u2192 '+(getRewardCatalogEntry(scheme.globalRules.threshold.rewardId)||{label:'Reward'}).label+'</div>':'')+((scheme.taskBonuses&&scheme.taskBonuses.length)?'<div style=\"margin-top:4px;padding-top:4px;border-top:0.5px solid var(--border)\"><span style=\"font-size:10px;font-weight:600;color:var(--t3)\">Task bonuses: </span>'+scheme.taskBonuses.map(function(b){var ce=getRewardCatalogEntry(b.rewardId);var pf=allProfiles.find(function(p){return p.id===b.profileId;});return(pf?pf.name.split(' ')[0]:'?')+' \u2192 '+(ce?ce.label:'reward');}).join(' \u00b7 ')+'</div>':'')+'</div></div>';} 
+  if(scheme){html+='<p class=\"sec-title\">Active scheme</p><div class=\"card mb-md\"><div class=\"card-hd\" style=\"display:flex;align-items:center;justify-content:space-between;padding:0.75rem 1.25rem;border-bottom:0.5px solid var(--border)\"><p style=\"font-size:13px;font-weight:600\">'+(scheme.globalRules&&scheme.globalRules.schemeName?scheme.globalRules.schemeName:scheme.cycleType[0].toUpperCase()+scheme.cycleType.slice(1)+' \u00b7 '+scheme.cycleStart+' \u2013 '+scheme.cycleEnd)+(scheme.globalRules&&scheme.globalRules.schemeName?'</p><p style=\"font-size:11px;color:var(--t2);margin-top:1px\">'+scheme.cycleType[0].toUpperCase()+scheme.cycleType.slice(1)+' \u00b7 '+scheme.cycleStart+' \u2013 '+scheme.cycleEnd+'</p>':'</p>')+(schemeWinOpen?'<button class=\"btn-link\" onclick=\"renderRewardScheme(\''+scheme.id+'\')\" style=\"font-size:11px;color:var(--purple)\">Edit \u2192</button>':'')+'</div><div style=\"padding:0.75rem 1.25rem;font-size:12px;color:var(--t2);line-height:1.8\">'+(scheme.globalRules&&scheme.globalRules.perfectWeek&&scheme.globalRules.perfectWeek.rewardId?'<div>Perfect week \u2192 '+(getRewardCatalogEntry(scheme.globalRules.perfectWeek.rewardId)||{label:'Reward'}).label+'</div>':'')+(scheme.globalRules&&scheme.globalRules.threshold&&scheme.globalRules.threshold.rewardId?'<div>'+scheme.globalRules.threshold.pct+'% threshold \u2192 '+(getRewardCatalogEntry(scheme.globalRules.threshold.rewardId)||{label:'Reward'}).label+'</div>':'')+((scheme.globalRules&&scheme.globalRules.streakPrimary&&scheme.globalRules.streakPrimary.milestones&&scheme.globalRules.streakPrimary.milestones.length)?'<div>Streak milestones: '+scheme.globalRules.streakPrimary.milestones.map(function(m){var ce=getRewardCatalogEntry(m.rewardId);return m.n+' weeks → '+(ce?ce.label:'reward');}).join(' · ')+'</div>':'')+(scheme.globalRules&&scheme.globalRules.monthlyCompletion&&scheme.globalRules.monthlyCompletion.rewardId?'<div>'+(getRewardCatalogEntry(scheme.globalRules.monthlyCompletion.rewardId)||{label:'Reward'}).label+' at '+scheme.globalRules.monthlyCompletion.pct+'% monthly</div>':'')+((scheme.taskBonuses&&scheme.taskBonuses.length)?'<div style=\"margin-top:4px;padding-top:4px;border-top:0.5px solid var(--border)\"><span style=\"font-size:10px;font-weight:600;color:var(--t3)\">Task bonuses: </span>'+scheme.taskBonuses.map(function(b){var ce=getRewardCatalogEntry(b.rewardId);var pf=allProfiles.find(function(p){return p.id===b.profileId;});return(pf?pf.name.split(' ')[0]:'?')+' → '+(ce?ce.label:'reward');}).join(' · ')+'</div>':'')+'</div></div>';} 
   html+='<p class=\"sec-title\">Children this cycle</p><div class=\"card mb-md\"><div style=\"padding:0 1.25rem\">';for(const c of children){const streak=scheme?allRewardStreaks.find(s=>s.profileId===c.profileId&&s.familyId===fid&&s.schemeId===scheme.id):null;const pr=allProfiles.find(p=>p.id===c.profileId);const wsStr=dateStr(getWeekStartDate(new Date()));const ents=allChoreLog.filter(e=>e.profileId===c.profileId&&e.familyId===fid&&e.weekStart===wsStr&&e.isAdHoc!=='true');const conf=ents.filter(e=>e.status==='confirmed'||e.status==='auto_confirmed').length;const pct=ents.length?Math.round(conf/ents.length*100):0;html+='<div style=\"display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--border)\"><div class=\"av\" style=\"width:30px;height:30px;font-size:11px;background:'+(pr?pr.colour:'#999')+'\">'+avText(c.profileName)+'</div><div style=\"flex:1\"><div style=\"font-size:12px;font-weight:600\">'+c.profileName+'</div><div style=\"font-size:10px;color:var(--t2)\">'+pct+'% \u00b7 \uD83D\uDD25 '+(streak?streak.primaryCount:0)+' weeks</div></div><div style=\"width:60px\"><div style=\"height:5px;border-radius:3px;background:var(--border)\"><div style=\"height:100%;border-radius:3px;background:'+(pct>=80?'#1D9E75':pct>=50?'#C47F17':'#E24B4A')+';width:'+pct+'%\"></div></div></div></div>';}html+='</div></div>';
   if(offlineAwards.length){html+='<p class=\"sec-title\">Issue pending rewards <span style=\"background:#FAEEDA;color:#633806;font-size:10px;font-weight:700;padding:1px 7px;border-radius:8px;margin-left:6px\">'+offlineAwards.length+'</span></p><div class=\"card mb-md\"><div style=\"padding:0 1.25rem\">';for(const a of offlineAwards){html+='<div style=\"display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--border);font-size:12px\"><div style=\"flex:1\"><div style=\"font-weight:600\">'+a.profileName+' \u00b7 '+a.rewardLabel+'</div><div style=\"font-size:10px;color:var(--t2)\">'+(TRIGGER_LABELS[a.triggerType]||a.triggerType)+'</div></div><button onclick=\"handleMarkRewardIssued(\''+a.id+'\')\" style=\"background:#FAEEDA;color:#633806;border:none;font-size:12px;font-weight:600;padding:6px 11px;border-radius:8px;cursor:pointer;font-family:var(--font)\">Mark issued</button></div>';}html+='</div></div>';}
   // Earned this cycle — per-child selector
@@ -2195,6 +2253,8 @@ function buildRewardSchemeScreen(schemeId){
   window.__streakOpts=opts;
   const rules=(scheme&&scheme.globalRules)||{};
   window._taskBonusChildIdx=0;
+  window._taskBonusSelections={};
+  if(scheme&&scheme.taskBonuses){scheme.taskBonuses.forEach(function(b){if(b.rewardId)window._taskBonusSelections[b.choreId+'|'+b.profileId]={choreId:b.choreId,profileId:b.profileId,rewardId:b.rewardId};});}
   let html='<div class="card mb-md"><div style="padding:1rem 1.25rem">'
     +'<p style="font-size:12px;font-weight:700;color:var(--t2);margin-bottom:10px">'+ym+'-01 to end of month</p>'
     +'<label style="font-size:12px;color:var(--t2)">Scheme name <span style="color:var(--t3)">(optional)</span></label>'
@@ -2212,9 +2272,10 @@ function buildRewardSchemeScreen(schemeId){
     +'<div style="margin-bottom:12px"><label style="font-size:12px;color:var(--t2)">Qualifying %</label><input id="monthly-pct" type="number" min="1" max="100" placeholder="95" value="'+(rules.monthlyCompletion?rules.monthlyCompletion.pct:95)+'" style="width:100%;margin-top:4px;font-size:12px"></div>'
     +'<div style="margin-bottom:14px"><label style="font-size:12px;color:var(--t2)">Reward</label><select id="monthly-reward" style="width:100%;margin-top:4px;font-size:12px"><option value="">— none —</option>'+opts+'</select></div>'
     +'<div class="divider mt-md"></div>'
-    +'<p class="sec-title mt-md">Task bonuses</p>'
     +'</div></div>'
-    +'<div id="task-bonus-section" style="margin-bottom:12px">'+buildTaskBonusContent()+'</div>'
+    +'<div class="card mb-md" style="padding:0.75rem 1.25rem"><p class="sec-title" style="margin-bottom:10px">Task bonuses</p>'
+    +'<div id="task-bonus-section">'+buildTaskBonusContent()+'</div>'
+    +'</div>'
     +'<button class="btn btn-primary" onclick="handleSaveScheme(\''+( scheme?scheme.id:'')+'\')" style="width:100%;font-size:13px">'+(scheme?'Save changes':'Create &amp; confirm scheme')+'</button>';
   if(isActiveScheme){
     html+='<button onclick="handleSaveAsTemplate()" style="width:100%;margin-top:8px;padding:10px;background:transparent;color:var(--t2);border:1.5px solid var(--border);border-radius:var(--rsm);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font)">Save as template</button>';
