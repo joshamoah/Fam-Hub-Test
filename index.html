@@ -631,13 +631,13 @@ input::placeholder{color:var(--t3);font-weight:400;}input:focus{border-color:var
 const ENV=window.location.pathname.includes('/Fam-Hub-Test')?'test':'live';
 if(ENV==='test'){const b=document.getElementById('test-env-banner');b.style.display='block';document.documentElement.style.setProperty('--test-offset',b.getBoundingClientRect().height+'px');}
 const SHEET_ID=ENV==='live'?'1xN9ObG7zfokCElNT6uQ1fwXBhtU9r0ZSU3LTDMrOpPA':'1waBsfGZb5maCmgcZUC2F2a4dbh6LyktKMTofQXkjHtI';
-const BUILD_VERSION='v5.4';
+const BUILD_VERSION='v5.5';
 const BUILD_DATE='May 2026';
 const CLIENT_EMAIL='amoah-hub-bot@amoah-hub.iam.gserviceaccount.com';
 const PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDUbYK19dfmb2jU\nBnH5qvOGTfvzNNGPVV0fSBp2/N6RHAT1esashzvnLa3VMJRIdIJUB92OtvhsRnH1\nOwl8HC321jubSvdZP25MgbN5rqP8ix4KWCqgAfVupyGaoSvE3cslelJOYNT9ELo2\nsGNBcUeGCkka+1gpZCRdiFoauF5nov11iV9ZISHzHhl2x1ZhZRmPHFwv9IiiJWhS\nh/IjEwczFU7ZhPBRKWn1mSQ82eu9NvYmO6XwswFXTVR0fSGetsu5I64Vn7WA8P0g\nUlvKanOgn7S3vdz+PMN9xNX14DxUTgUyHcj+48tavgbf33sA5CclDP3/JAdKqoxB\nKeqLvp39AgMBAAECggEAErmoiQOnyW9OrUn4KArytocPS4v/YQQkVkqT0qNNtzri\nEQWGl9S/6gvzw9Qpbg2fI2siE597XIgFKZnPpzoQry6JSJIeJabawTG5sWM8n1lg\nB4doEny5tsxSwP+uDQeEDcSvlqsge0JLN+Dqju0+YclsUk2Pou5p6jjHwI05/SaO\nyKoKxW3z+8TpgVOsj2mp7qZhP3oMf/c4/jpKBKl+Ucs8hcxlIiMuLN6+r2Vn0Hab\nt32CHJ1DtJENKZQUkDVCWlMJxkwRWywUU16DL+bOD2vtIqTJvE9L9x9RVKLZ254m\nWqhB4Lj2dYt4TWfgqYNRup7oY9zf9oTzXTKQfcHXPQKBgQD1VI6fAndzSzgr4U9f\nt8vLXP/6fylyvwQX8c7UUvyNZ3RtpKBegNL6fHMUCdsYx5Zq+tuaXjVKPPkHdGem\ne8mm9qm6lckIVAb4a4BJyJZ0U8Qzr4jG9yhaKM82vYKk9Hc5W5oWn2kmFgnTsB7V\na7YZVRs7r9Y6c0B8nIisViltnwKBgQDdqqAcUBKCk3lkSiCgVey7l56fvG9ExTsP\n4anRPbJ17WpFcUvHdD1tviYJ5oGKPx/v+ogT/IRZHv42G0ggDyBBtwav3KNrwgKi\nfMVfOj1geFRpTIrcSFoxemRXenk4nGpcqd0Nv6WT1KNHZilmuomBsfXKhJn7qd0a\nwl4TyXFW4wKBgB/Ou8MP/c679Odzief+G3UddK7Up9oRvAUiu885hzcKL8U7b/Nw\nvmntkroJYRfAYNcz+R71kfEzIJJ/3CRwrj9wgacIXo0u38x7m6F1WVRxu+F7o78w\nMlImMl+FiJe8fmy4XK0MNATVHKcOkaDYGz8DkslVTfA8GyNM5Ed70Fk/AoGBAMqy\n0VCypAqFgtcDtgwIJr9wKVxWesU/OgAO0jQFoCCYZrpznOEZ2WZ2H+CjyUc67CCN\nT0w/eGLqpXmivvSaAFw3WsUMFOBf+/rL78xhvGhwAHh9xukivF9MVV9tHlZ3Kgfs\nSLjezDF/m4OZ1zgaUc2oh2OWmBx6uzZSEKc1aRATAoGBAMnhM+oxFCRtX6K4wEqM\nx2fkzcAKHzHocKqBy/aPNwrjrWg1+dfB0Q3WIZpbNZJU7Uf6Zd1fj+nYqPz3H8WL\ngnGNfL1OA3WeuMXnclCJ2gEqmnKmAiTOX4n3y3pMtAYPN18ymABFud02U9ImzGmi\nlG6BXI2nK1bBZmGaznK8zhDw\n-----END PRIVATE KEY-----\n";
 const SYSTEM_KEY=ENV==='live'?'FAMILYHUB2026':'FAMILYHUB_TEST';
 const SH={FAMILIES:'Families',PROFILES:'Profiles',PF:'ProfileFamilies',JR:'JoinRequests',RESETS:'PinResets',CHORES:'Chores',ZONES:'Zones',ZONE_CHORES:'ZoneChores',ZONE_ASSIGNMENTS:'ZoneAssignments',WEEKLY_SUMMARIES:'WeeklySummaries',MONTH_STATUS:'MonthStatus',MONTHLY_REPORTS:'MonthlyReports',NOTIFICATIONS:'Notifications',TOKEN_LEDGER:'TokenLedger',CZM:'ChoreZoneMap',PZM:'PersonZoneMap',CL:'ChoreLog',TR:'TradeRequests',TOKENS:'Tokens',AUDIT:'AuditLog',REWARD_CATALOG:'RewardCatalog',REWARD_SCHEMES:'RewardSchemes',REWARD_AWARDS:'RewardAwards',REWARD_STREAKS:'RewardStreaks',REWARD_SUGGESTIONS:'RewardSuggestions'};
-const HEADERS={Families:['id','name','code','status','createdBy','createdAt'],Profiles:['id','name','username','pin','colour','isSuperAdmin','isTemp','createdAt'],ProfileFamilies:['id','profileId','profileName','familyId','role','joinedAt'],JoinRequests:['id','profileId','profileName','familyId','requestedRole','status','createdAt','expiresAt','decidedBy','decidedAt'],PinResets:['id','profileId','profileName','familyId','status','tempPin','requestedAt','resolvedAt','resolvedBy'],Chores:['id','familyId','name','description','type','category','createdBy','createdAt','archived'],Zones:['id','familyId','name','createdBy','createdAt','archived'],ZoneChores:['id','familyId','zoneId','choreId','choreName','choreType','addedBy','addedAt'],ZoneAssignments:['yearMonth','familyId','zoneId','profileId','profileName','isOverride','overriddenBy','overriddenAt'],ChoreZoneMap:['yearMonth','familyId','choreId','zone','isOverride'],PersonZoneMap:['yearMonth','familyId','personName','zone','isOverride'],ChoreLog:['id','familyId','choreId','choreName','profileId','profileName','choreType','zoneId','scheduleKey','weekStart','scheduledDate','status','completedAt','confirmedAt','confirmedBy','autoConfirmed','isAdHoc','assignedBy','queryNote'],WeeklySummaries:['id','familyId','weekStart','weekEnd','generatedAt','summaryJson'],MonthStatus:['familyId','yearMonth','status','closedAt','closedBy','autoClose','rotationAt','rotationBy','notificationSent'],MonthlyReports:['id','familyId','yearMonth','generatedAt','reportJson'],Notifications:['id','profileId','familyId','type','message','createdAt','createdBy','read','readAt'],TradeRequests:['id','familyId','model','initiatorId','initiatorName','recipientId','recipientName','initiatorChoreLogId','initiatorChoreName','recipientChoreLogId','recipientChoreName','stage','parentDecision','createdAt','updatedAt','monthYear'],Tokens:['id','familyId','profileId','profileName','monthlyBalance','carriedBalance','bonusBalance','quarter','lastMonthIssue','lastUpdated'],TokenLedger:['id','familyId','profileId','profileName','type','amount','source','description','relatedId','createdAt','createdBy'],AuditLog:['id','familyId','action','performedBy','targetProfile','detail','timestamp']};
+const HEADERS={Families:['id','name','code','status','createdBy','createdAt'],Profiles:['id','name','username','pin','colour','isSuperAdmin','isTemp','createdAt'],ProfileFamilies:['id','profileId','profileName','familyId','role','joinedAt'],JoinRequests:['id','profileId','profileName','familyId','requestedRole','status','createdAt','expiresAt','decidedBy','decidedAt'],PinResets:['id','profileId','profileName','familyId','status','tempPin','requestedAt','resolvedAt','resolvedBy'],Chores:['id','familyId','name','description','type','category','createdBy','createdAt','archived'],Zones:['id','familyId','name','createdBy','createdAt','archived'],ZoneChores:['id','familyId','zoneId','choreId','choreName','choreType','addedBy','addedAt'],ZoneAssignments:['yearMonth','familyId','zoneId','profileId','profileName','isOverride','overriddenBy','overriddenAt'],ChoreZoneMap:['yearMonth','familyId','choreId','zone','isOverride'],PersonZoneMap:['yearMonth','familyId','personName','zone','isOverride'],ChoreLog:['id','familyId','choreId','choreName','profileId','profileName','choreType','zoneId','scheduleKey','weekStart','scheduledDate','status','completedAt','confirmedAt','confirmedBy','autoConfirmed','isAdHoc','assignedBy','queryNote','adHocRewardId'],WeeklySummaries:['id','familyId','weekStart','weekEnd','generatedAt','summaryJson'],MonthStatus:['familyId','yearMonth','status','closedAt','closedBy','autoClose','rotationAt','rotationBy','notificationSent'],MonthlyReports:['id','familyId','yearMonth','generatedAt','reportJson'],Notifications:['id','profileId','familyId','type','message','createdAt','createdBy','read','readAt'],TradeRequests:['id','familyId','model','initiatorId','initiatorName','recipientId','recipientName','initiatorChoreLogId','initiatorChoreName','recipientChoreLogId','recipientChoreName','stage','parentDecision','createdAt','updatedAt','monthYear'],Tokens:['id','familyId','profileId','profileName','monthlyBalance','carriedBalance','bonusBalance','quarter','lastMonthIssue','lastUpdated'],TokenLedger:['id','familyId','profileId','profileName','type','amount','source','description','relatedId','createdAt','createdBy'],AuditLog:['id','familyId','action','performedBy','targetProfile','detail','timestamp']};
 const COLORS=['#6C63E0','#1D9E75','#D85A30','#2A8DD6','#C0435E','#C47F17','#3E8B4F','#9B59B6'];
 const ROLE_BADGE={superadmin:'b-sa',admin:'b-admin',parent:'b-parent',child:'b-child'};
 const ROLE_LABEL={superadmin:'Super Admin',admin:'Admin',parent:'Parent',child:'Child'};
@@ -1059,6 +1059,14 @@ function renderTradeConfirm(){
     ?`<strong>${tradeInitChoreName}</strong> ↔ <strong>${tradeRecipientChoreName}</strong> with ${tradeRecipientName}`
     :`<strong>${tradeInitChoreName}</strong> → ${tradeRecipientName}`;
   const cost=tradeModel==='swap'?`1 token from you (1 from ${tradeRecipientName} if they accept)`:'1 token from you only';
+  // Check for task bonus forfeit
+  const initEntry=allChoreLog.find(e=>e.id===tradeInitChoreLogId);
+  const activeScheme=getActiveScheme(currentFamily.id);
+  const forfeitBonus=initEntry&&activeScheme?(activeScheme.taskBonuses||[]).find(b=>b.choreId===initEntry.choreId&&b.profileId===currentProfile.id):null;
+  const forfeitReward=forfeitBonus?getRewardCatalogEntry(forfeitBonus.rewardId):null;
+  const forfeitHtml=forfeitReward
+    ?`<div style="background:#FAEEDA;border:1px solid rgba(196,127,23,0.3);border-radius:var(--rmd);padding:0.75rem;margin-top:10px;font-size:12px;color:#633806"><strong>⚠ Task bonus forfeited:</strong> A <strong>${forfeitReward.label}</strong> bonus is assigned to ${tradeInitChoreName}. Trading this chore means you forfeit that reward for this cycle.</div>`
+    :'';
   document.getElementById('trade-step-content').innerHTML=`
     <div class="card" style="margin-bottom:1.25rem">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><span class="trade-badge-${tradeModel}">${tradeModel.toUpperCase()}</span></div>
@@ -1067,6 +1075,7 @@ function renderTradeConfirm(){
         <div style="color:var(--t2)">Cost: <strong style="color:var(--text)">${cost}</strong></div>
         <div style="color:var(--t2);margin-top:4px">Your balance: <strong style="color:var(--text)">${bal} token${bal!==1?'s':''}</strong></div>
       </div>
+      ${forfeitHtml}
     </div>
     <button class="btn btn-dark" onclick="submitTrade()">Propose trade (−1 token)</button>
     <button class="btn btn-outline" onclick="renderMod3Child()" style="margin-top:8px;color:var(--t2);border-color:var(--border)">Cancel — back to trades</button>`;
@@ -1263,7 +1272,7 @@ async function handleRejectTrade(tradeId){
 }
 
 async function updateChoreLogProfile(choreLogId,newProfileId,newProfileName){
-  await updateSheetRow(SH.CL,19,choreLogId,r=>{r[4]=newProfileId;r[5]=newProfileName;});
+  await updateSheetRow(SH.CL,20,choreLogId,r=>{r[4]=newProfileId;r[5]=newProfileName;});
   const entry=allChoreLog.find(e=>e.id===choreLogId);
   if(entry){entry.profileId=newProfileId;entry.profileName=newProfileName;}
 }
@@ -1893,7 +1902,7 @@ async function saveRewardAward(a){await sAppend(`${SH.REWARD_AWARDS}!A:O`,[[a.id
 async function saveRewardStreak(sk){const ex=allRewardStreaks.find(s=>s.profileId===sk.profileId&&s.familyId===sk.familyId&&s.schemeId===sk.schemeId);if(ex){await updateSheetRow(SH.REWARD_STREAKS,11,sk.id,r=>{r[4]=String(sk.primaryCount);r[5]=String(sk.secondaryCount);r[6]=String(sk.primaryBest);r[7]=String(sk.secondaryBest);r[8]=sk.lastQualifyingPrimary||'';r[9]=sk.lastQualifyingSecondary||'';r[10]=nowISO();});Object.assign(ex,sk);}else{await sAppend(`${SH.REWARD_STREAKS}!A:K`,[[sk.id,sk.familyId,sk.profileId,sk.schemeId,String(sk.primaryCount),String(sk.secondaryCount),String(sk.primaryBest),String(sk.secondaryBest),sk.lastQualifyingPrimary||'',sk.lastQualifyingSecondary||'',nowISO()]]);allRewardStreaks.push({...sk});}}
 async function saveRewardSuggestion(sg){await sAppend(`${SH.REWARD_SUGGESTIONS}!A:L`,[[sg.id,sg.familyId,sg.profileId,sg.profileName,sg.type,sg.label,sg.value,sg.status,sg.suggestedAt,sg.expiresAt,sg.decidedBy||'',sg.decidedAt||'']]);allRewardSuggestions.push({...sg});}
 
-const TRIGGER_LABELS={perfect_week:'a perfect week',threshold:'hitting the weekly target',streak_primary:'a streak milestone',streak_secondary:'a streak milestone',task_bonus:'completing a bonus task'};
+const TRIGGER_LABELS={perfect_week:'a perfect week',threshold:'hitting the weekly target',streak_primary:'a streak milestone',streak_secondary:'a streak milestone',task_bonus:'completing a bonus task',monthly_completion:'completing the monthly target'};
 async function writeRewardNotification(pid,fid,award){await writeNotification(pid,fid,'reward_earned','You earned '+award.rewardLabel+' for '+( TRIGGER_LABELS[award.triggerType]||award.triggerType)+'! \uD83C\uDFC6','system');}
 async function writeParentRewardNotification(fid,award){const parents=allPF.filter(pf=>pf.familyId===fid&&(pf.role==='admin'||pf.role==='parent'));for(const pf of parents){await writeNotification(pf.profileId,fid,'reward_earned_parent',award.profileName+' earned '+award.rewardLabel+' for '+(TRIGGER_LABELS[award.triggerType]||award.triggerType),'system');if(award.rewardType!=='tokens')await writeNotification(pf.profileId,fid,'reward_offline_action','Action needed: issue '+award.rewardLabel+' to '+award.profileName,award.id);}}
 async function writeIssuedNotification(pid,fid,award,byName){await writeNotification(pid,fid,'reward_issued','Your '+award.rewardLabel+' has been issued by '+byName+' \u2713','system');}
@@ -2339,7 +2348,7 @@ async function submitZoneAssignments(){
 // ═══════════════════════════════════════════════════════════════════════════════
 
 // ─── ROW MAPPERS ──────────────────────────────────────────────────────────────
-const toChoreLog=r=>({id:r[0],familyId:r[1],choreId:r[2]||'',choreName:r[3]||'',profileId:r[4]||'',profileName:r[5]||'',choreType:r[6]||'',zoneId:r[7]||'',scheduleKey:r[8]||'',weekStart:r[9]||'',scheduledDate:r[10]||'',status:r[11]||'pending',completedAt:r[12]||'',confirmedAt:r[13]||'',confirmedBy:r[14]||'',autoConfirmed:r[15]||'false',isAdHoc:r[16]||'false',assignedBy:r[17]||'',queryNote:r[18]||''});
+const toChoreLog=r=>({id:r[0],familyId:r[1],choreId:r[2]||'',choreName:r[3]||'',profileId:r[4]||'',profileName:r[5]||'',choreType:r[6]||'',zoneId:r[7]||'',scheduleKey:r[8]||'',weekStart:r[9]||'',scheduledDate:r[10]||'',status:r[11]||'pending',completedAt:r[12]||'',confirmedAt:r[13]||'',confirmedBy:r[14]||'',autoConfirmed:r[15]||'false',isAdHoc:r[16]||'false',assignedBy:r[17]||'',queryNote:r[18]||'',adHocRewardId:r[19]||''});
 const toWeeklySummary=r=>({id:r[0],familyId:r[1],weekStart:r[2]||'',weekEnd:r[3]||'',generatedAt:r[4]||'',summaryJson:r[5]||'{}'});
 
 // ─── DATE UTILITIES ───────────────────────────────────────────────────────────
@@ -2365,10 +2374,10 @@ function getPrevWeekRange(){const today=new Date();const ws=getWeekStartDate(tod
 
 // ─── CHORELOG OPERATIONS ──────────────────────────────────────────────────────
 async function saveChoreLogEntry(entry){
-  await sAppend(`${SH.CL}!A:T`,[[entry.id,entry.familyId,entry.choreId,entry.choreName,entry.profileId,entry.profileName,entry.choreType,entry.zoneId,entry.scheduleKey,entry.weekStart,entry.scheduledDate,entry.status,entry.completedAt,entry.confirmedAt,entry.confirmedBy,entry.autoConfirmed,entry.isAdHoc,entry.assignedBy,entry.queryNote]]);
+  await sAppend(`${SH.CL}!A:T`,[[entry.id,entry.familyId,entry.choreId,entry.choreName,entry.profileId,entry.profileName,entry.choreType,entry.zoneId,entry.scheduleKey,entry.weekStart,entry.scheduledDate,entry.status,entry.completedAt,entry.confirmedAt,entry.confirmedBy,entry.autoConfirmed,entry.isAdHoc,entry.assignedBy,entry.queryNote,entry.adHocRewardId||'']]);
 }
 async function updateChoreLogStatus(entryId,updates){
-  await updateSheetRow(SH.CL,19,entryId,r=>{
+  await updateSheetRow(SH.CL,20,entryId,r=>{
     if(updates.status!==undefined)r[11]=updates.status;
     if(updates.completedAt!==undefined)r[12]=updates.completedAt;
     if(updates.confirmedAt!==undefined)r[13]=updates.confirmedAt;
@@ -2842,7 +2851,13 @@ async function handleConfirmChore(entryId){
   try{
     await updateChoreLogStatus(entryId,{status:'confirmed',confirmedAt:nowISO(),confirmedBy:currentProfile.name});
     const ce=allChoreLog.find(e=>e.id===entryId);
-    if(ce)evaluateTaskBonus(ce.profileId,ce.profileName,currentFamily.id,entryId).catch(e=>console.error('Task bonus:',e));
+    if(ce){
+      evaluateTaskBonus(ce.profileId,ce.profileName,currentFamily.id,entryId).catch(e=>console.error('Task bonus:',e));
+      // Grant ad-hoc reward if one was assigned
+      if(ce.adHocRewardId){
+        grantReward(ce.profileId,ce.profileName,currentFamily.id,ce.adHocRewardId,'task_bonus',{choreLogId:entryId,choreId:'adhoc',choreName:ce.choreName},getActiveScheme(currentFamily.id)?.id||'adhoc').catch(e=>console.error('Ad-hoc reward:',e));
+      }
+    }
     renderAdminOrParentDashboard();
   }catch(e){alert('Could not confirm: '+e.message);}
 }
@@ -3026,6 +3041,13 @@ function selectAdhocTarget(profileId,profileName,colour,btn){
   });
   btn.style.borderColor=colour;btn.style.background=colour+'18';
 }
+async function handleAssignAdHocReward(choreLogId,rewardId){
+  await updateSheetRow(SH.CL,20,choreLogId,r=>{r[19]=rewardId;});
+  const e=allChoreLog.find(c=>c.id===choreLogId);
+  if(e)e.adHocRewardId=rewardId;
+  renderRewards();
+}
+
 async function submitAdHoc(){
   const name=document.getElementById('adhoc-name').value.trim();
   const desc=document.getElementById('adhoc-desc').value.trim();
@@ -3035,17 +3057,25 @@ async function submitAdHoc(){
   err.textContent='';
   try{
     const today=new Date();
+    const isSelfAssign=currentRole==='child'&&adhocTargetProfile.profileId===currentProfile.id;
     const entry={
       id:uid(),familyId:currentFamily.id,choreId:'adhoc',choreName:name,
       profileId:adhocTargetProfile.profileId,profileName:adhocTargetProfile.profileName,
       choreType:'adhoc',zoneId:'',scheduleKey:`adhoc_${uid()}`,
       weekStart:dateStr(getWeekStartDate(today)),scheduledDate:dateStr(today),
       status:'pending',completedAt:'',confirmedAt:'',confirmedBy:'',
-      autoConfirmed:'false',isAdHoc:'true',assignedBy:currentProfile.name,queryNote:desc||''
+      autoConfirmed:'false',isAdHoc:'true',assignedBy:currentProfile.name,queryNote:desc||'',
+      adHocRewardId:''
     };
     await saveChoreLogEntry(entry);allChoreLog.push(entry);
     await audit('ADHOC_ASSIGNED',adhocTargetProfile.profileName,name);
-    // Navigate back appropriately
+    // Notify parents/admins when a child self-assigns a task
+    if(isSelfAssign){
+      const parents=allPF.filter(pf=>pf.familyId===currentFamily.id&&(pf.role==='admin'||pf.role==='parent')&&pf.profileId!==currentProfile.id);
+      for(const pf of parents){
+        await writeNotification(pf.profileId,currentFamily.id,'adhoc_created',`${currentProfile.name} added a task: "${name}". You can assign a reward in Rewards.`,currentProfile.name);
+      }
+    }
     if(currentRole==='child'){await renderChildChores();}
     else{routeToDashboard();}
   }catch(e){err.textContent=e.message;}
@@ -3123,9 +3153,31 @@ async function checkAndHandleMonthEnd(familyId){
 }
 
 // ─── MONTH CLOSE ──────────────────────────────────────────────────────────────
+async function evaluateMonthlyCompletion(pid,pname,fid,ym,scheme){
+  const rules=scheme.globalRules||{};
+  if(!rules.monthlyCompletion||!rules.monthlyCompletion.rewardId)return;
+  const entries=allChoreLog.filter(e=>e.profileId===pid&&e.familyId===fid&&e.weekStart&&e.weekStart.slice(0,7)===ym&&e.isAdHoc!=='true');
+  if(!entries.length)return;
+  const done=entries.filter(e=>e.status==='confirmed'||e.status==='auto_confirmed').length;
+  const pct=Math.round(done/entries.length*100);
+  const key=`${ym}-monthly_completion`;
+  const alreadyGranted=allRewardAwards.some(a=>a.profileId===pid&&a.familyId===fid&&a.schemeId===scheme.id&&a.triggerType==='monthly_completion'&&(a.triggerDetail||'').includes(ym));
+  if(pct>=rules.monthlyCompletion.pct&&!alreadyGranted){
+    await grantReward(pid,pname,fid,rules.monthlyCompletion.rewardId,'monthly_completion',{yearMonth:ym,pct},scheme.id);
+  }
+}
+
 async function performMonthClose(familyId,ym,isAuto){
   const monthLog=allChoreLog.filter(e=>e.familyId===familyId&&e.weekStart&&e.weekStart.slice(0,7)===ym&&e.status==='pending');
   for(const e of monthLog)await updateChoreLogStatus(e.id,{status:'lapsed'});
+  // Evaluate monthly completion bonus before generating report
+  const scheme=getActiveScheme(familyId);
+  if(scheme&&scheme.globalRules&&scheme.globalRules.monthlyCompletion){
+    const children=getFamilyChildren(familyId);
+    for(const ch of children){
+      await evaluateMonthlyCompletion(ch.profileId,ch.profileName,familyId,ym,scheme).catch(e=>console.error('Monthly completion:',e));
+    }
+  }
   await generateMonthlyReport(familyId,ym);
   await upsertMonthStatus(familyId,ym,{status:'closed',closedAt:nowISO(),closedBy:isAuto?'auto':currentProfile.name,autoClose:String(isAuto)});
 }
