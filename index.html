@@ -151,7 +151,34 @@ input::placeholder{color:var(--t3);font-weight:400;}input:focus{border-color:var
 .icon-btn{background:transparent;border:none;cursor:pointer;font-size:16px;padding:4px;border-radius:var(--rsm);transition:background 0.1s;font-family:var(--font);color:var(--t2);}
 .icon-btn:hover{background:var(--bg);}
 
-@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(-8px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}</style>
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(-8px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+/* PIN modal */
+.pin-modal-overlay{position:fixed;inset:0;background:rgba(28,20,16,0.5);z-index:10000;display:flex;align-items:center;justify-content:center;padding:1.5rem;}
+.pin-modal{background:var(--surface);border-radius:var(--r);padding:1.5rem 1.5rem 1.25rem;width:100%;max-width:320px;box-shadow:0 8px 40px rgba(0,0,0,0.18);}
+.pin-modal-name{font-size:13px;font-weight:600;color:var(--t2);margin-bottom:0.5rem;text-align:center;}
+.pin-modal-pin{font-size:42px;font-weight:700;letter-spacing:10px;color:var(--text);text-align:center;margin:0.5rem 0 0.25rem;font-family:monospace;}
+.pin-modal-hint{font-size:11px;color:var(--t2);text-align:center;margin-bottom:1rem;line-height:1.5;}
+.pin-modal-copy{width:100%;padding:10px;background:#E1F5EE;color:#085041;border:none;border-radius:var(--rsm);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);margin-bottom:8px;}
+.pin-modal-close{width:100%;padding:10px;background:transparent;color:var(--t2);border:1.5px solid var(--border);border-radius:var(--rsm);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);}
+/* Gift stepper overlay */
+.gift-overlay{position:fixed;inset:0;background:rgba(28,20,16,0.5);z-index:10000;display:flex;align-items:flex-end;justify-content:center;}
+.gift-sheet{background:var(--surface);border-radius:var(--r) var(--r) 0 0;padding:1.25rem 1.25rem 2.5rem;width:100%;max-width:480px;}
+.gift-sheet-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.gift-sheet-sub{font-size:12px;color:var(--t2);margin-bottom:1.25rem;}
+.gift-stepper{display:flex;align-items:center;justify-content:center;gap:1.5rem;margin-bottom:1.25rem;}
+.gift-step-btn{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--border);background:transparent;font-size:22px;font-weight:300;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:var(--font);}
+.gift-step-btn:disabled{opacity:0.3;cursor:default;}
+.gift-step-val{font-size:36px;font-weight:700;color:var(--text);min-width:48px;text-align:center;}
+.gift-confirm-btn{width:100%;padding:12px;background:#FAEEDA;color:#633806;border:none;border-radius:var(--rsm);font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font);margin-bottom:8px;}
+.gift-cancel-btn{width:100%;padding:10px;background:transparent;color:var(--t2);border:none;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--font);}
+/* Frequency chips */
+.freq-chips{display:flex;gap:4px;flex-wrap:wrap;margin-top:7px;padding-top:7px;border-top:0.5px solid var(--border);}
+.fc{font-size:9px;font-weight:600;padding:2px 6px;border-radius:5px;}
+.fc-daily{background:#E6F1FB;color:#0C447C;}
+.fc-weekly{background:#F1EFE8;color:#5F5E5A;}
+.fc-biweekly{background:#EEEDFE;color:#3C3489;}
+.fc-monthly{background:#EEEDFE;color:#3C3489;}
+.fc-adhoc{background:#FAEEDA;color:#633806;}</style>
 </head>
 <body>
 <div id="test-env-banner" style="display:none;position:fixed;top:0;left:0;right:0;z-index:9999;background:#FAEEDA;border-bottom:2px solid #C47F17;padding:8px 16px;text-align:center;font-size:13px;font-weight:600;color:#633806;font-family:var(--font);">⚠ TEST ENVIRONMENT — data here is not live</div>
@@ -571,7 +598,7 @@ input::placeholder{color:var(--t3);font-weight:400;}input:focus{border-color:var
 const ENV=window.location.pathname.includes('/Fam-Hub-Test')?'test':'live';
 if(ENV==='test'){const b=document.getElementById('test-env-banner');b.style.display='block';document.documentElement.style.setProperty('--test-offset',b.getBoundingClientRect().height+'px');}
 const SHEET_ID=ENV==='live'?'1xN9ObG7zfokCElNT6uQ1fwXBhtU9r0ZSU3LTDMrOpPA':'1waBsfGZb5maCmgcZUC2F2a4dbh6LyktKMTofQXkjHtI';
-const BUILD_VERSION='v5.1';
+const BUILD_VERSION='v5.2';
 const BUILD_DATE='May 2026';
 const CLIENT_EMAIL='amoah-hub-bot@amoah-hub.iam.gserviceaccount.com';
 const PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDUbYK19dfmb2jU\nBnH5qvOGTfvzNNGPVV0fSBp2/N6RHAT1esashzvnLa3VMJRIdIJUB92OtvhsRnH1\nOwl8HC321jubSvdZP25MgbN5rqP8ix4KWCqgAfVupyGaoSvE3cslelJOYNT9ELo2\nsGNBcUeGCkka+1gpZCRdiFoauF5nov11iV9ZISHzHhl2x1ZhZRmPHFwv9IiiJWhS\nh/IjEwczFU7ZhPBRKWn1mSQ82eu9NvYmO6XwswFXTVR0fSGetsu5I64Vn7WA8P0g\nUlvKanOgn7S3vdz+PMN9xNX14DxUTgUyHcj+48tavgbf33sA5CclDP3/JAdKqoxB\nKeqLvp39AgMBAAECggEAErmoiQOnyW9OrUn4KArytocPS4v/YQQkVkqT0qNNtzri\nEQWGl9S/6gvzw9Qpbg2fI2siE597XIgFKZnPpzoQry6JSJIeJabawTG5sWM8n1lg\nB4doEny5tsxSwP+uDQeEDcSvlqsge0JLN+Dqju0+YclsUk2Pou5p6jjHwI05/SaO\nyKoKxW3z+8TpgVOsj2mp7qZhP3oMf/c4/jpKBKl+Ucs8hcxlIiMuLN6+r2Vn0Hab\nt32CHJ1DtJENKZQUkDVCWlMJxkwRWywUU16DL+bOD2vtIqTJvE9L9x9RVKLZ254m\nWqhB4Lj2dYt4TWfgqYNRup7oY9zf9oTzXTKQfcHXPQKBgQD1VI6fAndzSzgr4U9f\nt8vLXP/6fylyvwQX8c7UUvyNZ3RtpKBegNL6fHMUCdsYx5Zq+tuaXjVKPPkHdGem\ne8mm9qm6lckIVAb4a4BJyJZ0U8Qzr4jG9yhaKM82vYKk9Hc5W5oWn2kmFgnTsB7V\na7YZVRs7r9Y6c0B8nIisViltnwKBgQDdqqAcUBKCk3lkSiCgVey7l56fvG9ExTsP\n4anRPbJ17WpFcUvHdD1tviYJ5oGKPx/v+ogT/IRZHv42G0ggDyBBtwav3KNrwgKi\nfMVfOj1geFRpTIrcSFoxemRXenk4nGpcqd0Nv6WT1KNHZilmuomBsfXKhJn7qd0a\nwl4TyXFW4wKBgB/Ou8MP/c679Odzief+G3UddK7Up9oRvAUiu885hzcKL8U7b/Nw\nvmntkroJYRfAYNcz+R71kfEzIJJ/3CRwrj9wgacIXo0u38x7m6F1WVRxu+F7o78w\nMlImMl+FiJe8fmy4XK0MNATVHKcOkaDYGz8DkslVTfA8GyNM5Ed70Fk/AoGBAMqy\n0VCypAqFgtcDtgwIJr9wKVxWesU/OgAO0jQFoCCYZrpznOEZ2WZ2H+CjyUc67CCN\nT0w/eGLqpXmivvSaAFw3WsUMFOBf+/rL78xhvGhwAHh9xukivF9MVV9tHlZ3Kgfs\nSLjezDF/m4OZ1zgaUc2oh2OWmBx6uzZSEKc1aRATAoGBAMnhM+oxFCRtX6K4wEqM\nx2fkzcAKHzHocKqBy/aPNwrjrWg1+dfB0Q3WIZpbNZJU7Uf6Zd1fj+nYqPz3H8WL\ngnGNfL1OA3WeuMXnclCJ2gEqmnKmAiTOX4n3y3pMtAYPN18ymABFud02U9ImzGmi\nlG6BXI2nK1bBZmGaznK8zhDw\n-----END PRIVATE KEY-----\n";
@@ -626,6 +653,43 @@ const cleanUser=u=>u.toLowerCase().replace(/[^a-z0-9]/g,'');
 window.addEventListener('DOMContentLoaded',()=>{const gf=document.getElementById('gf-version');if(gf)gf.textContent=`Family Hub · ${BUILD_VERSION} · ${BUILD_DATE}`;});
 function setScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
 function setLoading(m){document.getElementById('ldg-msg').textContent=m;setScreen('s-loading');}
+function showPinModal(profileName,tempPin){
+  var ex=document.getElementById('pin-modal-overlay');if(ex)ex.remove();
+  var o=document.createElement('div');o.id='pin-modal-overlay';o.className='pin-modal-overlay';
+  o.innerHTML='<div class="pin-modal">'
+    +'<p class="pin-modal-name">Temporary PIN for '+profileName+'</p>'
+    +'<div class="pin-modal-pin">'+tempPin+'</div>'
+    +'<p class="pin-modal-hint">Share this directly.<br>They will be prompted to set a new PIN on next login.</p>'
+    +'<button class="pin-modal-copy" id="pin-copy-btn" onclick="navigator.clipboard&&navigator.clipboard.writeText(\''+tempPin+'\').then(function(){var b=document.getElementById(\'pin-copy-btn\');b.textContent=\'Copied ✓\';setTimeout(function(){b.textContent=\'Copy PIN\';},2000);})">Copy PIN</button>'
+    +'<button class="pin-modal-close" onclick="document.getElementById(\'pin-modal-overlay\').remove()">Done</button>'
+    +'</div>';
+  document.body.appendChild(o);
+}
+function showGiftStepper(profileId,profileName){
+  var ex=document.getElementById('gift-overlay');if(ex)ex.remove();
+  var val=1;
+  var o=document.createElement('div');o.id='gift-overlay';o.className='gift-overlay';
+  function render(){
+    o.innerHTML='<div class="gift-sheet">'
+      +'<p class="gift-sheet-title">Gift bonus tokens</p>'
+      +'<p class="gift-sheet-sub">Gifting to '+profileName+' · Bonus tokens are uncapped and spent last</p>'
+      +'<div class="gift-stepper">'
+      +'<button class="gift-step-btn" id="gift-minus" onclick="giftStep(-1)"'+(val<=1?' disabled':'')+'>−</button>'
+      +'<span class="gift-step-val">'+val+'</span>'
+      +'<button class="gift-step-btn" id="gift-plus" onclick="giftStep(1)"'+(val>=5?' disabled':'')+'>+</button>'
+      +'</div>'
+      +'<button class="gift-confirm-btn" onclick="confirmGift(\''+profileId+'\',\''+profileName+'\')">Gift '+val+' token'+(val>1?'s':'')+'</button>'
+      +'<button class="gift-cancel-btn" onclick="document.getElementById(\'gift-overlay\').remove()">Cancel</button>'
+      +'</div>';
+  }
+  window.giftStep=function(d){val=Math.min(5,Math.max(1,val+d));render();};
+  window.confirmGift=async function(pid,pname){
+    o.remove();
+    await handleGiftBonusTokens(pid,pname,val);
+  };
+  render();
+  document.body.appendChild(o);
+}
 function showToast(msg,sub){
   var ex=document.getElementById('app-toast');if(ex)ex.remove();
   var t=document.createElement('div');t.id='app-toast';
@@ -1123,13 +1187,13 @@ async function updateChoreLogProfile(choreLogId,newProfileId,newProfileName){
   if(entry){entry.profileId=newProfileId;entry.profileName=newProfileName;}
 }
 
-async function showGiftDialog(profileId,profileName){
-  const amt=prompt(`Gift how many bonus tokens to ${profileName}? (1–5)\nBonus tokens are uncapped and spent last.`);
-  const n=parseInt(amt);
-  if(!n||n<1||n>5){return;}
-  if(!confirm(`Gift ${n} bonus token${n>1?'s':''} to ${profileName}?`))return;
+async function handleGiftBonusTokens(profileId,profileName,n){
   setLoading('Gifting tokens...');
   try{await giftToken(profileId,profileName,n);renderMod3Parent();}catch(e){showErr(e.message);}
+}
+
+async function showGiftDialog(profileId,profileName){
+  showGiftStepper(profileId,profileName);
 }
 
 // ─── TOKEN LEDGER (REPORTS) ───────────────────────────────────────────────────
@@ -1578,7 +1642,9 @@ function buildManageMembersScreen(){
       line3=`<div class="mm-self">Cannot edit yourself</div>`;
     } else if(isAdmin){
       const canRole=pf.role==='admin'?adminCount>1:pf.role==='parent';
-    const pinBtn=pinReq?`<button class="mm-badge mm-badge-pin" onclick="handleResolveReset('${escQ(pinReq.id)}')">PIN</button>`:'';
+    const pinBtn=pinReq
+      ?`<button class="mm-badge mm-badge-pin" onclick="handleResolveReset('${escQ(pinReq.id)}')">PIN</button>`
+      :`<button class="mm-badge mm-badge-pin" onclick="handleAdminGenPin('${escQ(pf.profileId)}','${escQ(pf.profileName)}')">PIN</button>`;
       const roleBtn=canRole?`<button class="mm-badge mm-badge-role" onclick="showRoleModal('${escQ(pf.profileId)}','${escQ(pf.role)}','${escQ(pf.profileName)}')">Role</button>`:'';
       const removeBtn=`<button class="mm-badge mm-badge-remove" onclick="handleRemoveMember('${escQ(pf.id)}','${escQ(pf.profileId)}','${escQ(pf.profileName)}')">Remove</button>`;
     if(roleBtn||pinBtn||removeBtn)line3=`<div class="mm-badges">${roleBtn}${pinBtn}${removeBtn}</div>`;
@@ -1596,7 +1662,7 @@ async function handleAdminGenPin(profileId,profileName){
     await saveRow(SH.RESETS,Object.values(newReset));
     await resolveReset(newReset.id,tempPin);
     await audit('PIN_RESET_ADMIN',profileName,'Admin generated temp PIN directly');
-    alert(`Temporary PIN for ${profileName}:\n\n${tempPin}\n\nShare this directly. They will be prompted to set a new PIN on next login.`);
+    showPinModal(profileName,tempPin);
     renderManageMembers();
   }catch(e){showErr(e.message);}
 }
@@ -1753,7 +1819,7 @@ function buildChildRewardsScreen(){
   let html=_rnHtml+'<p class="sec-title">Current streak</p><div class="card mb-md"><div style="display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;border-bottom:0.5px solid var(--border)"><div><div style="font-size:28px;font-weight:700;color:#C47F17">\uD83D\uDD25 '+primary+'</div><div style="font-size:11px;color:var(--t2);margin-top:2px">Weekly \u00b7 all chores on time</div></div><div style="text-align:right"><div style="font-size:11px;font-weight:600;color:var(--t2)">Monthly</div><div style="font-size:22px;font-weight:700;color:#6C63E0">\u2B50 '+secondary+'</div></div></div>';
   if(scheme&&rules.streakPrimary&&(rules.streakPrimary.milestones||[]).length){html+='<div style="padding:0.75rem 1.25rem 0">';for(const m of rules.streakPrimary.milestones){const earned=primary>=m.n;const en=getRewardCatalogEntry(m.rewardId);html+='<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:0.5px solid var(--border)"><div style="width:10px;height:10px;border-radius:50%;background:'+(earned?'#1D9E75':'transparent')+';border:'+(earned?'none':'1.5px solid var(--border)')+';flex-shrink:0"></div><span style="flex:1;font-size:12px;color:'+(earned?'var(--text)':'var(--t2)')+'">'+m.n+' week streak</span><span style="font-size:10px;font-weight:600;color:'+(earned?'#085041':'var(--ptxt)')+';background:'+(earned?'#E1F5EE':'var(--pbg)')+';padding:2px 8px;border-radius:5px">'+(earned?'Earned \u2713':(en?en.label:'Reward'))+'</span></div>';}html+='</div>';}html+='</div>';
   if(scheme){html+='<p class="sec-title mt-md">This week</p><div class="card mb-md"><div style="padding:0 1.25rem">';if(rules.perfectWeek&&rules.perfectWeek.rewardId){const en=getRewardCatalogEntry(rules.perfectWeek.rewardId);html+='<div style="padding:9px 0;border-bottom:0.5px solid var(--border)"><div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:4px"><span>Perfect week</span><span style="color:var(--t2);font-weight:400">'+(en?en.label:'')+'</span></div><div style="font-size:11px;color:var(--t2);margin-bottom:4px">'+confirmed+' of '+total+' confirmed \u00b7 '+(total-confirmed)+' to go</div><div style="height:5px;border-radius:3px;background:var(--border)"><div style="height:100%;border-radius:3px;background:#1D9E75;width:'+pct+'%"></div></div></div>';}if(rules.threshold&&rules.threshold.rewardId){const en=getRewardCatalogEntry(rules.threshold.rewardId);const tp=rules.threshold.pct||80;html+='<div style="padding:9px 0"><div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:4px"><span>'+tp+'% threshold</span><span style="font-size:11px;font-weight:600;color:'+(pct>=tp?'#085041':'#C47F17')+';background:'+(pct>=tp?'#E1F5EE':'#FAEEDA')+';padding:2px 7px;border-radius:5px">'+(pct>=tp?'Achieved \uD83C\uDFAF':'Almost!')+'</span></div><div style="font-size:11px;color:var(--t2);margin-bottom:4px">'+pct+'% now \u00b7 '+(en?en.label:'')+'</div><div style="height:5px;border-radius:3px;background:var(--border)"><div style="height:100%;border-radius:3px;background:#C47F17;width:'+pct+'%"></div></div></div>';}html+='</div></div>';}
-  if(awards.length){html+='<p class="sec-title">Earned this cycle</p><div class="card mb-md"><div style="padding:0 1.25rem">';for(const a of awards){const icon={perfect_week:'\uD83C\uDFAF',threshold:'\uD83D\uDCCA',streak_primary:'\uD83D\uDD25',streak_secondary:'\u2B50',task_bonus:'\u2605'}[a.triggerType]||'\uD83C\uDFC6';html+='<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid var(--border)"><div style="width:28px;height:28px;border-radius:7px;background:#FAEEDA;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">'+icon+'</div><div style="flex:1"><div style="font-size:12px;font-weight:600">'+a.rewardLabel+'</div><div style="font-size:10px;color:var(--t2)">'+(TRIGGER_LABELS[a.triggerType]||a.triggerType)+'</div></div><span style="font-size:10px;font-weight:700;color:'+(a.status==='issued'?'#085041':'#C47F17')+';background:'+(a.status==='issued'?'#E1F5EE':'#FAEEDA')+';padding:2px 8px;border-radius:5px">'+(a.status==='issued'?'Issued \u2713':'Awarded')+'</span></div>';}html+='</div></div>';}
+  if(awards.length){html+='<p class="sec-title">Earned this cycle</p><div class="card mb-md"><div style="padding:0 1.25rem">';for(const a of awards){const icon={perfect_week:'\uD83C\uDFAF',threshold:'\uD83D\uDCCA',streak_primary:'\uD83D\uDD25',streak_secondary:'\u2B50',task_bonus:'\u2605'}[a.triggerType]||'\uD83C\uDFC6';html+='<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid var(--border)"><div style="width:28px;height:28px;border-radius:7px;background:#FAEEDA;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">'+icon+'</div><div style="flex:1"><div style="font-size:12px;font-weight:600">'+a.rewardLabel+'</div><div style="font-size:10px;color:var(--t2)">'+(TRIGGER_LABELS[a.triggerType]||a.triggerType)+'</div></div><span style="font-size:10px;font-weight:700;color:'+(a.status==='issued'?'#085041':'#C47F17')+';background:'+(a.status==='issued'?'#E1F5EE':'#FAEEDA')+';padding:2px 8px;border-radius:5px">'+(a.status==='issued'?'Issued':'Awarded')+'</span></div>';}html+='</div></div>';}
   if(isRewardSuggestionWindowOpen(currentFamily.id)){const hrs=getOverrideHoursRemaining(currentFamily.id);html+='<p class="sec-title mt-md">Suggest a reward</p><div style="background:#E1F5EE;border:1px solid rgba(29,158,117,0.25);border-radius:10px;padding:10px 14px;margin-bottom:12px"><div style="font-size:12px;font-weight:600;color:#085041;margin-bottom:2px">Suggestion window open</div><div style="font-size:11px;color:#085041;opacity:0.85">'+hrs+' hours remaining</div></div><div class="card mb-md"><div style="padding:1rem 1.25rem"><div style="font-size:12px;color:var(--t2);margin-bottom:6px">Type</div><select id="sug-type" style="width:100%;margin-bottom:10px;font-size:12px"><option value="tokens">Tokens</option><option value="money">Money</option><option value="screentime">Screen time</option><option value="custom">Custom</option></select><div style="font-size:12px;color:var(--t2);margin-bottom:6px">Label</div><input id="sug-label" placeholder="e.g. Extra 30 min gaming" style="width:100%;margin-bottom:10px;font-size:12px"><div style="font-size:12px;color:var(--t2);margin-bottom:6px">Amount / description</div><input id="sug-value" placeholder="e.g. 30" style="width:100%;margin-bottom:14px;font-size:12px"><button class="btn btn-primary" onclick="handleSubmitSuggestion(document.getElementById(\'sug-type\').value,document.getElementById(\'sug-label\').value,document.getElementById(\'sug-value\').value)" style="width:100%;font-size:13px">Submit suggestion \u2192</button></div></div>';}
   return html;}
 
@@ -1763,7 +1829,7 @@ function buildParentRewardsScreen(){
   let html=buildSchemeWarningBanner(fid);
   if(scheme){html+='<p class="sec-title">Active scheme</p><div class="card mb-md"><div class="card-hd" style="display:flex;align-items:center;justify-content:space-between;padding:0.75rem 1.25rem;border-bottom:0.5px solid var(--border)"><p style="font-size:13px;font-weight:600">'+(scheme.globalRules&&scheme.globalRules.schemeName?scheme.globalRules.schemeName:scheme.cycleType[0].toUpperCase()+scheme.cycleType.slice(1)+' \u00b7 '+scheme.cycleStart+' \u2013 '+scheme.cycleEnd)+(scheme.globalRules&&scheme.globalRules.schemeName?'</p><p style="font-size:11px;color:var(--t2);margin-top:1px">'+scheme.cycleType[0].toUpperCase()+scheme.cycleType.slice(1)+' \u00b7 '+scheme.cycleStart+' \u2013 '+scheme.cycleEnd+'</p>':'</p>')+(schemeWinOpen?'<button class="btn-link" onclick="renderRewardScheme(\''+scheme.id+'\')" style="font-size:11px;color:var(--purple)">Edit \u2192</button>':'')+'</div><div style="padding:0.75rem 1.25rem;font-size:12px;color:var(--t2);line-height:1.8">'+(scheme.globalRules&&scheme.globalRules.perfectWeek&&scheme.globalRules.perfectWeek.rewardId?'<div>Perfect week \u2192 '+(getRewardCatalogEntry(scheme.globalRules.perfectWeek.rewardId)||{label:'Reward'}).label+'</div>':'')+(scheme.globalRules&&scheme.globalRules.threshold&&scheme.globalRules.threshold.rewardId?'<div>'+scheme.globalRules.threshold.pct+'% threshold \u2192 '+(getRewardCatalogEntry(scheme.globalRules.threshold.rewardId)||{label:'Reward'}).label+'</div>':'')+((scheme.taskBonuses&&scheme.taskBonuses.length)?'<div style="margin-top:4px;padding-top:4px;border-top:0.5px solid var(--border)"><span style="font-size:10px;font-weight:600;color:var(--t3)">Task bonuses: </span>'+scheme.taskBonuses.map(function(b){var ce=getRewardCatalogEntry(b.rewardId);var pf=allProfiles.find(function(p){return p.id===b.profileId;});return(pf?pf.name.split(' ')[0]:'?')+' \u2192 '+(ce?ce.label:'reward');}).join(' \u00b7 ')+'</div>':'')+'</div></div>';}
   html+='<p class="sec-title">Children this cycle</p><div class="card mb-md"><div style="padding:0 1.25rem">';for(const c of children){const streak=scheme?allRewardStreaks.find(s=>s.profileId===c.profileId&&s.familyId===fid&&s.schemeId===scheme.id):null;const pr=allProfiles.find(p=>p.id===c.profileId);const wsStr=dateStr(getWeekStartDate(new Date()));const ents=allChoreLog.filter(e=>e.profileId===c.profileId&&e.familyId===fid&&e.weekStart===wsStr&&e.isAdHoc!=='true');const conf=ents.filter(e=>e.status==='confirmed'||e.status==='auto_confirmed').length;const pct=ents.length?Math.round(conf/ents.length*100):0;html+='<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--border)"><div class="av" style="width:30px;height:30px;font-size:11px;background:'+(pr?pr.colour:'#999')+'">'+avText(c.profileName)+'</div><div style="flex:1"><div style="font-size:12px;font-weight:600">'+c.profileName+'</div><div style="font-size:10px;color:var(--t2)">'+pct+'% \u00b7 \uD83D\uDD25 '+(streak?streak.primaryCount:0)+' weeks</div></div><div style="width:60px"><div style="height:5px;border-radius:3px;background:var(--border)"><div style="height:100%;border-radius:3px;background:'+(pct>=80?'#1D9E75':pct>=50?'#C47F17':'#E24B4A')+';width:'+pct+'%"></div></div></div></div>';}html+='</div></div>';
-  if(offlineAwards.length){html+='<p class="sec-title">Issue pending rewards <span style="background:#FAEEDA;color:#633806;font-size:10px;font-weight:700;padding:1px 7px;border-radius:8px;margin-left:6px">'+offlineAwards.length+'</span></p><div class="card mb-md"><div style="padding:0 1.25rem">';for(const a of offlineAwards){html+='<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--border);font-size:12px"><div style="flex:1"><div style="font-weight:600">'+a.profileName+' \u00b7 '+a.rewardLabel+'</div><div style="font-size:10px;color:var(--t2)">'+(TRIGGER_LABELS[a.triggerType]||a.triggerType)+'</div></div><button onclick="handleMarkRewardIssued(\''+a.id+'\')" class="btn-approve" style="font-size:12px">Mark issued \u2713</button></div>';}html+='</div></div>';}
+  if(offlineAwards.length){html+='<p class="sec-title">Issue pending rewards <span style="background:#FAEEDA;color:#633806;font-size:10px;font-weight:700;padding:1px 7px;border-radius:8px;margin-left:6px">'+offlineAwards.length+'</span></p><div class="card mb-md"><div style="padding:0 1.25rem">';for(const a of offlineAwards){html+='<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--border);font-size:12px"><div style="flex:1"><div style="font-weight:600">'+a.profileName+' \u00b7 '+a.rewardLabel+'</div><div style="font-size:10px;color:var(--t2)">'+(TRIGGER_LABELS[a.triggerType]||a.triggerType)+'</div></div><button onclick="handleMarkRewardIssued(\''+a.id+'\')" style="background:#FAEEDA;color:#633806;border:none;font-size:12px;font-weight:600;padding:6px 11px;border-radius:8px;cursor:pointer;font-family:var(--font)">Mark issued</button></div>';}html+='</div></div>';}
   if(suggestions.length){html+='<p class="sec-title">Suggestions <span style="background:#EEEDFE;color:#3C3489;font-size:10px;font-weight:700;padding:1px 7px;border-radius:8px;margin-left:6px">'+suggestions.length+'</span></p><div class="card mb-md"><div style="padding:0 1.25rem">';for(const s of suggestions){html+='<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--border);font-size:12px"><div style="flex:1"><div style="font-weight:600">'+s.label+'</div><div style="font-size:10px;color:var(--t2)">'+s.profileName+' \u00b7 '+s.type+'</div></div><button onclick="handleApproveSuggestion(\''+s.id+'\')" style="font-size:10px;font-weight:700;color:#085041;background:#E1F5EE;padding:4px 8px;border-radius:6px;border:none;cursor:pointer;margin-right:4px">\u2713</button><button onclick="handleRejectSuggestion(\''+s.id+'\')" style="font-size:10px;font-weight:700;color:#E24B4A;background:#FCEBEB;padding:4px 8px;border-radius:6px;border:none;cursor:pointer">\u2715</button></div>';}html+='</div></div>';}
   html+='<div style="display:flex;gap:8px;margin-top:4px"><button onclick="renderRewardCatalog()" class="btn btn-outline" style="flex:1;font-size:12px">Manage catalog</button><button onclick="renderRewardScheme()" class="btn btn-outline" style="flex:1;font-size:12px">New scheme</button></div>';
   return html;}
@@ -1868,7 +1934,7 @@ const repTile=document.getElementById('ch-reports-tile');if(repTile)repTile.styl
 // ─── ACTION HANDLERS ──────────────────────────────────────────────────────────
 async function handleJRApprove(jrId){setLoading('Approving...');try{await approveJR(jrId);await audit('JOIN_APPROVED',allJR.find(r=>r.id===jrId)?.profileName||'','');routeToDashboard();}catch(e){showErr(e.message);}}
 async function handleJRReject(jrId){setLoading('Rejecting...');try{await rejectJR(jrId);await audit('JOIN_REJECTED',allJR.find(r=>r.id===jrId)?.profileName||'','');routeToDashboard();}catch(e){showErr(e.message);}}
-async function handleResolveReset(resetId){const tempPin=genTempPin();setLoading('Generating temporary PIN...');try{await resolveReset(resetId,tempPin);const r=allResets.find(x=>x.id===resetId);await audit('PIN_RESET_RESOLVED',r?.profileName||'','Temp PIN generated');alert(`Temporary PIN for ${r?.profileName||'user'}:\n\n${tempPin}\n\nShare this directly. They will be prompted to set a new PIN on next login.`);renderManageMembers();}catch(e){showErr(e.message);}}
+async function handleResolveReset(resetId){const tempPin=genTempPin();setLoading('Generating temporary PIN...');try{await resolveReset(resetId,tempPin);const r=allResets.find(x=>x.id===resetId);await audit('PIN_RESET_RESOLVED',r?.profileName||'','Temp PIN generated');showPinModal(r?.profileName||'User',tempPin);renderManageMembers();}catch(e){showErr(e.message);}}
 
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 async function init(){setLoading('Connecting to Family Hub...');try{await getGToken();setLoading('Setting up...');await initSheets();setLoading('Loading...');await loadAll();const hasSuperAdmin=allProfiles.some(p=>p.isSuperAdmin);if(!hasSuperAdmin){renderFirstRun();}else{setScreen('s-login');}}catch(e){showErr('Could not connect: '+e.message);}}
@@ -2561,6 +2627,17 @@ function buildOverviewChildren(){
     const pct=total>0?Math.round(done/total*100):0;
     const pending=allChoreLog.filter(e=>e.profileId===ch.profileId&&e.familyId===currentFamily.id&&e.status==='done_unconfirmed').length;
     const pr=allProfiles.find(p=>p.id===ch.profileId);
+    const freqCounts={daily:0,weekly:0,biweekly:0,monthly:0,adhoc:0};
+    log.forEach(e=>{
+      if(e.isAdHoc==='true')freqCounts.adhoc++;
+      else if(e.choreType==='daily')freqCounts.daily++;
+      else if(e.choreType==='weekly')freqCounts.weekly++;
+      else if(e.choreType==='biweekly')freqCounts.biweekly++;
+      else if(e.choreType==='monthly')freqCounts.monthly++;
+    });
+    const freqOrder=[['daily','Daily','fc-daily'],['weekly','Weekly','fc-weekly'],['biweekly','Bi-weekly','fc-biweekly'],['monthly','Monthly','fc-monthly'],['adhoc','Ad-hoc','fc-adhoc']];
+    const chips=freqOrder.filter(([k])=>freqCounts[k]>0).map(([k,l,c])=>`<span class="fc ${c}">${freqCounts[k]} ${l}</span>`).join('');
+    const freqRow=chips?`<div class="freq-chips">${chips}</div>`:'';
     html+=`<div class="overview-card" onclick="renderChildDetail('${ch.profileId}','${ch.profileName}','${pr?.colour||COLORS[0]}')">
       <div class="row-between mb-sm">
         <div class="row-center" style="gap:10px">
@@ -2573,6 +2650,7 @@ function buildOverviewChildren(){
         <span style="font-size:15px;font-weight:700;color:${pct>=80?'#1D9E75':pct>=50?'#C47F17':'#E24B4A'}">${pct}%</span>
       </div>
       <div class="progress-bar"><div class="progress-fill" style="width:${pct}%;background:${pct>=80?'#1D9E75':pct>=50?'#C47F17':'#E24B4A'}"></div></div>
+      ${freqRow}
     </div>`;
   });
   el.innerHTML=html;
