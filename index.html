@@ -125,7 +125,7 @@ input::placeholder{color:var(--t3);font-weight:400;}input:focus{border-color:var
 .trade-updates-banner{background:#E1F5EE;border:1.5px solid rgba(29,158,117,0.3);border-radius:var(--rmd);padding:0.875rem 1rem;margin-bottom:0.75rem;display:flex;align-items:center;justify-content:space-between;gap:10px;}
 
 .logout-btn{background:transparent;color:#C0392B;border:1.5px solid rgba(192,57,43,0.3);border-radius:var(--rmd);padding:10px 28px;font-size:14px;font-weight:600;font-family:var(--font);cursor:pointer;width:auto;display:block;margin:0.5rem auto 0;}
-.my-family-grid{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start;}
+.my-family-grid{display:flex;justify-content:space-evenly;flex-wrap:wrap;align-items:flex-start;}
 .fam-member{display:flex;flex-direction:column;align-items:center;gap:5px;}
 .fam-member-name{font-size:11px;color:var(--t2);font-weight:500;text-align:center;max-width:50px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 
@@ -610,6 +610,8 @@ input::placeholder{color:var(--t3);font-weight:400;}input:focus{border-color:var
         <button class="btn-warn" onclick="showRenameModal()">Rename</button>
       </div>
     </div>
+    <div id="mf-jr-section"></div>
+    <div id="mf-members-section"></div>
   </div></div>
 </div>
 <div class="screen" id="s-manage-members">
@@ -629,7 +631,7 @@ input::placeholder{color:var(--t3);font-weight:400;}input:focus{border-color:var
 const ENV=window.location.pathname.includes('/Fam-Hub-Test')?'test':'live';
 if(ENV==='test'){const b=document.getElementById('test-env-banner');b.style.display='block';document.documentElement.style.setProperty('--test-offset',b.getBoundingClientRect().height+'px');}
 const SHEET_ID=ENV==='live'?'1xN9ObG7zfokCElNT6uQ1fwXBhtU9r0ZSU3LTDMrOpPA':'1waBsfGZb5maCmgcZUC2F2a4dbh6LyktKMTofQXkjHtI';
-const BUILD_VERSION='v5.3';
+const BUILD_VERSION='v5.4';
 const BUILD_DATE='May 2026';
 const CLIENT_EMAIL='amoah-hub-bot@amoah-hub.iam.gserviceaccount.com';
 const PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDUbYK19dfmb2jU\nBnH5qvOGTfvzNNGPVV0fSBp2/N6RHAT1esashzvnLa3VMJRIdIJUB92OtvhsRnH1\nOwl8HC321jubSvdZP25MgbN5rqP8ix4KWCqgAfVupyGaoSvE3cslelJOYNT9ELo2\nsGNBcUeGCkka+1gpZCRdiFoauF5nov11iV9ZISHzHhl2x1ZhZRmPHFwv9IiiJWhS\nh/IjEwczFU7ZhPBRKWn1mSQ82eu9NvYmO6XwswFXTVR0fSGetsu5I64Vn7WA8P0g\nUlvKanOgn7S3vdz+PMN9xNX14DxUTgUyHcj+48tavgbf33sA5CclDP3/JAdKqoxB\nKeqLvp39AgMBAAECggEAErmoiQOnyW9OrUn4KArytocPS4v/YQQkVkqT0qNNtzri\nEQWGl9S/6gvzw9Qpbg2fI2siE597XIgFKZnPpzoQry6JSJIeJabawTG5sWM8n1lg\nB4doEny5tsxSwP+uDQeEDcSvlqsge0JLN+Dqju0+YclsUk2Pou5p6jjHwI05/SaO\nyKoKxW3z+8TpgVOsj2mp7qZhP3oMf/c4/jpKBKl+Ucs8hcxlIiMuLN6+r2Vn0Hab\nt32CHJ1DtJENKZQUkDVCWlMJxkwRWywUU16DL+bOD2vtIqTJvE9L9x9RVKLZ254m\nWqhB4Lj2dYt4TWfgqYNRup7oY9zf9oTzXTKQfcHXPQKBgQD1VI6fAndzSzgr4U9f\nt8vLXP/6fylyvwQX8c7UUvyNZ3RtpKBegNL6fHMUCdsYx5Zq+tuaXjVKPPkHdGem\ne8mm9qm6lckIVAb4a4BJyJZ0U8Qzr4jG9yhaKM82vYKk9Hc5W5oWn2kmFgnTsB7V\na7YZVRs7r9Y6c0B8nIisViltnwKBgQDdqqAcUBKCk3lkSiCgVey7l56fvG9ExTsP\n4anRPbJ17WpFcUvHdD1tviYJ5oGKPx/v+ogT/IRZHv42G0ggDyBBtwav3KNrwgKi\nfMVfOj1geFRpTIrcSFoxemRXenk4nGpcqd0Nv6WT1KNHZilmuomBsfXKhJn7qd0a\nwl4TyXFW4wKBgB/Ou8MP/c679Odzief+G3UddK7Up9oRvAUiu885hzcKL8U7b/Nw\nvmntkroJYRfAYNcz+R71kfEzIJJ/3CRwrj9wgacIXo0u38x7m6F1WVRxu+F7o78w\nMlImMl+FiJe8fmy4XK0MNATVHKcOkaDYGz8DkslVTfA8GyNM5Ed70Fk/AoGBAMqy\n0VCypAqFgtcDtgwIJr9wKVxWesU/OgAO0jQFoCCYZrpznOEZ2WZ2H+CjyUc67CCN\nT0w/eGLqpXmivvSaAFw3WsUMFOBf+/rL78xhvGhwAHh9xukivF9MVV9tHlZ3Kgfs\nSLjezDF/m4OZ1zgaUc2oh2OWmBx6uzZSEKc1aRATAoGBAMnhM+oxFCRtX6K4wEqM\nx2fkzcAKHzHocKqBy/aPNwrjrWg1+dfB0Q3WIZpbNZJU7Uf6Zd1fj+nYqPz3H8WL\ngnGNfL1OA3WeuMXnclCJ2gEqmnKmAiTOX4n3y3pMtAYPN18ymABFud02U9ImzGmi\nlG6BXI2nK1bBZmGaznK8zhDw\n-----END PRIVATE KEY-----\n";
@@ -1673,10 +1675,7 @@ function buildMyFamilyCard(familyId,showManage=false){
   const members=allPF.filter(pf=>pf.familyId===familyId);
   if(!members.length)return'';
   const hdR=showManage
-    ?`<div style="display:flex;gap:6px;align-items:center">
-        <button onclick="renderManageFamily()" style="font-size:11px;font-weight:600;color:#5F5E5A;background:#F1EFE8;border:none;padding:4px 10px;border-radius:6px;cursor:pointer">Manage</button>
-        <button onclick="renderManageMembers()" style="font-size:11px;font-weight:600;color:#6C63E0;background:#EEEDFE;border:none;padding:4px 10px;border-radius:6px;cursor:pointer">Members →</button>
-      </div>`:'';
+    ?`<button onclick="renderManageFamily()" style="font-size:11px;font-weight:600;color:#5F5E5A;background:#F1EFE8;border:none;padding:4px 10px;border-radius:6px;cursor:pointer">Manage</button>`:'';
   let html=`<div class="card mb-md"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><p class="sec-title" style="margin:0">My Family</p>${hdR}</div><div class="my-family-grid">`;
   members.forEach(pf=>{
     const pr=allProfiles.find(p=>p.id===pf.profileId);
@@ -1690,7 +1689,11 @@ function buildMyFamilyCard(familyId,showManage=false){
 function renderManageFamily(){
   backFn=()=>routeToDashboard();
   const fam=currentFamily;
-  const mc=allPF.filter(pf=>pf.familyId===fam.id).length;
+  const fid=fam.id;
+  const mc=allPF.filter(pf=>pf.familyId===fid).length;
+  const isAdmin=currentRole==='admin';
+
+  // Identity card
   document.getElementById('mf-identity-card').innerHTML=
     `<div class="card" style="display:flex;align-items:center;gap:12px">
       <div class="av" style="width:44px;height:44px;font-size:18px;background:#E1F5EE;color:#085041;border-radius:10px">${avText(fam.name)}</div>
@@ -1698,6 +1701,60 @@ function renderManageFamily(){
       <p style="font-size:12px;color:var(--t2)">${mc} member${mc!==1?'s':''} · Code: <strong>${fam.code}</strong></p></div>
     </div>`;
   document.getElementById('mf-current-name').textContent=fam.name+' Hub';
+
+  // Join requests section — only when pending
+  const pendingJR=allJR.filter(r=>r.familyId===fid&&r.status==='pending'&&r.expiresAt&&!isExp(r.expiresAt));
+  let jrHtml='';
+  if(pendingJR.length){
+    jrHtml=`<div style="display:flex;align-items:center;gap:6px;margin:1rem 0 8px">
+      <p class="sec-title" style="margin:0">Join requests</p>
+      <span style="width:7px;height:7px;border-radius:50%;background:#E24B4A;display:inline-block;flex-shrink:0"></span>
+    </div>`;
+    pendingJR.forEach(jr=>{
+      jrHtml+=`<div class="card mb-sm" style="display:flex;align-items:center;gap:10px;padding:10px 14px">
+        <div class="av" style="width:36px;height:36px;font-size:14px;background:#F1EFE8;color:var(--text)">${avText(jr.profileName)}</div>
+        <div style="flex:1;min-width:0">
+          <p style="font-size:13px;font-weight:600;margin-bottom:2px">${jr.profileName}</p>
+          <p style="font-size:11px;color:var(--t2)">As ${ROLE_LABEL[jr.requestedRole]} · ${hrsLeft(jr.expiresAt)}h left</p>
+        </div>
+        <div style="display:flex;gap:6px;flex-shrink:0">
+          <button class="btn-approve" onclick="handleJRApprove('${jr.id}').then(()=>renderManageFamily())">Approve</button>
+          <button class="btn-reject" onclick="handleJRReject('${jr.id}').then(()=>renderManageFamily())">Reject</button>
+        </div>
+      </div>`;
+    });
+  }
+  document.getElementById('mf-jr-section').innerHTML=jrHtml;
+
+  // Members section
+  const adminCount=getAdminCount(fid);
+  const members=allPF.filter(pf=>pf.familyId===fid);
+  let memHtml=`<p class="sec-title" style="margin:1rem 0 8px 0">Members</p><div class="card" style="padding:0 1.25rem">`;
+  members.forEach(pf=>{
+    const pr=allProfiles.find(p=>p.id===pf.profileId);
+    const isSelf=pf.profileId===currentProfile.id;
+    const pinReq=allResets.find(r=>r.profileId===pf.profileId&&r.familyId===fid&&r.status==='pending');
+    let line1=`<div class="mm-top">
+      <div class="av" style="width:36px;height:36px;font-size:14px;background:${pr?.colour||'#999'}">${avText(pf.profileName)}</div>
+      <span class="mm-name" style="font-size:13px;font-weight:600;color:var(--text);flex:1">${pf.profileName}</span>
+      ${buildMemberRolePill(pf,fid,adminCount,isSelf)}
+    </div>`;
+    let line2=isSelf?`<div class="mm-self">Cannot edit yourself</div>`:
+      pinReq?`<div class="mm-pin-req"><span class="mm-pin-dot"></span>PIN reset requested</div>`:'';
+    let line3='';
+    if(!isSelf&&isAdmin){
+      const roleBtn=(pf.role==='parent'||pf.role==='admin')?`<button class="mm-badge mm-badge-role" onclick="handleRoleModal('${escQ(pf.profileId)}','${escQ(pf.profileName)}','${pf.role}')">Role</button>`:'';
+      const pinBtn=pinReq
+        ?`<button class="mm-badge mm-badge-pin" onclick="handleResolveReset('${escQ(pinReq.id)}')">PIN</button>`
+        :`<button class="mm-badge mm-badge-pin" onclick="handleAdminGenPin('${escQ(pf.profileId)}','${escQ(pf.profileName)}')">PIN</button>`;
+      const removeBtn=`<button class="mm-badge mm-badge-remove" onclick="handleRemoveMember('${escQ(pf.profileId)}','${escQ(pf.profileName)}')">Remove</button>`;
+      line3=`<div class="mm-badges">${roleBtn}${pinBtn}${removeBtn}</div>`;
+    }
+    memHtml+=`<div class="mm-row">${line1}${line2}${line3}</div>`;
+  });
+  memHtml+=`</div>`;
+  document.getElementById('mf-members-section').innerHTML=memHtml;
+
   setScreen('s-manage-family');
 }
 
