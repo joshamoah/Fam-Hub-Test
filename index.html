@@ -871,7 +871,7 @@ function buildTradeNotifs(){
     return`<div style="background:${bg};border-radius:var(--rmd);padding:0.75rem 1rem;margin-bottom:6px;display:flex;align-items:flex-start;gap:10px">
       <span style="font-size:15px;flex-shrink:0">${icon}</span>
       <p style="font-size:13px;flex:1;margin:0">${n.message}</p>
-      <button class="icon-btn" onclick="markNotifRead('${n.id}').then(refreshTradeNotifs)">✕</button>
+      <button class="icon-btn" onclick="(function(id){var n=allNotifications.find(function(x){return x.id===id;});if(n)n.read='true';refreshTradeNotifs();markNotifRead(id).catch(function(){});})('${n.id}')">✕</button>
     </div>`;
   }).join('');
 }
