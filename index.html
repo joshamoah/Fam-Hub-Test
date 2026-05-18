@@ -2207,8 +2207,8 @@ function buildParentRewardsScreen(){
     if(pwCE||thrCE){
       st+='<div style=\"padding:8px 14px;border-bottom:0.5px solid rgba(28,20,16,0.06)\">'
         +'<p style=\"font-size:12px;font-weight:600;color:#5F5E5A;margin-bottom:5px\">Global triggers</p>';
-      if(pwCE)st+='<div style=\"display:flex;align-items:center;gap:6px;font-size:12px;margin-bottom:3px\"><span>\uD83C\uDFAF</span><span style=\"color:var(--t2)\">Perfect week</span><span style=\"color:var(--t3);font-size:10px\">\u2192</span><span style=\"font-weight:600\">'+pwCE.label+'</span></div>';
-      if(thrCE)st+='<div style=\"display:flex;align-items:center;gap:6px;font-size:12px\"><span>\uD83D\uDCCA</span><span style=\"color:var(--t2)\">'+sr.threshold.pct+'% threshold</span><span style=\"color:var(--t3);font-size:10px\">\u2192</span><span style=\"font-weight:600\">'+thrCE.label+'</span></div>';
+      if(pwCE)st+='<div style=\"display:flex;align-items:center;gap:6px;font-size:12px;margin-bottom:3px\"><span style=\"width:20px;flex-shrink:0;text-align:center\">\uD83C\uDFAF</span><span style=\"flex:1;color:var(--t2)\">Perfect week</span><span style=\"color:var(--t3);font-size:10px\">\u2192</span><span style=\"font-weight:600;color:var(--text)\">'+pwCE.label+'</span></div>';
+      if(thrCE)st+='<div style=\"display:flex;align-items:center;gap:6px;font-size:12px;margin-bottom:3px\"><span style=\"width:20px;flex-shrink:0;text-align:center\">\uD83D\uDCCA</span><span style=\"flex:1;color:var(--t2)\">'+sr.threshold.pct+'% threshold</span><span style=\"color:var(--t3);font-size:10px\">\u2192</span><span style=\"font-weight:600;color:var(--text)\">'+thrCE.label+'</span></div>';
       st+='</div>';
     }
     // Streak milestones section
@@ -2216,7 +2216,7 @@ function buildParentRewardsScreen(){
     if(milestones.length){
       st+='<div style=\"padding:8px 14px;border-bottom:0.5px solid rgba(28,20,16,0.06)\">'
         +'<p style=\"font-size:12px;font-weight:600;color:#5F5E5A;margin-bottom:5px\">Streak milestones</p>';
-      milestones.forEach(function(m){const mce=getRewardCatalogEntry(m.rewardId);if(!mce)return;st+='<div style=\"display:flex;align-items:center;gap:6px;font-size:12px;margin-bottom:3px\"><span>\uD83D\uDD25</span><span style=\"color:var(--t2)\">'+m.n+' weeks</span><span style=\"color:var(--t3);font-size:10px\">\u2192</span><span style=\"font-weight:600\">'+mce.label+'</span></div>';});
+      milestones.forEach(function(m){const mce=getRewardCatalogEntry(m.rewardId);if(!mce)return;st+='<div style=\"display:flex;align-items:center;gap:6px;font-size:12px;margin-bottom:3px\"><span style=\"width:20px;flex-shrink:0;text-align:center\">\uD83D\uDD25</span><span style=\"flex:1;color:var(--t2)\">'+m.n+' weeks</span><span style=\"color:var(--t3);font-size:10px\">\u2192</span><span style=\"font-weight:600;color:var(--text)\">'+mce.label+'</span></div>';});
       st+='</div>';
     }
     // Monthly completion section
@@ -2224,7 +2224,7 @@ function buildParentRewardsScreen(){
     if(mcCE){
       st+='<div style=\"padding:8px 14px;border-bottom:0.5px solid rgba(28,20,16,0.06)\">'
         +'<p style=\"font-size:12px;font-weight:600;color:#5F5E5A;margin-bottom:5px\">Monthly completion</p>'
-        +'<div style=\"display:flex;align-items:center;gap:6px;font-size:12px\"><span>\uD83D\uDCC5</span><span style=\"color:var(--t2)\">'+sr.monthlyCompletion.pct+'% monthly</span><span style=\"color:var(--t3);font-size:10px\">\u2192</span><span style=\"font-weight:600\">'+mcCE.label+'</span></div>'
+        +'<div style=\"display:flex;align-items:center;gap:6px;font-size:12px\"><span style=\"width:20px;flex-shrink:0;text-align:center\">\uD83D\uDCC5</span><span style=\"flex:1;color:var(--t2)\">'+sr.monthlyCompletion.pct+'% monthly</span><span style=\"color:var(--t3);font-size:10px\">\u2192</span><span style=\"font-weight:600;color:var(--text)\">'+mcCE.label+'</span></div>'
         +'</div>';
     }
     // Task bonuses — grouped per child
@@ -2248,10 +2248,10 @@ function buildParentRewardsScreen(){
           if(!bce)return;
           const le=allChoreLog.find(function(e){return e.choreId===b.choreId&&e.profileId===b.profileId;});
           const choreName=le?le.choreName:b.choreId;
-          st+='<div style=\"display:flex;align-items:center;gap:0;font-size:12px;margin-bottom:3px\">'
-            +'<span style=\"width:20px;flex-shrink:0\"></span>'
+          st+='<div style=\"display:flex;align-items:center;gap:6px;font-size:12px;margin-bottom:3px\">'
+            +'<span style=\"width:20px;flex-shrink:0;text-align:center\"></span>'
             +'<span style=\"flex:1;color:var(--t2)\">'+choreName+'</span>'
-            +'<span style=\"color:var(--t3);font-size:10px;padding:0 5px\">\u2192</span>'
+            +'<span style=\"color:var(--t3);font-size:10px\">\u2192</span>'
             +'<span style=\"font-weight:600;color:var(--text)\">'+bce.label+'</span>'
             +'</div>';
         });
