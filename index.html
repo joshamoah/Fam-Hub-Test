@@ -2193,7 +2193,7 @@ function buildParentRewardsScreen(){
   if(scheme){
     const sr=scheme.globalRules||{};
     const sName=sr.schemeName||(scheme.cycleType[0].toUpperCase()+scheme.cycleType.slice(1));
-    const sMonth=scheme.cycleStart?scheme.cycleStart.slice(0,7):'';
+    const sMonth=scheme.cycleStart?getMonthLabelFromYM(scheme.cycleStart):'';
     // Header
     let st='<p class=\"sec-title\">Active scheme</p>'
       +'<div class=\"card mb-md\"><div style=\"display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:0.5px solid var(--border)\">'
@@ -2206,7 +2206,7 @@ function buildParentRewardsScreen(){
     const thrCE=sr.threshold&&sr.threshold.rewardId?getRewardCatalogEntry(sr.threshold.rewardId):null;
     if(pwCE||thrCE){
       st+='<div style=\"padding:8px 14px;border-bottom:0.5px solid rgba(28,20,16,0.06)\">'
-        +'<p style=\"font-size:9px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:var(--t3);margin-bottom:5px\">Global triggers</p>';
+        +'<p style=\"font-size:12px;font-weight:600;color:#5F5E5A;margin-bottom:5px\">Global triggers</p>';
       if(pwCE)st+='<div style=\"display:flex;align-items:center;gap:6px;font-size:12px;margin-bottom:3px\"><span>\uD83C\uDFAF</span><span style=\"color:var(--t2)\">Perfect week</span><span style=\"color:var(--t3);font-size:10px\">\u2192</span><span style=\"font-weight:600\">'+pwCE.label+'</span></div>';
       if(thrCE)st+='<div style=\"display:flex;align-items:center;gap:6px;font-size:12px\"><span>\uD83D\uDCCA</span><span style=\"color:var(--t2)\">'+sr.threshold.pct+'% threshold</span><span style=\"color:var(--t3);font-size:10px\">\u2192</span><span style=\"font-weight:600\">'+thrCE.label+'</span></div>';
       st+='</div>';
@@ -2215,7 +2215,7 @@ function buildParentRewardsScreen(){
     const milestones=sr.streakPrimary&&sr.streakPrimary.milestones&&sr.streakPrimary.milestones.length?sr.streakPrimary.milestones:[];
     if(milestones.length){
       st+='<div style=\"padding:8px 14px;border-bottom:0.5px solid rgba(28,20,16,0.06)\">'
-        +'<p style=\"font-size:9px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:var(--t3);margin-bottom:5px\">Streak milestones</p>';
+        +'<p style=\"font-size:12px;font-weight:600;color:#5F5E5A;margin-bottom:5px\">Streak milestones</p>';
       milestones.forEach(function(m){const mce=getRewardCatalogEntry(m.rewardId);if(!mce)return;st+='<div style=\"display:flex;align-items:center;gap:6px;font-size:12px;margin-bottom:3px\"><span>\uD83D\uDD25</span><span style=\"color:var(--t2)\">'+m.n+' weeks</span><span style=\"color:var(--t3);font-size:10px\">\u2192</span><span style=\"font-weight:600\">'+mce.label+'</span></div>';});
       st+='</div>';
     }
@@ -2223,7 +2223,7 @@ function buildParentRewardsScreen(){
     const mcCE=sr.monthlyCompletion&&sr.monthlyCompletion.rewardId?getRewardCatalogEntry(sr.monthlyCompletion.rewardId):null;
     if(mcCE){
       st+='<div style=\"padding:8px 14px;border-bottom:0.5px solid rgba(28,20,16,0.06)\">'
-        +'<p style=\"font-size:9px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:var(--t3);margin-bottom:5px\">Monthly completion</p>'
+        +'<p style=\"font-size:12px;font-weight:600;color:#5F5E5A;margin-bottom:5px\">Monthly completion</p>'
         +'<div style=\"display:flex;align-items:center;gap:6px;font-size:12px\"><span>\uD83D\uDCC5</span><span style=\"color:var(--t2)\">'+sr.monthlyCompletion.pct+'% monthly</span><span style=\"color:var(--t3);font-size:10px\">\u2192</span><span style=\"font-weight:600\">'+mcCE.label+'</span></div>'
         +'</div>';
     }
@@ -2246,12 +2246,13 @@ function buildParentRewardsScreen(){
         byChild[pid].forEach(function(b){
           const bce=getRewardCatalogEntry(b.rewardId);
           if(!bce)return;
-          const zc=allZoneChores.find(function(z){return z.id===b.choreId;});
-          const choreName=zc?zc.name:b.choreId;
-          st+='<div style=\"display:flex;align-items:center;gap:6px;font-size:12px;margin-bottom:3px;padding-left:19px\">'
-            +'<span style=\"color:var(--t2);flex:1\">'+choreName+'</span>'
-            +'<span style=\"color:var(--t3);font-size:10px\">\u2192</span>'
-            +'<span style=\"font-weight:600\">'+bce.label+'</span>'
+          const le=allChoreLog.find(function(e){return e.choreId===b.choreId&&e.profileId===b.profileId;});
+          const choreName=le?le.choreName:b.choreId;
+          st+='<div style=\"display:flex;align-items:center;gap:0;font-size:12px;margin-bottom:3px\">'
+            +'<span style=\"width:20px;flex-shrink:0\"></span>'
+            +'<span style=\"flex:1;color:var(--t2)\">'+choreName+'</span>'
+            +'<span style=\"color:var(--t3);font-size:10px;padding:0 5px\">\u2192</span>'
+            +'<span style=\"font-weight:600;color:var(--text)\">'+bce.label+'</span>'
             +'</div>';
         });
       });
